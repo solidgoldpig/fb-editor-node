@@ -23,7 +23,7 @@
     "tape": "^4.9.1"
   },
   "dependencies": {
-    "@ministryofjustice/fb-runner-node": "0.0.11-alpha",
+    "@ministryofjustice/fb-runner-node": "0.0.13-alpha",
     "@ministryofjustice/fb-utils-node": "^0.1.1",
     "ajv": "^6.5.2",
     "immer": "^1.3.1",

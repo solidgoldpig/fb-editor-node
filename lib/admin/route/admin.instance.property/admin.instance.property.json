@@ -9,7 +9,8 @@
       "name": "value",
       "_type": "text",
       "label": "{propertyTitle}",
-      "hint": "{inheritedValue}"
+      "hint": "{propertyDescription}",
+      "xhint": "{inheritedValue}"
     },
     {
       "_id": "admin.instance.property--button",

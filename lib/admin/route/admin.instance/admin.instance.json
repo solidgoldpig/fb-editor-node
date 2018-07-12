@@ -54,9 +54,58 @@
       "html": "{instanceProperties}"
     },
     {
+      "_id": "admin.instance--properties.logic",
+      "_type": "details",
+      "summary": "Logic properties",
+      "components": [
+        {
+          "_id": "admin.instance--properties.logic--content",
+          "_type": "content",
+          "html": "{logicProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "logicProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.html",
+      "_type": "details",
+      "summary": "HTML properties",
+      "components": [
+        {
+          "_id": "admin.instance--properties.html--content",
+          "_type": "content",
+          "html": "{htmlProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "htmlProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.additional",
+      "_type": "details",
+      "summary": "Additional properties",
+      "components": [
+        {
+          "_id": "admin.instance--properties.additional--content",
+          "_type": "content",
+          "html": "{additionalProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "additionalProperties",
+        "operator": "defined"
+      }
+    },
+    {
       "_id": "admin.instance--instance",
       "_type": "details",
       "summary": "View raw instance data",
+      "open": true,
       "components": [
         {
           "_id": "admin.instance--instance--form",
