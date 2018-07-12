@@ -30,7 +30,7 @@
         {
           "_id": "admin.instance--navigation",
           "_type": "content",
-          "html": "{navigationNext}\n\n{navigationPrevious}",
+          "html": "{navigationPrevious}\n\n{navigationNext}",
           "show": {
             "identifier": "navigationNext",
             "operator": "defined"
