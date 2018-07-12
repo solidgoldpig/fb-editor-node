@@ -1,3 +1,10 @@
+
 const server = require('@ministryofjustice/fb-runner-node/lib/server/server')
 
-server.start()
+const adminRouter = require('../lib/admin/admin')
+
+const postCachedRoutes = () => adminRouter
+
+server.start({
+  postCachedRoutes
+})

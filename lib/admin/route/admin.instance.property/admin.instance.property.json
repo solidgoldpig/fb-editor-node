@@ -1,0 +1,20 @@
+{
+  "_id": "admin.instance.property",
+  "_type": "page.admin",
+  "url": "/instance/:_id/:property",
+  "heading": "{_id}.**{property}**",
+  "components": [
+    {
+      "_id": "admin.instance.property--value",
+      "name": "value",
+      "_type": "text",
+      "label": "{propertyTitle}",
+      "hint": "{inheritedValue}"
+    },
+    {
+      "_id": "admin.instance.property--button",
+      "_type": "button",
+      "html": "Save property"
+    }
+  ]
+}
