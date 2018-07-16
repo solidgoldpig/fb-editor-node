@@ -1,0 +1,156 @@
+{
+  "_id": "admin.instance.create",
+  "_type": "page.admin",
+  "url": "/instances/new/:_type/:addInstance?/:addProperty?",
+  "heading": "{_id}",
+  "components": [
+    {
+      "_id": "admin.instance--header",
+      "_type": "group",
+      "components": [
+        {
+          "_id": "admin.instance--type",
+          "_type": "content",
+          "html": "Instance type {instanceType}",
+          "show": {
+            "identifier": "instanceType",
+            "operator": "defined"
+          }
+        },
+        {
+          "_id": "admin.instance--used",
+          "_type": "content",
+          "html":
+            "Used by {usedBy}{usedWhere, select, undefined{} other{ in {usedWhere}}}",
+          "show": {
+            "identifier": "usedBy",
+            "operator": "defined"
+          }
+        },
+        {
+          "_id": "admin.instance--navigation",
+          "_type": "content",
+          "html": "{navigationPrevious}\n\n{navigationNext}",
+          "show": {
+            "identifier": "navigationNext",
+            "operator": "defined"
+          }
+        },
+        {
+          "_id": "admin.instance--url",
+          "_type": "content",
+          "html":
+            "- URL [{instanceUrl}]({instanceUrl})\n- [Edit mode]({instanceUrl}/edit)\n- [Preview mode]({instanceUrl}/preview)",
+          "show": {
+            "identifier": "instanceUrl",
+            "operator": "defined"
+          }
+        }
+      ]
+    },
+    {
+      "_id": "admin.instance--properties",
+      "_type": "content",
+      "html": "{instanceProperties}"
+    },
+    {
+      "_id": "admin.instance--properties.logic",
+      "_type": "details",
+      "summary": "Logic properties",
+      "components": [
+        {
+          "_id": "admin.instance--properties.logic--content",
+          "_type": "content",
+          "html": "{logicProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "logicProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.html",
+      "_type": "details",
+      "summary": "HTML properties",
+      "components": [
+        {
+          "_id": "admin.instance--properties.html--content",
+          "_type": "content",
+          "html": "{htmlProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "htmlProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.additional",
+      "_type": "details",
+      "summary": "Additional properties",
+      "components": [
+        {
+          "_id": "admin.instance--properties.additional--content",
+          "_type": "content",
+          "html": "{additionalProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "additionalProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--instance",
+      "_type": "details",
+      "summary": "View raw instance data",
+      "open": true,
+      "components": [
+        {
+          "_id": "admin.instance--instance--form",
+          "_type": "form",
+          "components": [
+            {
+              "_id": "admin.instance--instance--data",
+              "name": "instance",
+              "_type": "textarea",
+              "label": "Instance JSON",
+              "errors": {
+                "instance.invalid": {
+                  "inline": "JSON is invalid",
+                  "summary": "‘{control}’'s JSON is invalid"
+                },
+                "instance.parse": {
+                  "inline": "JSON cannot be parsed",
+                  "summary": "‘{control}’'s JSON cannot be parsed"
+                }
+              }
+            },
+            {
+              "_id": "admin.instance--instance--button",
+              "_type": "button",
+              "html": "Save instance"
+            }
+          ]
+        },
+        {
+          "_id": "admin.instance--expanded.instance",
+          "_type": "details",
+          "summary": "View expanded instance",
+          "components": [
+            {
+              "_id": "admin.instance--expanded.instance--content",
+              "_type": "content",
+              "html": "```\n{expandedInstance}\n```"
+            }
+          ],
+          "show": {
+            "identifier": "expandedInstance",
+            "operator": "defined"
+          }
+        }
+      ]
+    }
+  ]
+}

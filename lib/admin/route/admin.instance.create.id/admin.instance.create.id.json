@@ -1,0 +1,19 @@
+{
+  "_id": "admin.instance.create.id",
+  "_type": "page.admin",
+  "url": "/create/:type/id/:addId?/:addProperty?/:addPosition?",
+  "heading": "Create an id for new instance",
+  "components": [
+    {
+      "_id": "admin.instance.create.id--id",
+      "_type": "text",
+      "name": "_id",
+      "label": "Instance id"
+    },
+    {
+      "_id": "admin.instance.create.id--button",
+      "_type": "button",
+      "html": "Set id"
+    }
+  ]
+}

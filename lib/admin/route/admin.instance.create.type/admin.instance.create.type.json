@@ -1,0 +1,31 @@
+{
+    "_id": "admin.instance.create.type",
+    "_type": "page.admin",
+    "url": "/create/:instanceType/:addId?/:addProperty?/:addPosition?",
+    "heading": "Create a new {instanceType}",
+    "components": [
+      {
+        "_id": "admin.instance.create.type--header",
+        "_type": "group",
+        "components": [
+          {
+            "_id": "admin.instance.create.type--type",
+            "_type": "radios",
+            "name": "type",
+            "label": "Choose type",
+            "items": [{
+                "_id": "admin.instance.create.type--item",
+                "label": "Default type",
+                "value": "default"
+            }]
+          },
+          {
+            "_id": "admin.instance.create.type--button",
+            "_type": "button",
+            "html": "Choose type"
+          }
+        ]
+      }
+    ]
+  }
+  
