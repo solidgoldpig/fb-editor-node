@@ -1,15 +1,15 @@
 {
   "_id": "admin.instance.create",
   "_type": "page.admin",
-  "url": "/instances/new/:_type/:addInstance?/:addProperty?",
+  "url": "/create/:_id",
   "heading": "{_id}",
   "components": [
     {
-      "_id": "admin.instance--header",
+      "_id": "admin.instance.create--header",
       "_type": "group",
       "components": [
         {
-          "_id": "admin.instance--type",
+          "_id": "admin.instance.create--type",
           "_type": "content",
           "html": "Instance type {instanceType}",
           "show": {
@@ -18,7 +18,7 @@
           }
         },
         {
-          "_id": "admin.instance--used",
+          "_id": "admin.instance.create--used",
           "_type": "content",
           "html":
             "Used by {usedBy}{usedWhere, select, undefined{} other{ in {usedWhere}}}",
@@ -26,40 +26,21 @@
             "identifier": "usedBy",
             "operator": "defined"
           }
-        },
-        {
-          "_id": "admin.instance--navigation",
-          "_type": "content",
-          "html": "{navigationPrevious}\n\n{navigationNext}",
-          "show": {
-            "identifier": "navigationNext",
-            "operator": "defined"
-          }
-        },
-        {
-          "_id": "admin.instance--url",
-          "_type": "content",
-          "html":
-            "- URL [{instanceUrl}]({instanceUrl})\n- [Edit mode]({instanceUrl}/edit)\n- [Preview mode]({instanceUrl}/preview)",
-          "show": {
-            "identifier": "instanceUrl",
-            "operator": "defined"
-          }
         }
       ]
     },
     {
-      "_id": "admin.instance--properties",
+      "_id": "admin.instance.create--properties",
       "_type": "content",
       "html": "{instanceProperties}"
     },
     {
-      "_id": "admin.instance--properties.logic",
+      "_id": "admin.instance.create--properties.logic",
       "_type": "details",
       "summary": "Logic properties",
       "components": [
         {
-          "_id": "admin.instance--properties.logic--content",
+          "_id": "admin.instance.create--properties.logic--content",
           "_type": "content",
           "html": "{logicProperties}"
         }
@@ -70,12 +51,12 @@
       }
     },
     {
-      "_id": "admin.instance--properties.html",
+      "_id": "admin.instance.create--properties.html",
       "_type": "details",
       "summary": "HTML properties",
       "components": [
         {
-          "_id": "admin.instance--properties.html--content",
+          "_id": "admin.instance.create--properties.html--content",
           "_type": "content",
           "html": "{htmlProperties}"
         }
@@ -86,12 +67,12 @@
       }
     },
     {
-      "_id": "admin.instance--properties.additional",
+      "_id": "admin.instance.create--properties.additional",
       "_type": "details",
       "summary": "Additional properties",
       "components": [
         {
-          "_id": "admin.instance--properties.additional--content",
+          "_id": "admin.instance.create--properties.additional--content",
           "_type": "content",
           "html": "{additionalProperties}"
         }
@@ -102,17 +83,17 @@
       }
     },
     {
-      "_id": "admin.instance--instance",
+      "_id": "admin.instance.create--instance",
       "_type": "details",
       "summary": "View raw instance data",
       "open": true,
       "components": [
         {
-          "_id": "admin.instance--instance--form",
+          "_id": "admin.instance.create--instance--form",
           "_type": "form",
           "components": [
             {
-              "_id": "admin.instance--instance--data",
+              "_id": "admin.instance.create--instance--data",
               "name": "instance",
               "_type": "textarea",
               "label": "Instance JSON",
@@ -128,19 +109,19 @@
               }
             },
             {
-              "_id": "admin.instance--instance--button",
+              "_id": "admin.instance.create--instance--button",
               "_type": "button",
               "html": "Save instance"
             }
           ]
         },
         {
-          "_id": "admin.instance--expanded.instance",
+          "_id": "admin.instance.create--expanded.instance",
           "_type": "details",
           "summary": "View expanded instance",
           "components": [
             {
-              "_id": "admin.instance--expanded.instance--content",
+              "_id": "admin.instance.create--expanded.instance--content",
               "_type": "content",
               "html": "```\n{expandedInstance}\n```"
             }

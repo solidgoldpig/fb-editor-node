@@ -1,7 +1,7 @@
 {
     "_id": "admin.instance.create.type",
     "_type": "page.admin",
-    "url": "/create/:instanceType/:addId?/:addProperty?/:addPosition?",
+    "url": "/:instanceType/new/:addId?/:addProperty?/:operation?",
     "heading": "Create a new {instanceType}",
     "components": [
       {
@@ -11,7 +11,7 @@
           {
             "_id": "admin.instance.create.type--type",
             "_type": "radios",
-            "name": "type",
+            "name": "_type",
             "label": "Choose type",
             "items": [{
                 "_id": "admin.instance.create.type--item",

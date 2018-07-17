@@ -1,7 +1,7 @@
 {
   "_id": "admin.instance.create.id",
   "_type": "page.admin",
-  "url": "/create/:type/id/:addId?/:addProperty?/:addPosition?",
+  "url": "/create/:_type/id/:addId?/:addProperty?/:operation?",
   "heading": "Create an id for new instance",
   "components": [
     {
