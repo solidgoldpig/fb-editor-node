@@ -1,0 +1,22 @@
+{
+    "_id": "admin.instance.create.property",
+    "_type": "page.admin",
+    "url": "/create/:_id/:property",
+    "heading": "{_id}.**{property}**",
+    "components": [
+      {
+        "_id": "admin.instance.create.property--value",
+        "name": "value",
+        "_type": "text",
+        "label": "{propertyTitle}",
+        "hint": "{propertyDescription}",
+        "xhint": "{inheritedValue}"
+      },
+      {
+        "_id": "admin.instance.create.property--button",
+        "_type": "button",
+        "html": "Save property"
+      }
+    ]
+  }
+  

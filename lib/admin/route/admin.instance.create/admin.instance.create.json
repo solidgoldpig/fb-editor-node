@@ -1,0 +1,137 @@
+{
+  "_id": "admin.instance.create",
+  "_type": "page.admin",
+  "url": "/create/:_id",
+  "heading": "{_id}",
+  "components": [
+    {
+      "_id": "admin.instance.create--header",
+      "_type": "group",
+      "components": [
+        {
+          "_id": "admin.instance.create--type",
+          "_type": "content",
+          "html": "Instance type {instanceType}",
+          "show": {
+            "identifier": "instanceType",
+            "operator": "defined"
+          }
+        },
+        {
+          "_id": "admin.instance.create--used",
+          "_type": "content",
+          "html":
+            "Used by {usedBy}{usedWhere, select, undefined{} other{ in {usedWhere}}}",
+          "show": {
+            "identifier": "usedBy",
+            "operator": "defined"
+          }
+        }
+      ]
+    },
+    {
+      "_id": "admin.instance.create--properties",
+      "_type": "content",
+      "html": "{instanceProperties}"
+    },
+    {
+      "_id": "admin.instance.create--properties.logic",
+      "_type": "details",
+      "summary": "Logic properties",
+      "components": [
+        {
+          "_id": "admin.instance.create--properties.logic--content",
+          "_type": "content",
+          "html": "{logicProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "logicProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance.create--properties.html",
+      "_type": "details",
+      "summary": "HTML properties",
+      "components": [
+        {
+          "_id": "admin.instance.create--properties.html--content",
+          "_type": "content",
+          "html": "{htmlProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "htmlProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance.create--properties.additional",
+      "_type": "details",
+      "summary": "Additional properties",
+      "components": [
+        {
+          "_id": "admin.instance.create--properties.additional--content",
+          "_type": "content",
+          "html": "{additionalProperties}"
+        }
+      ],
+      "show": {
+        "identifier": "additionalProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance.create--instance",
+      "_type": "details",
+      "summary": "View raw instance data",
+      "open": true,
+      "components": [
+        {
+          "_id": "admin.instance.create--instance--form",
+          "_type": "form",
+          "components": [
+            {
+              "_id": "admin.instance.create--instance--data",
+              "name": "instance",
+              "_type": "textarea",
+              "label": "Instance JSON",
+              "errors": {
+                "instance.invalid": {
+                  "inline": "JSON is invalid",
+                  "summary": "‘{control}’'s JSON is invalid"
+                },
+                "instance.parse": {
+                  "inline": "JSON cannot be parsed",
+                  "summary": "‘{control}’'s JSON cannot be parsed"
+                }
+              }
+            },
+            {
+              "_id": "admin.instance.create--instance--button",
+              "_type": "button",
+              "html": "Save instance"
+            }
+          ]
+        },
+        {
+          "_id": "admin.instance.create--expanded.instance",
+          "_type": "details",
+          "summary": "View expanded instance",
+          "components": [
+            {
+              "_id": "admin.instance.create--expanded.instance--content",
+              "_type": "content",
+              "html": "```\n{expandedInstance}\n```"
+            }
+          ],
+          "show": {
+            "identifier": "expandedInstance",
+            "operator": "defined"
+          }
+        }
+      ]
+    }
+  ]
+}
