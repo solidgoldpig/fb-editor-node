@@ -1,0 +1,13 @@
+{% macro list(data) %}
+{% if data.items.length %}
+<ul class="govuk-list govuk-list--bullet">
+{% for item in data.items -%}
+<li>
+{%- if item.href -%}<a href="{{ item.href }}">{%- endif -%}
+{{ item.text | safe}}{% if item.count or item.count === 0 %}<span class="list-count"> ({{ item.count }})</span>{% endif %}
+{%- if item.href -%}</a>{%- endif -%}
+</li>
+{%- endfor %}
+</ul>
+{% endif %}
+{% endmacro %}

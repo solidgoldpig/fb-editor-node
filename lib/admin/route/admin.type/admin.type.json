@@ -1,0 +1,37 @@
+{
+    "_id": "admin.type",
+    "_type": "page.admin",
+    "url": "/instances/:_type/:nested?",
+    "heading": "{nested, select, nested{Nested } other{}}{typeTitle} instances",
+    "components": [
+      {
+        "_id": "admin.type--nested",
+        "_type": "callout",
+        "html": "View {nested, select, nested{discrete} other{nested}} instances",
+        "href": "/replace",
+        "show": {
+          "identifier": "_type",
+          "operator": "startsWith",
+          "value": "page.",
+          "negated": true
+        }
+      },
+      {
+        "_id": "admin.type--action",
+        "_type": "action",
+        "html": "Add {typeTitle}",
+        "show": {
+          "identifier": "nested",
+          "operator": "is",
+          "value": "nested",
+          "negated": true
+        }
+      },
+      {
+        "_id": "admin.type--list",
+        "_type": "list",
+        "items": []
+      }
+    ]
+  }
+  

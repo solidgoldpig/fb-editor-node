@@ -1,0 +1,9 @@
+{
+  "_id": "admin.flow",
+  "_type": "page.flow",
+  "url": "/flow/:_id?",
+  "heading": "Flow",
+  "flowstep": {},
+  "skipSkipComponents": true,
+  "skipValidation": true
+}

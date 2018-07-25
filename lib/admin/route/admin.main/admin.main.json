@@ -1,0 +1,20 @@
+{
+    "_id": "admin.main",
+    "_type": "page.admin",
+    "url": "/",
+    "heading": "Admin links",
+    "components": [
+      {
+        "_id": "admin.main--id",
+        "_type": "content",
+        "html": "- [Flow](/admin/flow)\n\n### Instances\n\n- [Pages](/admin/category/page)\n- [Components](/admin/category/component)\n\n### Configuration\n\n- [Service](/admin/instance/service)"
+      },
+      {
+        "_id": "admin.main--list",
+        "_type": "list",
+        "items": [],
+        "show": false
+      }
+    ]
+  }
+  

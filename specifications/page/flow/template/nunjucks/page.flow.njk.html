@@ -1,0 +1,42 @@
+{% extends "admin-page.njk.html" %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<div class="fb-flow-container">
+{{ callMacro('flowstep', page.flowstep) }}
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block bodyEnd %}
+{{ super() }}
+<style>
+html {
+  background: #fff !important;
+}
+.govuk-width-container {
+  margin: 0;
+}
+.fb-flow-container {
+  transform-origin: top left;
+  transform: scale(0.5);
+  white-space: nowrap;
+  vertical-align: top;
+}
+.fb-step-container {
+  display: inline-block;
+  vertical-align: top;
+}
+.fb-step {
+  display: inline-block;
+  border: solid 1px #000000;
+  padding: 10px;
+  width: 600px;
+}
+.fb-step * {
+  white-space: normal;
+}
+</style>
+{% endblock %}

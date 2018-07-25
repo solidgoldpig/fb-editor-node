@@ -1,0 +1,5 @@
+{% macro action(data) %}
+<div class="fb-action">
+{{ callMacro('button', data) | safe }}
+</div>
+{% endmacro %}

@@ -1,0 +1,14 @@
+{
+    "_id": "admin.category",
+    "_type": "page.admin",
+    "url": "/category/:category",
+    "heading": "{category} types",
+    "components": [
+      {
+        "_id": "admin.category",
+        "_type": "list",
+        "html": "<!-- replace -->"
+      }
+    ]
+  }
+  

@@ -1,0 +1,12 @@
+{%- macro flowstep(data) -%}
+<div class="fb-step-container {{data.containerClasses}}">
+<div class="fb-step {{data.classes}}">
+{# {{ data.title | safe }} #}
+{{- callMacro('pageContentHeading', data) -}}
+{{- callMacro('pageContentBody', data) -}}
+</div>
+{%- for flowstep in data.flowsteps -%}
+{{- callMacro('flowstep', flowstep) -}}
+{%- endfor -%}
+</div>
+{%- endmacro -%}
