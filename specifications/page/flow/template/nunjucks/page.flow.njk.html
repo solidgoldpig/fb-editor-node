@@ -32,8 +32,9 @@
   background: rgba(0,255,0,0.5);
 } #}
 
-html {
-  background: #fff !important;
+html,
+body {
+  background: #f9f9f9 !important;
 }
 
 .govuk-width-container {
@@ -50,6 +51,10 @@ html {
 .fb-step-skip-container {
   display: inline-block;
   vertical-align: top;
+}
+
+.fb-flow-container > .fb-step-container {
+  margin: 50px 200px 0 0;
 }
 
 .fb-step-option-container,
@@ -79,7 +84,7 @@ html {
   width: 600px;
   position: relative;
   z-index: 1;
-  margin-right: 200px;
+  margin-left: 200px;
   background: #ffffff;
   box-sizing: border-box;
 }
@@ -116,8 +121,8 @@ html {
   content: '';
   position: absolute;
   top: -50px;
-  left: -100px;
-  right: 100px;
+  left: 100px;
+  right: -100px;
   height: 50px;
   border: solid 3px #000000;
   border-bottom: none;
@@ -133,14 +138,14 @@ html {
   width: 100px;
 }
 .fb-step-skip-first:before {
-  left: -199px;
+  left: 1px;
   border-top: none;
   border-left: none;
   border-radius: 0 0 30px 0;
 }
 .fb-step-skip-last:before {
   left: 100%;
-  margin-left: -104px;
+  margin-left: 96px;
   border-top: none;
   border-right: none;
   border-radius: 0 0 0 30px;
@@ -158,7 +163,7 @@ html {
   top: 0;
   height: 50px;
   left: 0;
-  margin-left: -101px;
+  margin-left: 99px;
   border-top: none;
   border-right: none;
   border-radius: 0 0 0 30px;
@@ -167,7 +172,7 @@ html {
   top: 51px;
   bottom: -60px;
   left: 0;
-  margin-left: -200px;
+  margin-left: 0;
   border-bottom: none;
   border-left: none;
   border-radius: 0 30px 0px 0;
@@ -179,7 +184,7 @@ html {
   bottom: -60px;
   height: auto;
   left: auto;
-  right: 0;
+  right: -200px;
   width: 100px;
   border: solid 3px #000;
   border-bottom: none;
@@ -187,7 +192,7 @@ html {
   border-radius: 30px 0 0 0;
 }
 .fb-step-option-container .fb-step-container:not(.fb-step-option-first):after {
-  right: 99px;
+  right: -101px;
   border-right: solid 3px #000;
   border-radius: 0 0 30px 0;
 }
@@ -202,15 +207,18 @@ html {
   background: #000;
 }
 .fb-step-option-container-inner:before {
-  left: -99px;
+  left: 101px;
 }
 
 .fb-step-option-container-inner:after {
-  right: 100px;
+  right: -100px;
 }
 
 .fb-flow-container > .fb-step-container:after {
   right: 200px;
+}
+.fb-flow-container > .fb-step-container > .fb-step:before {
+  display: none;
 }
 </style>
 {% endblock %}
