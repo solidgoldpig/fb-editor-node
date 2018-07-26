@@ -22,9 +22,12 @@
 <div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}">
 {% if isInnerStepOption %}<div class="fb-step-option-container-inner"></div>{% endif %}
 <div class="fb-step {{data.classes}}">
-{# {{ data.title | safe }} #}
+{% if data.rendered %}
+{{ data.rendered | safe }}
+{% else %}
 {{- callMacro('pageContentHeading', data) -}}
 {{- callMacro('pageContentBody', data) -}}
+{% endif %}
 </div>
 {%- for flowstep in data.flowsteps -%}
 {{- callMacro('flowstep', flowstep) -}}
