@@ -51,6 +51,7 @@ body {
 .fb-step-skip-container {
   display: inline-block;
   vertical-align: top;
+  padding-bottom: 100px;
 }
 
 .fb-flow-container > .fb-step-container {
@@ -80,7 +81,6 @@ body {
 .fb-step {
   display: inline-block;
   border: solid 1px #000000;
-  Xpadding: 30px;
   width: 600px;
   position: relative;
   z-index: 1;
@@ -120,35 +120,35 @@ body {
 .fb-step-skip-container:before {
   content: '';
   position: absolute;
-  top: -50px;
+  top: 100px;
+  bottom: 20px;
   left: 100px;
   right: -100px;
-  height: 50px;
   border: solid 3px #000000;
-  border-bottom: none;
-  border-radius: 30px 30px 0 0;
+  border-top: none;
+  border-radius: 0 0 30px 30px;
 }
 .fb-step-skip-first:before,
 .fb-step-skip-last:before {
   content: '';
   position: absolute;
-  top: 0;
+    top: 50px;
   height: 50px;
   border: solid 3px #000;
   width: 100px;
 }
 .fb-step-skip-first:before {
   left: 1px;
-  border-top: none;
+  border-bottom: none;
   border-left: none;
-  border-radius: 0 0 30px 0;
+  border-radius: 0 30px 0px 0;
 }
 .fb-step-skip-last:before {
   left: 100%;
   margin-left: 96px;
-  border-top: none;
+  border-bottom: none;
   border-right: none;
-  border-radius: 0 0 0 30px;
+  border-radius: 30px 0 0 0;
 }
 
 .fb-step-option:before,
