@@ -13,24 +13,6 @@
 {% block bodyEnd %}
 {{ super() }}
 <style>
-{# .fb-step-skip {
-  background: rgba(255,0,0,0.75);
-}
-.fb-step-skip-first {
-  background: rgba(255,0,0,1);
-}
-.fb-step-skip-last {
-  background: rgba(255,0,0,0.5);
-} #}
-{# .fb-step-option {
-  background: rgba(0,255,0,0.75);
-}
-.fb-step-option-first {
-  background: rgba(0,255,0,1);
-}
-.fb-step-option-last {
-  background: rgba(0,255,0,0.5);
-} #}
 
 html,
 body {
@@ -221,8 +203,7 @@ body {
   display: none;
 }
 
-header.govuk-header,
-footer.govuk-footer {
+header.govuk-header {
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -230,5 +211,22 @@ main.govuk-main-wrapper {
   padding-left: 30px;
   padding-right: 30px;
 }
+footer.govuk-footer {
+  padding: 0 20px;
+}
+.govuk-footer__meta-item--grow {
+  transform-origin: bottom left;
+  transform: scale(0.75);
+}
+.govuk-footer__copyright-logo {
+  transform-origin: bottom right;
+  transform: scale(0.5);
+}
+.govuk-footer__meta-item {
+  margin-top: -40px;
+}
+
+
+  {# transform-origin: top left; #}
 </style>
 {% endblock %}
