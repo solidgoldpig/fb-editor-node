@@ -5,6 +5,15 @@
   "heading": "{_id}.**{property}**",
   "components": [
     {
+      "_id": "admin.instance.property--hidden",
+      "name": "hiddenValue",
+      "_type": "hidden",
+      "show": {
+        "identifier": "hiddenValue",
+        "operator": "defined"
+      }
+    },
+    {
       "_id": "admin.instance.property--value",
       "name": "value",
       "_type": "text",
@@ -13,9 +22,20 @@
       "xhint": "{inheritedValue}"
     },
     {
+      "_id": "admin.instance.property--add",
+      "_type": "button",
+      "html": "Add {propertySingular}",
+      "name": "<addUrl>",
+      "classes": "fb-action-xsecondary fb-action-add",
+      "show": {
+        "identifier": "hiddenValue",
+        "operator": "defined"
+      }
+    },
+    {
       "_id": "admin.instance.property--button",
       "_type": "button",
-      "html": "Save property"
+      "html": "Update {property}"
     }
   ]
 }
