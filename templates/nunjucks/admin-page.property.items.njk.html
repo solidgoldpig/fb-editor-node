@@ -1,0 +1,112 @@
+{% extends "admin-page.property.njk.html" %}
+
+{% block bodyEnd %}
+{{ super() }}
+
+
+<link href="/assets/vendor/dragula/dragula.v3.7.2.css" media="screen" rel="stylesheet">
+<script src="/assets/vendor/dragula/dragula.v3.7.2.js"></script>
+<script type="text/javascript">
+const updateArray = () => {
+    const items = [].slice.call(document.querySelectorAll('.fb-array-item:not(.gu-mirror)'))
+      .map(item => JSON.parse(unescape(item.getAttribute('data-item-value'))))
+    document.querySelector('textarea').value = JSON.stringify(items, null, 2)
+    const button = document.querySelector('button')
+    button.style = ''
+    const addButton = document.querySelector('a[role="button"]')
+    addButton.style = 'display: none;'
+}
+const initDragula = (selector, itemSelector, $valueElement) => {
+  console.log($valueElement)
+  $valueElement.value = 'tosh'
+  window.$valueElement = $valueElement
+  window.canMove = true
+  var itemContainer = document.querySelector(selector)
+  dragula([itemContainer], {
+    revertOnSpill: true,
+    ignoreInputTextSelection: true,
+    allowNestedContainers: true,
+    moves: function() {
+      return window.canMove
+    }
+  }).on('drop', (el) => {
+    updateArray()
+    // console.log('$valueElement.value', $valueElement.value)
+  })
+}
+
+const $hiddenValue = document.querySelector('[name=hiddenValue]')
+if ($hiddenValue.value) {
+  const $valueElementGroup = document.querySelector('[data-block-id="admin.instance.property--value"]')
+  $valueElementGroup.style = 'display: none'
+  const $valueElement = $valueElementGroup.querySelector('textarea')
+  //const $parent = $valueElementGroup.parentNode
+  const hiddenValue = JSON.parse($hiddenValue.value)
+  if (Array.isArray(hiddenValue)) {
+    const button = document.querySelector('button')
+    button.style = 'display:none;'
+    let itemsList = ''
+    hiddenValue.forEach(item => {
+      const itemData = escape(JSON.stringify(item.data))
+      itemsList += `<div class="fb-array-item container govuk-prose-scope" data-item-value="${itemData}"><div><p class="fb-array-item--title">${item.title}</p><p class="fb-array-item--id"><a href="${item.url}">${item._id}</a></p><p class="fb-array-item--remove govuk-button fb-action-secondary fb-action-remove">Remove <span class="">teh item</span></p></div></div>`
+    })
+    itemsList = `<div class="fb-array-items">${itemsList}</div>`
+    $valueElementGroup.insertAdjacentHTML('afterend', itemsList);
+    //$parent.innerHTML += itemsList
+    initDragula('.fb-array-items', '.fb-array-item', $valueElement)
+    const removeItems = [].slice.call(document.querySelectorAll('.fb-array-item--remove'))
+    removeItems.forEach(removeItem => {
+      removeItem.addEventListener('click', () => {
+        const fbArrayItem = removeItem.parentNode.parentNode
+        fbArrayItem.parentNode.removeChild(fbArrayItem)
+        updateArray()
+      })
+    })
+  }
+  //$parent.insertBefore(x, $valueElement)
+}
+
+</script>
+<style type="text/css">
+.fb-array-items {
+  margin: 0;
+  padding: 0;
+}
+.fb-array-item {
+  position: relative;
+  cursor: move;
+}
+.fb-array-item > div {
+  padding: 0.5rem;
+  list-style: none;
+  border: solid 2px #000;
+  border-left-width: 1rem;
+  margin-bottom: 0.5rem;
+}
+.fb-array-item > div:hover {
+  background: #f6f6f6;
+}
+.fb-array-item.gu-mirror {
+  height: auto !important;
+}
+p.fb-array-item--title {
+  margin: 0;
+}
+p.fb-array-item--id {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+p.fb-array-item--remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1rem;
+}
+p.fb-array-item--remove span {
+  position: absolute;
+  left: -9999px;
+}
+</style>
+{% endblock %}
+

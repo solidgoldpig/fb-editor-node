@@ -1,6 +1,7 @@
 {
   "_id": "admin.instance.property",
-  "_type": "page.admin",
+  "_type": "page.admin.property",
+  "_template": "admin-page.property",
   "url": "/instance/:_id/:property",
   "heading": "{_id}.**{property}**",
   "components": [
