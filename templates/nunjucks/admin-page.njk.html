@@ -98,6 +98,54 @@ a[href="/dev/null"] {
   font-size: 19px;
 }
 
+p.fb-property--title {
+  margin: 0;
+}
+p.fb-property--title em {
+  font-size: 0.75rem;
+}
+p.fb-property--value {
+  font-size: 14px;
+  margin: 0;
+}
+.fb-property-items {
+  font-size: 0.75rem;
+  margin-left: 0;
+  padding-left: 0;
+  line-height: 1.75
+}
+.fb-property-item {
+  display: inline-block;
+  padding-right: 0.375rem;
+}
+.fb-property-item a {
+  text-decoration: none;
+}
+.fb-property-item a:hover {
+  text-decoration: underline;
+}
+.fb-property-item:not(:last-child):after {
+  content: ', ';
+}
+.fb-property-item:nth-child{
+
+}
+p.fb-property-items-add {
+  font-size: 0.75rem;
+  margin-top: 0;
+}
+
+.govuk-details .govuk-list {
+  margin-bottom: 0;
+}
+.govuk-details .govuk-details {
+  margin-bottom: 10px;
+}
+.admin-content .govuk-details .govuk-details__text {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .govuk-button p {
   margin: 0;
 }
@@ -124,7 +172,44 @@ if ($textareas.length) {
   }, 100)
 }
 </script>
-
+<script>
+(function () {
+  const detailsState = JSON.parse(localStorage.getItem('fbDetailsState') || '{}')
+  const location = window.location.href
+  detailsState[location] = detailsState[location] || {}
+      console.log({detailsState})
+  const detailsLocationState = detailsState[location]
+  if (Object.keys(detailsLocationState).length) {
+    Object.keys(detailsLocationState).forEach(dataBlockId => {
+      const details = document.querySelector(`[data-block-id="${dataBlockId}"]`)
+      if (details) {
+        details.open = true
+      }
+    })
+  }
+  const detailsList = [].slice.call(document.querySelectorAll('details'))
+  detailsList.forEach(details => {
+    details.addEventListener('click', function(e) {
+      e.stopPropagation()
+      const target = e.target
+      if (!target.className.match(/govuk-details__summary/)) {
+        return
+      }
+      const dataBlockId = this.getAttribute('data-block-id')
+      if (!dataBlockId) {
+        return
+      }
+      const newState = !this.open
+      if (newState) {
+        detailsLocationState[dataBlockId] = true
+      } else {
+        delete detailsLocationState[dataBlockId]
+      }
+      localStorage.setItem('fbDetailsState', JSON.stringify(detailsState))
+    })
+  })
+})()
+</script>
 {% endblock %}
 
 {% block pageContentAction %}{% endblock %}

@@ -1,0 +1,29 @@
+{% macro propertylist(data) %}
+{% if data.items.length %}
+<ul class="govuk-list govuk-list--bullet">
+{% for item in data.items -%}
+<li class="fb-property">
+<p class="fb-property--title">
+{%- if item.url -%}<a href="{{ item.url }}">{%- endif -%}
+{{ item.title | safe}}
+{%- if item.url -%}</a>{%- endif -%}{% if item.optional %}{{ item.optional | safe }}{%endif %}
+</p>
+<p class="fb-property--value">{{ item.value | safe }}</p>
+{% if item.items %}
+<ul class="fb-property-items">
+{% for subitem in item.items %}
+<li class="fb-property-item"><a href="{{ subitem.url }}">{{ subitem.title }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+{% if item.addItem %}
+<p class="fb-property-items-add"><a class="" href="{{ item.addItem.url }}">{{ item.addItem.title }}</a></p>
+{% endif %}
+{% if item.components %}
+{{ callBlock(item) }}
+{% endif %}
+</li>
+{%- endfor %}
+</ul>
+{% endif %}
+{% endmacro %}

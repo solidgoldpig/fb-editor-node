@@ -2,8 +2,8 @@
   "_id": "admin.instance.property",
   "_type": "page.admin.property",
   "_template": "admin-page.property",
-  "url": "/instance/:_id/:property",
-  "heading": "{_id}.**{property}**",
+  "url": "/instance/:_id/:parentProperty?/:property",
+  "heading": "{instanceTitle} {parentPropertyTitle, select, undefined{} other{*{parentPropertyTitle}*}}",
   "components": [
     {
       "_id": "admin.instance.property--hidden",
