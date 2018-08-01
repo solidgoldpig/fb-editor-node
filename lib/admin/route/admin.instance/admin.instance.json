@@ -61,7 +61,7 @@
     {
       "_id": "admin.instance--properties.validation",
       "_type": "details",
-      "summary": "Validation properties",
+      "summary": "Validation and errors",
       "show": {
         "identifier": "validationProperties",
         "operator": "defined"
@@ -79,7 +79,7 @@
     {
       "_id": "admin.instance--properties.logic",
       "_type": "details",
-      "summary": "Logic properties",
+      "summary": "Logical properties",
       "show": {
         "identifier": "logicProperties",
         "operator": "defined"
