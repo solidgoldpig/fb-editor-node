@@ -29,7 +29,7 @@
       "name": "<addUrl>",
       "classes": "fb-action-xsecondary fb-action-add",
       "show": {
-        "identifier": "hiddenValue",
+        "identifier": "addValue",
         "operator": "defined"
       }
     },
