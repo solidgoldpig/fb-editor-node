@@ -6,6 +6,15 @@
   "heading": "{instanceTitle} {parentPropertyTitle, select, undefined{} other{*{parentPropertyTitle}*}}",
   "components": [
     {
+      "_id": "admin.instance.property--source",
+      "_type": "warning",
+      "html": "This instance is defined in {instanceSource}. Any changes will be saved to a new copy in your services’s metadata",
+      "show": {
+        "identifier": "instanceSource",
+        "operator": "defined"
+      }
+    },
+    {
       "_id": "admin.instance.property--hidden",
       "name": "hiddenValue",
       "_type": "hidden",
