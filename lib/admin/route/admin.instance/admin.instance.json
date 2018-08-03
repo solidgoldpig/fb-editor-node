@@ -77,6 +77,15 @@
       }
     },
     {
+      "_id": "admin.instance--properties.repeatable",
+      "_type": "details",
+      "summary": "Repeatable properties",
+      "show": {
+        "identifier": "repeatableProperties",
+        "operator": "defined"
+      }
+    },
+    {
       "_id": "admin.instance--properties.logic",
       "_type": "details",
       "summary": "Logical properties",
