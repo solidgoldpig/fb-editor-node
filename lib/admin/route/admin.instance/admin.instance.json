@@ -161,6 +161,25 @@
           }
         }
       ]
+    },
+    {
+      "_id": "admin.instance--instance--form--delete",
+      "_type": "form",
+      "method": "post",
+      "components": [
+        {
+          "_id": "admin.instance--instance--delete",
+          "_type": "button",
+          "name": "delete-instance",
+          "value": "yes",
+          "html": "Delete instance",
+          "show": {
+            "identifier": "deletable",
+            "operator": "defined"
+          }
+        }
+      ]
     }
+    
   ]
 }
