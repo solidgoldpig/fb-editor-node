@@ -173,6 +173,7 @@
           "name": "delete-instance",
           "value": "yes",
           "html": "Delete instance",
+          "classes": "fb-action--delete",
           "show": {
             "identifier": "deletable",
             "operator": "defined"
@@ -180,6 +181,5 @@
         }
       ]
     }
-    
   ]
 }

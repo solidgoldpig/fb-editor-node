@@ -45,7 +45,26 @@
     {
       "_id": "admin.instance.property--button",
       "_type": "button",
-      "html": "Update {property}"
+      "html": "Update {propertyTitle}"
+    },
+    {
+      "_id": "admin.instance.property--form--delete",
+      "_type": "form",
+      "method": "post",
+      "components": [
+        {
+          "_id": "admin.instance.property--delete",
+          "_type": "button",
+          "name": "delete-property",
+          "value": "yes",
+          "html": "Delete {propertyTitle}",
+          "classes": "fb-action--delete",
+          "show": {
+            "identifier": "deletable",
+            "operator": "defined"
+          }
+        }
+      ]
     }
   ]
 }
