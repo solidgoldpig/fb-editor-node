@@ -45,6 +45,7 @@
     {
       "_id": "admin.instance.property--button",
       "_type": "button",
+      "classes": "fb-action-update",
       "html": "Update {propertyTitle}"
     },
     {
