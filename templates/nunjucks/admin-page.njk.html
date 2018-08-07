@@ -2,11 +2,21 @@
 
 {% block header %}
   {{ govukHeader({
-    homepageUrl: '/admin',
-    productName: 'Admin',
-    XserviceName: 'Service Name',
-    XserviceUrl: '/',
-    XcontainerClasses: 'monkey'
+    xhomepageUrl: '/admin',
+    xproductName: 'Admin',
+    serviceName: 'Admin',
+    serviceUrl: '/admin',
+    XcontainerClasses: 'monkey',
+    navigation: [
+      {
+        href: "/admin/flow",
+        text: "Page flow"
+      },
+      {
+        href: "/admin/instance/service",
+        text: "Service"
+      }
+      ]
     })
   }}
 {% endblock %}
@@ -177,6 +187,11 @@ p.fb-property-items-add {
 }
 .fb-action--delete:hover {
   background: #b10e1e;
+}
+@media (min-width: 48.0625em) {
+  .govuk-header__content {
+    width: 65%;
+  }
 }
 </style>
 
