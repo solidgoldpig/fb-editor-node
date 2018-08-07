@@ -7,7 +7,7 @@
       {
         "_id": "admin.main--id",
         "_type": "content",
-        "html": "- [Flow](/admin/flow)\n\n### Instances\n\n- [Pages](/admin/category/page)\n- [Components](/admin/category/component)\n\n### Configuration\n\n- [Service](/admin/instance/service)"
+        "html": "- [Page flow](/admin/flow)\n\n### Configuration\n\n- [Service](/admin/instance/service)\n\n### Pages\n\n{pages}\n\n### Instances\n\n- [Pages](/admin/category/page)\n- [Components](/admin/category/component)"
       },
       {
         "_id": "admin.main--list",
