@@ -59,6 +59,15 @@
       "items": []
     },
     {
+      "_id": "admin.instance--properties.repeatable",
+      "_type": "details",
+      "summary": "Repeatable properties",
+      "show": {
+        "identifier": "repeatableProperties",
+        "operator": "defined"
+      }
+    },
+    {
       "_id": "admin.instance--properties.validation",
       "_type": "details",
       "summary": "Validation and error messages",
@@ -77,20 +86,20 @@
       }
     },
     {
-      "_id": "admin.instance--properties.repeatable",
-      "_type": "details",
-      "summary": "Repeatable properties",
-      "show": {
-        "identifier": "repeatableProperties",
-        "operator": "defined"
-      }
-    },
-    {
       "_id": "admin.instance--properties.logic",
       "_type": "details",
       "summary": "Logical properties",
       "show": {
         "identifier": "logicProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.content",
+      "_type": "details",
+      "summary": "Content properties",
+      "show": {
+        "identifier": "contentProperties",
         "operator": "defined"
       }
     },
@@ -125,7 +134,7 @@
               "_id": "admin.instance--instance--data",
               "name": "instance",
               "_type": "textarea",
-              "label": "Instance JSON",
+              "label": "Instance",
               "errors": {
                 "instance.invalid": {
                   "inline": "JSON is invalid",

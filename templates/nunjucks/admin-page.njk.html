@@ -21,6 +21,13 @@
   }}
 {% endblock %}
 
+{% block errorContent %}
+{{ super () }}
+{% if page.infoList %}
+{{ callMacro('infosummary', page) }}
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="admin-content">
 {{ super() }}
@@ -32,6 +39,17 @@
 <style type="text/css">
 .admin-content .govuk-grid-column-two-thirds {
   width: 100%;
+}
+
+.fb-info-summary {
+  border-color: #005ea5;
+}
+
+.fb-info-summary .fb-info-summary__list a {
+  color: #005ea5;
+}
+.fb-info-summary .fb-info-summary__list a:hover {
+  color: #2b8cc4;
 }
 
 [data-block-id="admin.instance--header"].fb-group {
@@ -106,6 +124,10 @@ a[href="/dev/null"] {
 }
 [data-block-id="admin.instance--properties"] li a:first-child {
   font-size: 19px;
+}
+
+.govuk-list > li.fb-property {
+  margin-bottom: 1rem;
 }
 
 p.fb-property--title {
