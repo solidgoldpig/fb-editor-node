@@ -197,7 +197,6 @@ if ($textareas.length) {
   const detailsState = JSON.parse(localStorage.getItem('fbDetailsState') || '{}')
   const location = window.location.href
   detailsState[location] = detailsState[location] || {}
-      console.log({detailsState})
   const detailsLocationState = detailsState[location]
   if (Object.keys(detailsLocationState).length) {
     Object.keys(detailsLocationState).forEach(dataBlockId => {
