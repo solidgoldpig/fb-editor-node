@@ -48,7 +48,8 @@ if ($hiddenValue.value) {
     let itemsList = ''
     hiddenValue.forEach(item => {
       const itemData = escape(JSON.stringify(item.data))
-      itemsList += `<div class="fb-array-item container govuk-prose-scope" data-item-value="${itemData}"><div><p class="fb-array-item--title">${item.title}</p><p class="fb-array-item--id"><a href="${item.url}">${item._id}</a></p><p class="fb-array-item--remove govuk-button fb-action-secondary fb-action-remove">Remove <span class="">the item</span></p></div></div>`
+      const removeString = typeof item.data === 'object' ? 'Delete' : 'Remove'
+      itemsList += `<div class="fb-array-item container govuk-prose-scope" data-item-value="${itemData}"><div><p class="fb-array-item--title">${item.title}</p><p class="fb-array-item--id"><a href="${item.url}">${item._id}</a></p><p class="fb-array-item--remove govuk-button fb-action-secondary fb-action-remove">${removeString} <span class="">the item</span></p></div></div>`
     })
     itemsList = `<div class="fb-array-items">${itemsList}</div>`
     $valueElementGroup.insertAdjacentHTML('afterend', itemsList);
