@@ -16,7 +16,7 @@
         {
           "_id": "admin.instance--type",
           "_type": "content",
-          "html": "Instance type {instanceType}",
+          "html": "{instanceCategory, select, undefined{Component} other{{instanceCategory}}} type {instanceType}",
           "show": {
             "identifier": "instanceType",
             "operator": "defined"
