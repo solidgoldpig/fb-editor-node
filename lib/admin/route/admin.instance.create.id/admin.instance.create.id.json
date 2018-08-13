@@ -2,15 +2,16 @@
   "_id": "admin.instance.create.id",
   "_type": "page.admin",
   "url": "/create/:_type/id/:addId?/:addProperty?/:operation?",
-  "heading": "Create an id for new instance",
+  "heading": "Create an id for new {instanceTypeTitle} {instanceCategory}",
   "components": [
     {
       "_id": "admin.instance.create.id--id",
       "_type": "text",
       "name": "_id",
-      "label": "Instance id",
+      "label": "Id",
+      "hint": "Unique value used to identify the {instanceCategory} {idPrefixType, select, stub{- please add to the starter value provided} auto{- this value has been created automatically, but feel free to change it} other{}}",
       "validation": {
-        "pattern": "^[\\d\\w\\.-_]+$"
+        "pattern": "^[\\d\\w\\.\\-_]+$"
       },
       "errors": {
         "pattern": {
@@ -22,8 +23,8 @@
           "summary": "Id already exists"
         },
         "_id.stub.incomplete": {
-          "inline": "Please add to the base id provided",
-          "summary": "Please add to the base id provided"
+          "inline": "Please add to the starter value provided",
+          "summary": "Please add to the starter value provided"
         }
       }
     },
