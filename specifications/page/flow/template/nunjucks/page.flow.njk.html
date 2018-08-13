@@ -1,4 +1,4 @@
-{% extends "admin-page.njk.html" %}
+{% extends "page.editable.njk.html" %}
 
 {% block header %}{% endblock %}
 
@@ -211,6 +211,26 @@ body {
 .fb-flow-container .fb-step-container .fb-flow-start.fb-step:before {
   display: none;
 }
+
+.fb-step-details {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 1rem;
+}
+.fb-step-details h2 {
+  margin-bottom: 1rem;
+}
+.fb-step-details ul.fb-page-links {
+  margin: 0;
+  padding: 0;
+}
+.fb-step-details ul.fb-page-links li {
+  font-size: 2rem;
+  list-style-type: none;
+  display: inline-block;
+  padding: 0;
+  margin-right: 2rem;
+} 
 
 header.govuk-header {
   padding-left: 20px;

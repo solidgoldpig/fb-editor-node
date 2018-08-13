@@ -1,0 +1,90 @@
+{% extends "_page.njk.html" %}
+
+{% block bodyEnd %}
+{{ super() }}
+
+<style>
+
+main.govuk-main-wrapper ,
+[data-block-id] {
+  position: relative;
+}
+
+.fb-hover {
+  background-color: #fc9;
+}
+
+.fb-block-edit-container {
+  position: absolute;
+  margin-left: -2.875rem;
+  margin-top: -0.25rem;
+  width: 4rem;
+  height: 4rem;
+  z-index: 99999999;
+}
+.fb-block-edit {
+  position: absolute;
+  font-size: 1.5rem;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none !important;
+  background-color: #fff;
+  color: #005ea5 !important;
+  border-radius: 50%;
+  border: solid 1px #005ea5;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  box-sizing: border-box;
+  visibility: hidden;
+  line-height: 1.5;
+}
+a:hover .fb-block-edit,
+.fb-block-edit-container > .fb-block-edit:hover {
+  background-color: #005ea5 !important;
+  color: #fff !important;
+}
+h2 .fb-block-edit,
+.fb-hover > .fb-block-edit-container > .fb-block-edit {
+  visibility: visible;
+}
+h2 .fb-block-edit-container {
+  margin-top: 0.25rem;
+}
+</style>
+
+<script>
+const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id'))
+editBlocks.forEach(block => {
+  const blockId = block.getAttribute('data-block-id')
+  const blockProperty = block.getAttribute('data-block-property')
+  const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
+  block.insertAdjacentHTML('afterbegin', '<div class="fb-block-edit-container"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>✎</span></a></div>')
+
+  let currentHover = []
+  const addHover = (block) => {
+    block.className = (block.className ? block.className + ' ' : '') + 'fb-hover'
+  }
+  const removeHover = (block) => {
+    block.className = block.className.replace(/\s*fb-hover/, '')
+  }
+  block.addEventListener('mouseenter', () => {
+    let previousHover = document.querySelector('.fb-hover')
+    if (previousHover) {
+      currentHover.push(previousHover)
+      removeHover(previousHover)
+    }
+    addHover(block)
+  })
+  block.addEventListener('mouseleave', () => {
+    removeHover(block)
+    const previousHover = currentHover.shift()
+    if (previousHover) {
+      addHover(previousHover)
+    }
+  })
+})
+
+</script>
+
+{% endblock %}

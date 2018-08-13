@@ -24,6 +24,15 @@
 <div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}">
 {% if isInnerStepOption %}<div class="fb-step-option-container-inner"></div>{% endif %}
 <div class="fb-step-wrapper">
+<div class="fb-step-details govuk-prose-scope">
+<h2><a href="{{ data.url }}/instance"><span class="fb-block-edit-container"><span class="fb-block-edit" title="Edit page properties">✎</span></span>{{ data._id }}</a></h2>
+<ul class="fb-page-links">
+<!-- <li><span class="fb-page-link-type"><a href="{{ data.url }}/instance">Edit page</a></span></li> -->
+<li><span class="fb-page-link-type"><a href="{{ data.url }}/edit">Editable mode</a></span></li>
+<!-- <li><span class="fb-page-link-type"><a href="{{ data.url }}/preview">Preview mode</a></span></li> -->
+<li><span class="fb-page-link-type">Url</span> <a href="{{ data.url }}">{{ data.url }}</a></li>
+</ul>
+</div>
 <div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
 {% if data.rendered %}
 {{ data.rendered | safe }}

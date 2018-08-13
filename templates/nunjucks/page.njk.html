@@ -1,1 +1,5 @@
-{% extends "_page.njk.html" %}
+{% set template = "_page.njk.html" %}
+{% if page.EDITMODE == "edit" %}
+{% set template = "page.editable.njk.html" %}
+{% endif %}
+{% extends template %}
