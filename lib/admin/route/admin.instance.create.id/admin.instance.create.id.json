@@ -8,7 +8,24 @@
       "_id": "admin.instance.create.id--id",
       "_type": "text",
       "name": "_id",
-      "label": "Instance id"
+      "label": "Instance id",
+      "validation": {
+        "pattern": "^[\\d\\w\\.-_]+$"
+      },
+      "errors": {
+        "pattern": {
+          "inline": "Id may only contain letters, numbers, periods, dashes and underscores",
+          "summary": "Id may only contain letters, numbers, periods, dashes and underscores"
+        },
+        "_id.duplicate": {
+          "inline": "Id already exists",
+          "summary": "Id already exists"
+        },
+        "_id.stub.incomplete": {
+          "inline": "Please add to the base id provided",
+          "summary": "Please add to the base id provided"
+        }
+      }
     },
     {
       "_id": "admin.instance.create.id--button",
