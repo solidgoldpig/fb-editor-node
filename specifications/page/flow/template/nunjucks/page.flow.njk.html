@@ -60,13 +60,16 @@ body {
   margin-top: 60px;
 }
 
+.fb-step-wrapper {
+  display: inline-block;
+  margin-left: 200px;
+}
 .fb-step {
   display: inline-block;
   border: solid 1px #000000;
   width: 1000px;
   position: relative;
   z-index: 1;
-  margin-left: 200px;
   background: #ffffff;
   box-sizing: border-box;
 }
@@ -99,6 +102,7 @@ body {
 .fb-step-skip-container {
   position: relative;
 }
+.fb-step-skip-container-line,
 .fb-step-skip-container:before {
   content: '';
   position: absolute;
@@ -110,6 +114,8 @@ body {
   border-top: none;
   border-radius: 0 0 30px 30px;
 }
+.fb-step-skip-container-first,
+.fb-step-skip-container-last,
 .fb-step-skip-first:before,
 .fb-step-skip-last:before {
   content: '';
@@ -119,12 +125,15 @@ body {
   border: solid 3px #000;
   width: 100px;
 }
+
+.fb-step-skip-container-first,
 .fb-step-skip-first:before {
   left: 1px;
   border-bottom: none;
   border-left: none;
   border-radius: 0 30px 0px 0;
 }
+.fb-step-skip-container-last,
 .fb-step-skip-last:before {
   left: 100%;
   margin-left: 96px;
@@ -199,7 +208,7 @@ body {
 .fb-flow-container > .fb-step-container:after {
   right: 200px;
 }
-.fb-flow-container > .fb-step-container > .fb-step:before {
+.fb-flow-container .fb-step-container .fb-flow-start.fb-step:before {
   display: none;
 }
 

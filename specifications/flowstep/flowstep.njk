@@ -17,11 +17,14 @@
 {% endif %}
 {% endif %}
 
-{% if data.$stepSkipFirst %}<div class="fb-step-skip-container">{% endif %}
+{% if data.$stepSkipFirst %}<div class="fb-step-skip-container"><div class="fb-step-skip-container-line fb-step-skip-container-first"></div>{% endif %}
+{% if data.$stepSkipLast %}<div class="fb-step-skip-container-line fb-step-skip-container-last"></div>{% endif %}
+
 {% if data.$stepOptionFirst %}<div class="fb-step-option-container">{% endif %}
 <div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}">
 {% if isInnerStepOption %}<div class="fb-step-option-container-inner"></div>{% endif %}
-<div class="fb-step {{data.classes}}">
+<div class="fb-step-wrapper">
+<div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
 {% if data.rendered %}
 {{ data.rendered | safe }}
 {% else %}
@@ -32,6 +35,7 @@
 {%- for flowstep in data.flowsteps -%}
 {{- callMacro('flowstep', flowstep) -}}
 {%- endfor -%}
+</div>
 </div>
 
 {% if data.$stepSkipLast %}</div>{% endif %}
