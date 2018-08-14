@@ -31,6 +31,10 @@ if (window.Shortcut) {
       document.location.href =  newHref
     }
     const upNav = (type) => {
+      if (document.location.href.match(/\admin\/instance\/.+?\/.+/)) {
+        document.location.href = document.location.href.replace(/\/[^/]+$/, '')
+        return
+      }
       const urlLinks = [].slice.call(document.querySelectorAll('[data-block-id="admin.instance--used"] a'))
       if (!urlLinks.length) {
         return
@@ -44,7 +48,7 @@ if (window.Shortcut) {
       document.location.href = newHref
     }
     if (!href.includes('/flow')) {
-      window.Shortcut.add("alt+f", () => {
+      window.Shortcut.add("meta+f", () => {
         document.location.href = '/admin/flow'
       })
     }
@@ -64,28 +68,28 @@ if (window.Shortcut) {
     if (!href.startsWith('/admin') || href.includes('instance')) {
       const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
       const url = urlLink ? urlLink.href : undefined
-      window.Shortcut.add("alt+u", () => {
+      window.Shortcut.add("meta+u", () => {
         modeNav()
       })
-      window.Shortcut.add("alt+i", () => {
+      window.Shortcut.add("meta+i", () => {
         modeNav('instance')
       })
-      window.Shortcut.add("alt+e", () => {
+      window.Shortcut.add("meta+e", () => {
         modeNav('edit')
       })
-      window.Shortcut.add("alt+p", () => {
+      window.Shortcut.add("meta+p", () => {
         // modeNav('preview')
       })
-      window.Shortcut.add("alt+t", () => {
+      window.Shortcut.add("meta+t", () => {
         upNav('top')
       })
-      window.Shortcut.add("alt+up", () => {
+      window.Shortcut.add("meta+up", () => {
         upNav()
       })
-      window.Shortcut.add("alt+left", () => {
+      window.Shortcut.add("meta+left", () => {
         flowNav('previous')
       })
-      window.Shortcut.add("alt+right", () => {
+      window.Shortcut.add("meta+right", () => {
         flowNav('next')
       })
     }
