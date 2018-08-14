@@ -15,6 +15,9 @@ if (window.Shortcut) {
       let url = urlLink ? urlLink.href : undefined
       if (!url) {
         url = href.replace(/\/(edit|instance|preview)/, '')
+        if (url.startsWith('/admin')) {
+          return
+        }
       }
       url = url.replace(/^https{0,1}:\/\/[^/]+/, '')
       url = url.replace(/\/$/, '')
