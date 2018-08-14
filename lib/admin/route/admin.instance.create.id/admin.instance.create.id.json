@@ -11,7 +11,12 @@
       "label": "Id",
       "hint": "Unique value used to identify the {instanceCategory} {idPrefixType, select, stub{- please add to the starter value provided} auto{- this value has been created automatically, but feel free to change it} other{}}",
       "validation": {
-        "pattern": "^[\\d\\w\\.\\-_]+$"
+        "pattern": "^[\\d\\w\\.\\-_]+$",
+        "required": {
+          "identifier": "existingId",
+          "operator": "defined",
+          "negated": true
+        }
       },
       "errors": {
         "pattern": {
@@ -32,6 +37,46 @@
       "_id": "admin.instance.create.id--button",
       "_type": "button",
       "html": "Set id"
+    }
+  ],
+  "extraComponents": [
+    {
+      "_id": "admin.instance.create.id--existing",
+      "_type": "details",
+      "summary": "Or choose an existing one",
+      "components": [
+        {
+          "_id": "admin.instance.create.id--existing--form",
+          "_type": "form",
+          "method": "post",
+          "components": [
+            {
+              "_id": "admin.instance.create.id--existing--radios",
+              "_type": "radios",
+              "name": "existingId",
+              "validation": {
+                "required": false
+              },
+              "label": "Choose existing",
+              "labelhide": true,
+              "items": [{
+                  "_id": "admin.instance.create.id--existing--radios--item",
+                  "label": "Default id",
+                  "value": "default"
+              }]
+            },
+            {
+              "_id": "admin.instance.create.id--existing--button",
+              "_type": "button",
+              "html": "Choose existing"
+            }
+          ]
+        }
+      ],
+      "show": {
+        "identifier": "existingIds",
+        "operator": "defined"
+      }
     }
   ]
 }
