@@ -3,3 +3,37 @@
 {% set template = "page.editable.njk.html" %}
 {% endif %}
 {% extends template %}
+
+{% block bodyEnd %}
+{{ super() }}
+<script src="/assets/vendor/shortcuts/shortcuts.v.2.0.1.js"></script>
+<script>
+if (window.Shortcut) {
+    const href = document.location.href
+    const updateUrl = (stub) => {
+      if (stub && href.endsWith(`/${stub}`)) {
+        return
+      }
+      let scrubbedHref = href.replace(/\/(edit|instance|preview)/, '').replace(/\/$/, '')
+      if (!scrubbedHref && !stub) {
+        scrubbedHref = '/'
+      }
+      document.location.href =  `${scrubbedHref}${stub ? `/${stub}` : ''}`
+    }
+    if (!href.startsWith('/admin')) {
+      window.Shortcut.add("Control+u", () => {
+        updateUrl()
+      })
+      window.Shortcut.add("Control+i", () => {
+        updateUrl('instance')
+      })
+      window.Shortcut.add("Control+e", () => {
+        updateUrl('edit')
+      })
+      window.Shortcut.add("Control+p", () => {
+        // updateUrl('preview')
+      })
+    }
+  }
+</script>
+{% endblock %}
