@@ -3,8 +3,12 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+<div class="fb-flow-wrapper">
+{% for flowstep in page.flowsteps %}
 <div class="fb-flow-container">
-{{ callMacro('flowstep', page.flowstep) }}
+{{ callMacro('flowstep', flowstep) }}
+</div>
+{% endfor %}
 </div>
 {% endblock %}
 
@@ -20,14 +24,18 @@ body {
 }
 
 .govuk-width-container {
-  margin: 0;
+  margin: 0;;
 }
 
-.fb-flow-container {
+.fb-flow-wrapper {
   transform-origin: top left;
   transform: scale(0.375);
   white-space: nowrap;
   vertical-align: top;
+}
+
+.fb-flow-container + .fb-flow-container {
+  margin-top: 20rem;
 }
 
 .fb-step-skip-container {
@@ -237,6 +245,12 @@ body {
   padding: 0;
   margin-right: 2rem;
 } 
+.fb-page-parent {
+  position: absolute;
+  right: 8rem;
+  bottom: -0.25rem;
+  font-size: 1.5rem;
+}
 .fb-page-steps {
   position: absolute;
   right: -1.125rem;
