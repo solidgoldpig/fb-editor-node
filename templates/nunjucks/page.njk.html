@@ -10,7 +10,7 @@
 <script>
 if (window.Shortcut) {
     const href = document.location.href.replace(/^https{0,1}:\/\/[^/]+/, '')
-    const updateUrl = (stub) => {
+    const modeNav = (stub) => {
       const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
       let url = urlLink ? urlLink.href : undefined
       if (!url) {
@@ -30,20 +30,63 @@ if (window.Shortcut) {
       }
       document.location.href =  newHref
     }
+    const upNav = (type) => {
+      const urlLinks = [].slice.call(document.querySelectorAll('[data-block-id="admin.instance--used"] a'))
+      if (!urlLinks.length) {
+        return
+      }
+      let newHref
+      if (type === 'top') {
+        newHref = urlLinks[0].href
+      } else {
+        newHref = urlLinks[urlLinks.length - 1].href
+      }
+      document.location.href = newHref
+    }
+    if (!href.includes('/flow')) {
+      window.Shortcut.add("alt+f", () => {
+        document.location.href = '/admin/flow'
+      })
+    }
+    const flowNav = (direction) => {
+      const links = [].slice.call(document.querySelectorAll('[data-block-id="admin.instance--navigation"] a'))
+      let index = direction === 'next' ? 1 : 0
+      const linkElement = links[index]
+      if (!linkElement) {
+        return
+      }
+      let newHref = linkElement.href
+      if (newHref.includes('/dev/null')) {
+        return
+      }
+      document.location.href = newHref
+    }
     if (!href.startsWith('/admin') || href.includes('instance')) {
       const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
       const url = urlLink ? urlLink.href : undefined
-      window.Shortcut.add("Control+u", () => {
-        updateUrl()
+      window.Shortcut.add("alt+u", () => {
+        modeNav()
       })
-      window.Shortcut.add("Control+i", () => {
-        updateUrl('instance')
+      window.Shortcut.add("alt+i", () => {
+        modeNav('instance')
       })
-      window.Shortcut.add("Control+e", () => {
-        updateUrl('edit')
+      window.Shortcut.add("alt+e", () => {
+        modeNav('edit')
       })
-      window.Shortcut.add("Control+p", () => {
-        // updateUrl('preview')
+      window.Shortcut.add("alt+p", () => {
+        // modeNav('preview')
+      })
+      window.Shortcut.add("alt+t", () => {
+        upNav('top')
+      })
+      window.Shortcut.add("alt+up", () => {
+        upNav()
+      })
+      window.Shortcut.add("alt+left", () => {
+        flowNav('previous')
+      })
+      window.Shortcut.add("alt+right", () => {
+        flowNav('next')
       })
     }
   }

@@ -40,7 +40,7 @@
 {% if data.flowsteps.length > 1 %}
 <li><a href="/admin/instance/{{ data._id }}/steps">Reorder steps</a></li>
 {% endif %}
-{% if not data.$flowStart and data.flowsteps %}
+{% if not data.$flowStart and data.flowsteps.length %}
 <li><a href="/admin/flow/{{ data._id }}">View steps flow</a></li>
 {% endif %}
 </ul>
