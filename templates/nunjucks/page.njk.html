@@ -9,18 +9,27 @@
 <script src="/assets/vendor/shortcuts/shortcuts.v.2.0.1.js"></script>
 <script>
 if (window.Shortcut) {
-    const href = document.location.href
+    const href = document.location.href.replace(/^https{0,1}:\/\/[^/]+/, '')
     const updateUrl = (stub) => {
-      if (stub && href.endsWith(`/${stub}`)) {
+      const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
+      let url = urlLink ? urlLink.href : undefined
+      if (!url) {
+        url = href.replace(/\/(edit|instance|preview)/, '')
+      }
+      url = url.replace(/^https{0,1}:\/\/[^/]+/, '')
+      url = url.replace(/\/$/, '')
+      if (!url && !stub) {
+        url = '/'
+      }
+      const newHref = `${url}${stub ? `/${stub}` : ''}`
+      if (href === newHref) {
         return
       }
-      let scrubbedHref = href.replace(/\/(edit|instance|preview)/, '').replace(/\/$/, '')
-      if (!scrubbedHref && !stub) {
-        scrubbedHref = '/'
-      }
-      document.location.href =  `${scrubbedHref}${stub ? `/${stub}` : ''}`
+      document.location.href =  newHref
     }
-    if (!href.startsWith('/admin')) {
+    if (!href.startsWith('/admin') || href.includes('instance')) {
+      const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
+      const url = urlLink ? urlLink.href : undefined
       window.Shortcut.add("Control+u", () => {
         updateUrl()
       })
