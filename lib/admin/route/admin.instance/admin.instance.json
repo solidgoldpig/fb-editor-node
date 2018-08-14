@@ -23,6 +23,16 @@
           }
         },
         {
+          "_id": "admin.instance--isa",
+          "_type": "content",
+          "html":
+            "{basedOn, select, other{Based on [{basedOn}]({basedOnUrl}) [(Change)]({setBasedOnUrl})} undefined{Not based on anything [(Set)]({setBasedOnUrl})}}",
+          "show": {
+            "identifier": "showBasedOn",
+            "operator": "defined"
+          }
+        },
+        {
           "_id": "admin.instance--used",
           "_type": "content",
           "html":
@@ -44,8 +54,8 @@
         {
           "_id": "admin.instance--url",
           "_type": "content",
-          "html":
-            "- URL [{instanceUrl}]({instanceUrl})\n- [Edit mode]({instanceUrl}/edit)\n- [Preview mode]({instanceUrl}/preview)",
+          "html": "- URL [{instanceUrl}]({instanceUrl})\n- [Editable mode]({instanceUrl}/edit)",
+          "htmlOverspill": "\n- [Preview mode]({instanceUrl}/preview)",
           "show": {
             "identifier": "instanceUrl",
             "operator": "defined"
@@ -86,15 +96,6 @@
       }
     },
     {
-      "_id": "admin.instance--properties.logic",
-      "_type": "details",
-      "summary": "Logical properties",
-      "show": {
-        "identifier": "logicProperties",
-        "operator": "defined"
-      }
-    },
-    {
       "_id": "admin.instance--properties.content",
       "_type": "details",
       "summary": "Content properties",
@@ -109,6 +110,15 @@
       "summary": "HTML properties",
       "show": {
         "identifier": "htmlProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.logic",
+      "_type": "details",
+      "summary": "Conditional properties",
+      "show": {
+        "identifier": "logicProperties",
         "operator": "defined"
       }
     },

@@ -51,39 +51,67 @@ h2 .fb-block-edit,
 h2 .fb-block-edit-container {
   margin-top: 0.25rem;
 }
+
 </style>
 
 <script>
-const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id'))
+const addBlockHover = (blocks, className, targetClass) => {
+  let currentHover = []
+  const getTargetBlock = (block, seekTarget) => {
+    let targetBlock = block
+    if (targetClass && seekTarget) {
+      let targetFound
+      while (!targetFound && targetBlock.parentNode) {
+        targetBlock = targetBlock.parentNode
+        if (targetBlock.className.includes(targetClass)) {
+          targetFound = true
+        }
+      }
+      if (!targetFound) {
+        targetBlock = undefined
+      }
+    }
+    return targetBlock
+  }
+  blocks.forEach(block => {
+    const addHover = (triggerBlock, seekTarget) => {
+      const block = getTargetBlock(triggerBlock, seekTarget)
+      if (!block) { return }
+      block.className = (block.className ? block.className + ' ' : '') + className
+    }
+    const hoverRegex = new RegExp('\s*' + className)
+    const removeHover = (triggerBlock, seekTarget) => {
+      const block = getTargetBlock(triggerBlock, seekTarget)
+      if (!block) { return }
+      block.className = block.className.replace(hoverRegex, '')
+    }
+    block.addEventListener('mouseenter', () => {
+      let previousHover = document.querySelector('.' + className)
+      if (previousHover) {
+        currentHover.push(previousHover)
+        removeHover(previousHover)
+      }
+      addHover(block, true)
+    })
+    block.addEventListener('mouseleave', () => {
+      removeHover(block, true)
+      const previousHover = currentHover.shift()
+      if (previousHover) {
+        addHover(previousHover)
+      }
+    })
+  })
+}
+const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id]'))
 editBlocks.forEach(block => {
   const blockId = block.getAttribute('data-block-id')
   const blockProperty = block.getAttribute('data-block-property')
   const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
   block.insertAdjacentHTML('afterbegin', '<div class="fb-block-edit-container"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>✎</span></a></div>')
-
-  let currentHover = []
-  const addHover = (block) => {
-    block.className = (block.className ? block.className + ' ' : '') + 'fb-hover'
-  }
-  const removeHover = (block) => {
-    block.className = block.className.replace(/\s*fb-hover/, '')
-  }
-  block.addEventListener('mouseenter', () => {
-    let previousHover = document.querySelector('.fb-hover')
-    if (previousHover) {
-      currentHover.push(previousHover)
-      removeHover(previousHover)
-    }
-    addHover(block)
-  })
-  block.addEventListener('mouseleave', () => {
-    removeHover(block)
-    const previousHover = currentHover.shift()
-    if (previousHover) {
-      addHover(previousHover)
-    }
-  })
 })
+addBlockHover(editBlocks, 'fb-hover')
+const stepBlocks = [].slice.call(document.querySelectorAll('.fb-page-steps'))
+addBlockHover(stepBlocks, 'fb-step-highlight', 'fb-step-container')
 
 </script>
 

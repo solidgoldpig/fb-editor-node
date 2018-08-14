@@ -37,6 +37,10 @@
 {% block bodyEnd %}
 {{ super() }}
 <style type="text/css">
+.admin-content {
+  position: relative;
+}
+
 .admin-content .govuk-grid-column-two-thirds {
   width: 100%;
 }
@@ -64,8 +68,10 @@
 [data-block-id="admin.instance--navigation"] {
   display: grid;
   grid-template-columns: 50% 50%;
-  position: relative;
+  position: absolute;
   margin: 10px 0 20px;
+  width: 100%;
+  top: -1.5rem;
 }
 
 [data-block-id="admin.instance--navigation"] p:first-child a {

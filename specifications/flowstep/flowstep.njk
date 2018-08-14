@@ -24,16 +24,31 @@
 <div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}">
 {% if isInnerStepOption %}<div class="fb-step-option-container-inner"></div>{% endif %}
 <div class="fb-step-wrapper">
+<div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
 <div class="fb-step-details govuk-prose-scope">
-<h2><a href="{{ data.url }}/instance"><span class="fb-block-edit-container"><span class="fb-block-edit" title="Edit page properties">✎</span></span>{{ data._id }}</a></h2>
+<h2><a href="{% if data.url != '/' %}{{ data.url }}/instance{% else %}/instance{% endif %}"><span class="fb-block-edit-container"><span class="fb-block-edit" title="Edit page properties">✎</span></span>{{ data._id }}</a></h2>
 <ul class="fb-page-links">
-<!-- <li><span class="fb-page-link-type"><a href="{{ data.url }}/instance">Edit page</a></span></li> -->
-<li><span class="fb-page-link-type"><a href="{{ data.url }}/edit">Editable mode</a></span></li>
-<!-- <li><span class="fb-page-link-type"><a href="{{ data.url }}/preview">Preview mode</a></span></li> -->
+{# <li><span class="fb-page-link-type"><a href="{{ data.url }}/instance">Edit page</a></span></li> #}
+<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/edit{% else %}/edit{% endif %}">Editable mode</a></span></li>
+{# <li><span class="fb-page-link-type"><a href="{{ data.url }}/preview">Preview mode</a></span></li> #}
 <li><span class="fb-page-link-type">Url</span> <a href="{{ data.url }}">{{ data.url }}</a></li>
 </ul>
+<div class="fb-page-steps">
+<h3>Steps</h3>
+<ul>
+<li><a href="/admin/new/{{ data._id }}/steps">Add step</a></li>
+{% if data.flowsteps.length > 1 %}
+<li><a href="/admin/instance/{{ data._id }}/steps">Reorder steps</a></li>
+{% endif %}
+{% if not data.$flowStart and data.flowsteps %}
+<li><a href="/admin/flow/{{ data._id }}">View steps flow</a></li>
+{% endif %}
+</ul>
 </div>
-<div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
+{% if data.$flowStart and data._parent %}
+<li><a href="/admin/flow/{{ data._parent }}">View parent page flow {{data.$flowStart}}</a></li>
+{% endif %}
+</div>
 {% if data.rendered %}
 {{ data.rendered | safe }}
 {% else %}
@@ -41,9 +56,13 @@
 {{- callMacro('pageContentBody', data) -}}
 {% endif %}
 </div>
+{% if data.flowsteps %}
+<div class="fb-substeps">
 {%- for flowstep in data.flowsteps -%}
 {{- callMacro('flowstep', flowstep) -}}
 {%- endfor -%}
+</div>
+{% endif %}
 </div>
 </div>
 

@@ -60,8 +60,13 @@ body {
   margin-top: 60px;
 }
 
+.fb-substeps {
+  display: inline-block;
+  vertical-align: top;
+}
 .fb-step-wrapper {
   display: inline-block;
+  vertical-align: top;
   margin-left: 200px;
 }
 .fb-step {
@@ -216,6 +221,7 @@ body {
   position: absolute;
   bottom: 100%;
   margin-bottom: 1rem;
+  width: 100%;
 }
 .fb-step-details h2 {
   margin-bottom: 1rem;
@@ -231,6 +237,53 @@ body {
   padding: 0;
   margin-right: 2rem;
 } 
+.fb-page-steps {
+  position: absolute;
+  right: -1.125rem;
+  bottom: 0;
+  z-index: 1;
+}
+.fb-page-steps h3 {
+  font-size: 2rem;
+  text-align: right;
+  margin: 0;
+  padding: 0.5rem 1rem 0;
+  border: solid 1px transparent;
+  border-bottom: none;
+  position: relative;
+  z-index: 1;
+  color: #005ea5;
+}
+.fb-page-steps:hover h3 {
+  background: #fff;
+  border-color: #000;
+}
+.fb-page-steps ul {
+  display: none;
+  background: #fff;
+  position: absolute;
+  width: 12rem;
+  margin: -3px 0 0 0;
+  padding: 0.5rem;
+  right: 0;
+  border: solid 1px #000;
+}
+.fb-page-steps:hover ul {
+  display: block;
+}
+.fb-page-steps ul a {
+  display: block;
+  padding: 0.5rem;
+}
+.fb-page-steps li {
+  list-style-type: none;
+  font-size: 1.5rem;
+}
+
+/* .fb-step-highlight .fb-substeps .fb-step */
+.fb-step-highlight .fb-step {
+  outline: solid 6px #fc0;
+}
 
 header.govuk-header {
   padding-left: 20px;
