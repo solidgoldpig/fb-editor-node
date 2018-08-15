@@ -64,18 +64,19 @@
       ]
     },
     {
-      "_id": "admin.instance--properties.main",
-      "_type": "propertylist",
-      "items": []
-    },
-    {
       "_id": "admin.instance--properties.repeatable",
       "_type": "details",
+      "open": true,
       "summary": "Repeatable properties",
       "show": {
         "identifier": "repeatableProperties",
         "operator": "defined"
       }
+    },
+    {
+      "_id": "admin.instance--properties.main",
+      "_type": "propertylist",
+      "items": []
     },
     {
       "_id": "admin.instance--properties.validation",
