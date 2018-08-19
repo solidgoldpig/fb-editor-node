@@ -4,8 +4,91 @@
 {% endif %}
 {% extends template %}
 
+{% block beforeContent %}
+{% if page.EDITMODE %}
+{% if page.EDITMODE == "preview" %}
+<div class="PreviewSummary govuk-prose-scope" role="group" aria-labelledby="preview-summary-heading" tabindex="-1">
+<p class="PreviewSummary__heading" id="preview-summary-heading">
+<span data-block-name="PreviewSummary__heading">Preview mode</span>
+ &nbsp;&nbsp;&nbsp;<a class="xbutton" title="Form will advance to the next page that can be displayed given input data" href="/what?">(Exit)</a>
+</p>
+<div class="PreviewSummary__links">
+{% if page.preview.previous %}
+<p class="fb-preview-previous"><a href="{{ page.preview.previous.url }}"><span class="fb-preview-direction">Previous page</span> {{ page.preview.previous.title | safe }}</a></p>
+{% endif %}
+{% if page.preview.next %}
+<p class="fb-preview-next"><a href="{{ page.preview.next.url }}"><span class="fb-preview-direction">Next page</span> {{ page.preview.next.title | safe }}</a></p>
+{% endif %}
+</div>
+</div>
+{% endif %}
+{% else %}
+{{ super() }}
+{% endif %}
+{% endblock %}
+
 {% block bodyEnd %}
 {{ super() }}
+<style>
+.PreviewSummary{
+  border:solid 0.25rem #000;
+  padding: 0.5rem 1rem 1rem;
+  margin: 1rem 0 0;
+}
+.govuk-prose-scope .PreviewSummary__heading{
+  font-weight: bold;
+  font-size:0.75rem;
+  margin:0 0 0.5rem;
+}
+.PreviewSummary__links{
+  margin:0;
+  width:100%;
+  display:table
+}
+.PreviewSummary__links p{
+  float:left;
+  width:50%;
+  position:relative;
+  margin:0;
+  font-size: 1rem;
+}
+.PreviewSummary__links a{
+  padding-left:2rem;
+  position:relative;
+  z-index:1;
+}
+.PreviewSummary__links p.fb-preview-next{
+  float:right;
+  text-align:right;
+}
+.PreviewSummary__links .fb-preview-next a{
+  padding:0 2rem 0 0;
+}
+.PreviewSummary__links span{
+  position:absolute;
+  left:-9999px;
+  width:0;
+  height:0;
+  overflow:hidden;
+}
+.PreviewSummary__links p::before{
+  color:#2b8cc4;
+  font-size:4rem;
+  position:absolute;
+  top: 0;
+}
+.PreviewSummary__links .fb-preview-previous::before{
+  left:0;
+  content:'‹';
+}
+.PreviewSummary__links .fb-preview-next{
+  float:right;
+}
+.PreviewSummary__links .fb-preview-next::before{
+  right:0;
+  content:'›';
+}
+</style>
 <script src="/assets/vendor/shortcuts/shortcuts.v.2.0.1.js"></script>
 <script>
 if (window.Shortcut) {
