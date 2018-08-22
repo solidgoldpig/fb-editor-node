@@ -1,10 +1,20 @@
 {
   "_id": "admin.instance.property",
   "_type": "page.admin.property",
+  "_singlequestion": true,
   "_template": "admin-page.property",
   "url": "/instance/:_id/:parentProperty?/:property",
-  "heading": "{instanceTitle} {parentPropertyTitle, select, undefined{} other{*{parentPropertyTitle}*}}",
+  "sectionHeading": "{instanceTitle} {parentPropertyTitle, select, undefined{} other{*{parentPropertyTitle}*}}",
   "components": [
+    {
+      "_id": "admin.instance.property--value",
+      "name": "value",
+      "_type": "text",
+      "isPageHeading": true,
+      "label": "{propertyTitle}",
+      "hint": "{propertyDescription}",
+      "xhint": "{inheritedValue}"
+    },
     {
       "_id": "admin.instance.property--source",
       "_type": "warning",
@@ -24,12 +34,47 @@
       }
     },
     {
-      "_id": "admin.instance.property--value",
-      "name": "value",
-      "_type": "text",
-      "label": "{propertyTitle}",
-      "hint": "{propertyDescription}",
-      "xhint": "{inheritedValue}"
+      "_id": "admin.instance.property--booleanConditionalGroup",
+      "_type": "group",
+      "components":[ 
+        {
+          "_id": "admin.instance.property--booleanConditional",
+          "name": "booleanConditional",
+          "_type": "hidden"
+        },
+        {
+          "_id": "admin.instance.property--allowableOperators",
+          "name": "allowableOperators",
+          "_type": "hidden"
+        },
+        {
+          "_id": "admin.instance.property--booleanConditionalOptions",
+          "name": "booleanConditionalOptions",
+          "_type": "radios",
+          "classes": "js-hidden booleanConditionalOptions",
+          "items": [
+            {
+              "_id": "admin.instance.property--booleanConditionalOptions-true",
+              "value": "true",
+              "label": "Always"
+            },
+            {
+              "_id": "admin.instance.property--booleanConditionalOptions-false",
+              "value": "false",
+              "label": "Never"
+            },
+            {
+              "_id": "admin.instance.property--booleanConditionalOptions-condition",
+              "value": "condition",
+              "label": "If"
+            }
+          ]
+        }
+      ],
+      "show": {
+        "identifier": "booleanConditional",
+        "operator": "defined"
+      }
     },
     {
       "_id": "admin.instance.property--add",

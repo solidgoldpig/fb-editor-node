@@ -37,8 +37,7 @@
 {% block bodyEnd %}
 {{ super() }}
 <style type="text/css">
-.admin-content,
-.govuk-main-wrapper {
+.admin-content {
   position: relative;
 }
 
@@ -252,6 +251,11 @@ if ($textareas.length) {
       localStorage.setItem('fbDetailsState', JSON.stringify(detailsState))
     })
   })
+
+  setTimeout(() => {
+    document.querySelector('.govuk-main-wrapper').style.position = 'relative'
+  }, 10)
+  
 })()
 </script>
 {% endblock %}

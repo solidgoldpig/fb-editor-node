@@ -1,0 +1,225 @@
+
+
+{% extends "admin-page.property.njk.html" %}
+
+{% block bodyEnd %}
+{{ super() }}
+
+<script>
+
+//(() => {
+
+  const booleanConditional = document.querySelector('.booleanConditionalOptions')
+  if (!booleanConditional) {
+    //return
+  }
+  let allowableOperators
+  let allowableIdentifiers
+
+  const getOperator = (operatorName) => {
+    return allowableOperators.filter(operator => operator.operator === operatorName)[0] || {}
+  }
+  const getOperatorProperty = (operatorName, property) => getOperator(operatorName)[property]
+  const getIdentifier = (identifierName) => {
+    return allowableIdentifiers.filter(identifier => identifier.name === identifierName)[0] || {}
+  }
+  const getIdentifierProperty = (identifierName, property) => getIdentifier(identifierName)[property]
+
+  const createSelect = (name, values, selectedValue) => {
+    let selectElement = `<select name="${name}" class="govuk-select" style="width:auto; min-width: 10rem; display:block;margin-bottom: 0.5rem;"><option value=""></option>`
+    values.forEach(item => {
+      selectElement += `<option value="${item.value}"${ selectedValue === item.value ? ' selected' : ''}>${item.label}</option>`
+    })
+    selectElement += '<select>'
+    return selectElement
+  }
+
+  const createIdentifier = (condition, conditionId) => {
+    const {identifier} = condition
+    const values = allowableIdentifiers.map(item => {
+      return {
+        value: item.name,
+        label: item.fullTitle
+      }
+    })
+    let identifierElement = createSelect(`identifier===${conditionId}`, values, identifier)
+    return identifierElement
+  }
+
+  const asIsOperators = [
+    'boolean',
+    'date',
+    'number'
+  ]
+  const createOperator = (condition, conditionId) => {
+    let {identifier, operator, type, negated, enums} = condition
+    if (!identifier) {
+      return ''
+    }
+    if (negated) {
+      operator = `!${operator}`
+    }
+    type = getIdentifierProperty(identifier, 'type')
+    if (!asIsOperators.includes(type)) {
+      type = 'string'
+    }
+    const operators = allowableOperators.filter(operator => {
+      if (!operator.type) {
+        return true
+      }
+      let enumsMatch = true
+      if (enums) {
+        enumsMatch = operator.operator === 'is' || operator.operator === 'equals' || operator.operator === 'defined'
+      }
+      let typeMatch = operator.type === 'any' || operator.type === type
+      return typeMatch && enumsMatch
+    })
+    let operatorElement = createSelect(`operator===${conditionId}`, operators, operator)
+    return operatorElement
+  }
+
+  const createValue = (condition, conditionId) => {
+    let {identifier, operator, value, enums} = condition
+    if (!operator || operator === 'defined' || operator === 'isTrue') {
+      return ''
+    }
+    let valueElement
+    let valueName = `value===${conditionId}`
+    if (enums) {
+     valueElement = createSelect(valueName, enums, value)
+    } else {
+      valueElement = `<input type="text" name="${valueName}" value="${value === undefined ? '' : value}" class="govuk-input" style="width:10em;">`
+    }
+    return valueElement
+  }
+
+  const createAnswer = (condition) => {
+    const {identifier} = condition
+    let answerElement = identifier.endsWith('[*]') ? 'any answer for' : 'the answer for'
+    return answerElement
+  }
+
+  const createCondition = (condition, conditionId = 0) => {
+    if (typeof condition !== 'object') {
+      return ''
+    }
+    condition = JSON.parse(JSON.stringify(condition))
+    const {identifier, operator, value, negated} = condition
+    const enums = allowableIdentifiers.filter(item => item.name === identifier).map(item => item.enums)[0]
+    condition.enums = enums
+    if (identifier !== undefined) {
+      return `<p>${createAnswer(condition)} ${createIdentifier(condition, conditionId)} ${createOperator(condition, conditionId)} ${createValue(condition, conditionId)}</p>`
+    } else {
+      // 
+    }
+  }
+
+  // const valueGroup = document.querySelector('[data-block-id="admin.instance.property--value"]')
+  // valueGroup.classList.add('js-hidden')
+
+  booleanConditional.insertAdjacentHTML('afterend', '<div id="conditions"></div>')
+
+  const conditionContainer = document.querySelector('#conditions')
+
+  const updateConditions = (condition) => {
+    conditionContainer.innerHTML = createCondition(condition)
+  }
+
+  conditionContainer.addEventListener('change', function(e) {
+    const target = e.target
+    let targetValue = target.value
+    let [name, destination] = target.name.split('===')
+    const valueDestination = value
+    if (name === 'identifier') {
+      delete value.operator
+      delete value.value
+    } else if (name === 'operator') {
+      if (targetValue.startsWith('!')) {
+        targetValue = targetValue.substr(1)
+        valueDestination.negated = true
+      } else {
+        delete valueDestination.negated
+      }
+      if (targetValue === 'defined' || targetValue === 'isTrue') {
+        delete valueDestination.value
+      }
+    }
+    if (name === 'value' && targetValue !== '') {
+      let valueType = getOperatorProperty(value.operator, 'type')
+      //allowableOperators.filter(operator => operator.operator === value.operator)[0].type
+      if (valueType === 'number') {
+        let numberValue = Number(targetValue)
+        if (!isNaN(numberValue)) {
+          targetValue = numberValue
+        }
+      }
+    }
+    valueDestination[name] = targetValue
+    updateValueControl('condition')
+    updateConditions(value)
+  })
+
+  const formElements = document.forms[0].elements
+
+  allowableIdentifiers = JSON.parse(unescape(formElements.booleanConditional.value))
+
+  const allowableOperatorsIn = JSON.parse(unescape(formElements.allowableOperators.value))
+  allowableOperators = []
+  Object.keys(allowableOperatorsIn).forEach(key => {
+    const operatorValues = allowableOperatorsIn[key]
+    const type = operatorValues.type
+    allowableOperators.push({
+      operator: key,
+      type,
+      value: key,
+      label: operatorValues.yes
+    })
+    allowableOperators.push({
+      operator: key,
+      type,
+      value: `!${key}`,
+      label: operatorValues.no
+    })
+  })
+
+  const valueControl = formElements.value
+  valueControl.style.display = 'none'
+
+  let value = valueControl.value ? JSON.parse(valueControl.value) : valueControl.value
+
+  const updateValueControl = (input) => {
+    if (input === 'condition') {
+      value = value || {identifier: '', operator: ''}
+      input = JSON.stringify(value, null, 2)
+    } else {
+      value = undefined
+    }
+    valueControl.value = input
+  }
+
+  const booleanConditionalNodeList = formElements.booleanConditionalOptions
+  
+  let typeValue = typeof value === 'boolean' ? value.toString() : 'condition'
+  if (typeof value === 'boolean') {
+    value = undefined
+  }
+
+  booleanConditionalNodeList.value = typeValue
+
+  booleanConditional.classList.remove('js-hidden')
+
+  for (let index = 0; index < 3; index++) {
+    booleanConditionalNodeList.item(index).addEventListener('change', function() {
+      updateValueControl(this.value)
+      updateConditions(value)
+    })
+  }
+
+  if (typeof value === 'object') {
+    updateConditions(value)
+  }
+//})()
+
+</script>
+
+{% endblock %}
