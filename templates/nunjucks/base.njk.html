@@ -1,5 +1,64 @@
 {% extends "_base.njk.html" %}
 
+{% macro navLink(content, type, typeLink, pageLink, mode) %}
+{% set linkify = mode != type %}
+<li class="fb-navigation-mode fb-navigation-{{ type }}{% if not linkify %} fb-navigation-current{% endif %}">{% if linkify %}<a href="{{ pageLink }}{% if typeLink or not pageLink %}/{% endif %}{{ typeLink }}">{% endif %}{{ content }}{% if linkify %}</a>{% endif %}</li>
+{% endmacro %}
+
+{% block skipLink %}
+<div class="fb-navigation govuk-body-m">
+<ul class="govuk-width-container">
+<li class="fb-navigation-dashboard"><a href="/admin">Dashboard</a></li>
+<li class="fb-navigation-flow"><a href="/flow">Page flow</a></li>
+
+{% if page.MODEURL %}
+{% set MODEURL = page.MODEURL %}
+{% if MODEURL == '/' %}
+{% set MODEURL = '' %}
+{% endif %}
+{{ navLink('Live view', 'live', '', MODEURL, page.MODE) }}
+{{ navLink('Preview mode', 'preview', 'preview', MODEURL, page.MODE) }}
+{{ navLink('Wysiwyg mode', 'edit', 'edit', MODEURL, page.MODE) }}
+{{ navLink('Instance mode', 'instance', 'instance', MODEURL, page.MODE) }}
+
+{% endif %}
+</ul>
+</div>
+{{ super() }}
+{% endblock %}
+
 {% block bodyStart %}
 {# Stuff to appear before body #}
+{% endblock %}
+
+{% block bodyEnd %}
+{{ super() }}
+<style>
+.fb-navigation {
+  background: #005ea5;
+  margin: 0;
+  padding: 0.5rem;
+}
+.fb-navigation ul {
+  padding: 0;
+}
+.fb-navigation li {
+  list-style-type: none;
+  display: inline-block;
+  margin-right: 2rem;
+}
+.fb-navigation a {
+  color: #fff;
+}
+li.fb-navigation-mode {
+  float: right;
+  margin-right: 0;
+  margin-left: 2rem;
+}
+.fb-navigation-current {
+  color: #fff;
+  font-weight: bold;
+  font-size: 125%;
+}
+</style>
 {% endblock %}

@@ -190,12 +190,17 @@
         {
           "_id": "admin.instance--instance--delete",
           "_type": "button",
+          "disabled": {
+            "identifier": "deletable",
+            "negated": true,
+            "operator": "defined"
+          },
           "name": "delete-instance",
           "value": "yes",
           "html": "Delete instance",
           "classes": "fb-action--delete",
           "show": {
-            "identifier": "deletable",
+            "identifier": "discreteInstance",
             "operator": "defined"
           }
         }

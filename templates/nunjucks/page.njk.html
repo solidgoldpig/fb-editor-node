@@ -4,14 +4,14 @@
 {% endif %}
 {% extends template %}
 
-{% block beforeContent %}
+{% block header %}
 {% if page.EDITMODE %}
 {% if page.EDITMODE == "preview" %}
-<div class="PreviewSummary govuk-prose-scope" role="group" aria-labelledby="preview-summary-heading" tabindex="-1">
-<p class="PreviewSummary__heading" id="preview-summary-heading">
+<div class="PreviewSummary-container">
+<div class="PreviewSummary govuk-width-container govuk-body-m" role="group" aria-labelledby="preview-summary-heading" tabindex="-1">
+{# <p class="PreviewSummary__heading" id="preview-summary-heading">
 <span data-block-name="PreviewSummary__heading">Preview mode</span>
- &nbsp;&nbsp;&nbsp;<a class="xbutton" title="Form will advance to the next page that can be displayed given input data" href="/what?">(Exit)</a>
-</p>
+</p> #}
 <div class="PreviewSummary__links">
 {% if page.preview.previous %}
 <p class="fb-preview-previous"><a href="{{ page.preview.previous.url }}"><span class="fb-preview-direction">Previous page</span> {{ page.preview.previous.title | safe }}</a></p>
@@ -21,19 +21,25 @@
 {% endif %}
 </div>
 </div>
+</div>
 {% endif %}
-{% else %}
-{{ super() }}
 {% endif %}
+  {{ govukHeader({
+    homepageUrl: '/',
+    serviceName: 'Service name',
+    serviceUrl: '/'
+    })
+  }}
 {% endblock %}
 
 {% block bodyEnd %}
 {{ super() }}
 <style>
+.PreviewSummary-container {
+  background-color: rgba(43,140,196, 0.375);
+}
 .PreviewSummary{
-  border:solid 0.25rem #000;
-  padding: 0.5rem 1rem 1rem;
-  margin: 1rem 0 0;
+  padding: 0.5rem 0;
 }
 .govuk-prose-scope .PreviewSummary__heading{
   font-weight: bold;

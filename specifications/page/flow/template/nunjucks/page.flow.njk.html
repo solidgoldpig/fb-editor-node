@@ -23,8 +23,20 @@ body {
   background: #dee0e2 !important;
 }
 
-.govuk-width-container {
-  margin: 0;;
+.fb-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.fb-navigation .govuk-width-container {
+  margin: 0 auto;
+}
+
+.govuk-skip-link + .govuk-width-container {
+  margin: 3rem 0 0;
 }
 
 .fb-flow-wrapper {
