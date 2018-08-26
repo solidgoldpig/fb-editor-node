@@ -4,120 +4,25 @@
 {% endif %}
 {% extends template %}
 
-{% block header %}
-{% if page.EDITMODE %}
-{% if page.EDITMODE == "preview" %}
-<div class="PreviewSummary-container">
-<div class="PreviewSummary govuk-width-container govuk-body-m" role="group" aria-labelledby="preview-summary-heading" tabindex="-1">
-{# <p class="PreviewSummary__heading" id="preview-summary-heading">
-<span data-block-name="PreviewSummary__heading">Preview mode</span>
-</p> #}
-<div class="PreviewSummary__links">
-{% if page.preview.previous %}
-<p class="fb-preview-previous"><a href="{{ page.preview.previous.url }}"><span class="fb-preview-direction">Previous page</span> {{ page.preview.previous.title | safe }}</a></p>
-{% endif %}
-{% if page.preview.next %}
-<p class="fb-preview-next"><a href="{{ page.preview.next.url }}"><span class="fb-preview-direction">Next page</span> {{ page.preview.next.title | safe }}</a></p>
-{% endif %}
-</div>
-</div>
-</div>
-{% endif %}
-{% endif %}
-  {{ govukHeader({
-    homepageUrl: '/',
-    serviceName: 'Service name',
-    serviceUrl: '/'
-    })
-  }}
-{% endblock %}
+
+
 
 {% block bodyEnd %}
 {{ super() }}
-<style>
-.PreviewSummary-container {
-  background-color: rgba(43,140,196, 0.375);
-}
-.PreviewSummary{
-  padding: 0.5rem 0;
-}
-.govuk-prose-scope .PreviewSummary__heading{
-  font-weight: bold;
-  font-size:0.75rem;
-  margin:0 0 0.5rem;
-}
-.PreviewSummary__links{
-  margin:0;
-  width:100%;
-  display:table
-}
-.PreviewSummary__links p{
-  float:left;
-  width:50%;
-  position:relative;
-  margin:0;
-  font-size: 1rem;
-}
-.PreviewSummary__links a{
-  padding-left:2rem;
-  position:relative;
-  z-index:1;
-}
-.PreviewSummary__links p.fb-preview-next{
-  float:right;
-  text-align:right;
-}
-.PreviewSummary__links .fb-preview-next a{
-  padding:0 2rem 0 0;
-}
-.PreviewSummary__links span{
-  position:absolute;
-  left:-9999px;
-  width:0;
-  height:0;
-  overflow:hidden;
-}
-.PreviewSummary__links p::before{
-  color:#2b8cc4;
-  font-size:4rem;
-  position:absolute;
-  top: 0;
-}
-.PreviewSummary__links .fb-preview-previous::before{
-  left:0;
-  content:'‹';
-}
-.PreviewSummary__links .fb-preview-next{
-  float:right;
-}
-.PreviewSummary__links .fb-preview-next::before{
-  right:0;
-  content:'›';
-}
-</style>
 <script src="/assets/vendor/shortcuts/shortcuts.v.2.0.1.js"></script>
 <script>
 if (window.Shortcut) {
+    const keyChord = 'shift+alt+'
+    const addShortcut = (char, fn) => {
+       window.Shortcut.add(`${keyChord}${char}`, fn)
+    }
     const href = document.location.href.replace(/^https{0,1}:\/\/[^/]+/, '')
     const modeNav = (stub) => {
-      const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
-      let url = urlLink ? urlLink.href : undefined
-      if (!url) {
-        url = href.replace(/\/(edit|instance|preview)/, '')
-        if (url.startsWith('/admin')) {
-          return
-        }
-      }
-      url = url.replace(/^https{0,1}:\/\/[^/]+/, '')
-      url = url.replace(/\/$/, '')
-      if (!url && !stub) {
-        url = '/'
-      }
-      const newHref = `${url}${stub ? `/${stub}` : ''}`
-      if (href === newHref) {
+      const urlLink = document.querySelector(`.fb-navigation-${stub} a`)
+      if (!urlLink) {
         return
       }
-      document.location.href =  newHref
+      document.location.href = urlLink.getAttribute('href')
     }
     const upNav = (type) => {
       if (document.location.href.match(/\admin\/instance\/.+?\/.+/)) {
@@ -130,6 +35,7 @@ if (window.Shortcut) {
       }
       let newHref
       if (type === 'top') {
+        // return modeNav('instance')
         newHref = urlLinks[0].href
       } else {
         newHref = urlLinks[urlLinks.length - 1].href
@@ -137,48 +43,51 @@ if (window.Shortcut) {
       document.location.href = newHref
     }
     if (!href.includes('/flow')) {
-      window.Shortcut.add("meta+f", () => {
+      addShortcut('f', () => {
         document.location.href = '/admin/flow'
       })
     }
     const flowNav = (direction) => {
-      const links = [].slice.call(document.querySelectorAll('[data-block-id="admin.instance--navigation"] a'))
-      let index = direction === 'next' ? 1 : 0
-      const linkElement = links[index]
-      if (!linkElement) {
-        return
+      const link = document.querySelector(`.fb-preview-${direction} a`)
+      if (link) {
+        document.location.href = link.getAttribute('href')
       }
-      let newHref = linkElement.href
-      if (newHref.includes('/dev/null')) {
-        return
-      }
-      document.location.href = newHref
+      // let index = direction === 'next' ? 1 : 0
+      // const linkElement = links[index]
+      // if (!linkElement) {
+      //   return
+      // }
+      // let newHref = linkElement.href
+      // if (newHref.includes('/dev/null')) {
+      //   return
+      // }
+      // document.location.href = newHref
     }
     if (!href.startsWith('/admin') || href.includes('instance')) {
       const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
       const url = urlLink ? urlLink.href : undefined
-      window.Shortcut.add("meta+u", () => {
-        modeNav()
+      addShortcut('u', () => {
+        modeNav('live')
       })
-      window.Shortcut.add("meta+i", () => {
+      addShortcut('i', () => {
         modeNav('instance')
       })
-      window.Shortcut.add("meta+e", () => {
+      addShortcut('w', () => {
         modeNav('edit')
       })
-      window.Shortcut.add("meta+p", () => {
-        // modeNav('preview')
+      addShortcut('p', () => {
+        modeNav('preview')
       })
-      window.Shortcut.add("meta+t", () => {
+      addShortcut('t', () => {
         upNav('top')
       })
-      window.Shortcut.add("meta+up", () => {
+      addShortcut('up', () => {
         upNav()
       })
-      window.Shortcut.add("meta+left", () => {
+      addShortcut('left', () => {
         flowNav('previous')
       })
-      window.Shortcut.add("meta+right", () => {
+      addShortcut('right', () => {
         flowNav('next')
       })
     }

@@ -5,8 +5,8 @@
 
 <style>
 
-main.govuk-main-wrapper ,
-[data-block-id] {
+/* [data-block-id] */
+main.govuk-main-wrapper {
   position: relative;
 }
 
@@ -22,6 +22,32 @@ main.govuk-main-wrapper ,
   height: 4rem;
   z-index: 99999999;
 }
+.govuk-fieldset,
+.fb-block-radios,
+.fb-block-checkboxes,
+.fb-block-date,
+.fb-block-select {
+  position: relative;
+}
+.fb-block-instance.fb-block-edit-container {
+  margin-left: -5rem;
+}
+.fb-block-instance .fb-block-edit {
+  font-size: 1.325rem;
+}
+
+.govuk-fieldset > .fb-block-edit-container,
+.govuk-date-input > .fb-block-edit-container {
+  top: 0;
+}
+.govuk-checkboxes .fb-block-edit-container,
+.govuk-radios .fb-block-edit-container {
+  margin-left: -6rem;
+}
+.govuk-fieldset__legend + div > .fb-block-edit-container {
+  display: none;
+}
+
 .fb-block-edit {
   position: absolute;
   font-size: 1.5rem;
@@ -43,14 +69,29 @@ a:hover .fb-block-edit,
   background-color: #005ea5 !important;
   color: #fff !important;
 }
+.fb-flow-wrapper .fb-block-edit {
+  visibility: hidden;
+}
 h2 .fb-block-edit,
-.fb-hover > .fb-block-edit-container > .fb-block-edit {
-  xvisibility: visible;
+.fb-flow-wrapper .fb-hover > .fb-block-edit-container > .fb-block-edit {
+  visibility: visible;
 }
 h2 .fb-block-edit-container {
   margin-top: 0.25rem;
 }
 
+.fb-repeatable-item {
+  xoutline: solid 1px #000;
+  box-shadow:
+    1px 1px 0px 0px #fff,
+    2px 2px 0px 0px #000,
+    3px 3px 0px 0px #fff,
+    4px 4px 0px 0px #000,
+    5px 5px 0px 0px #fff,
+    6px 6px 0px 0px #000,
+    7px 7px 0px 0px #fff,
+    8px 8px 0px 0px #000;
+}
 </style>
 
 <script>
@@ -84,20 +125,22 @@ const addBlockHover = (blocks, className, targetClass) => {
       if (!block) { return }
       block.className = block.className.replace(hoverRegex, '')
     }
-    block.addEventListener('mouseenter', () => {
+    block.addEventListener('mouseover', (e) => {
       let previousHover = document.querySelector('.' + className)
       if (previousHover) {
         currentHover.push(previousHover)
         removeHover(previousHover)
       }
       addHover(block, true)
+      e.stopPropagation()
     })
-    block.addEventListener('mouseleave', () => {
+    block.addEventListener('mouseout', (e) => {
       removeHover(block, true)
       const previousHover = currentHover.shift()
       if (previousHover) {
         addHover(previousHover)
       }
+      e.stopPropagation()
     })
   })
 }
@@ -106,7 +149,10 @@ editBlocks.forEach(block => {
   const blockId = block.getAttribute('data-block-id')
   const blockProperty = block.getAttribute('data-block-property')
   const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
-  block.insertAdjacentHTML('afterbegin', '<div class="fb-block-edit-container"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>✎</span></a></div>')
+  const blockLevel = block.classList.contains('govuk-form-group')
+  const blockText = blockLevel ? '{}' : '✎'
+  const blockClass = blockLevel ? ' fb-block-instance' : ''
+  block.insertAdjacentHTML('afterbegin', '<div class="fb-block-edit-container' + blockClass + '"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>' + blockText + '</span></a></div>')
 })
 addBlockHover(editBlocks, 'fb-hover')
 const stepBlocks = [].slice.call(document.querySelectorAll('.fb-page-steps'))

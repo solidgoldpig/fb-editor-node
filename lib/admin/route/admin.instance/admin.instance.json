@@ -41,25 +41,6 @@
             "identifier": "usedBy",
             "operator": "defined"
           }
-        },
-        {
-          "_id": "admin.instance--navigation",
-          "_type": "content",
-          "html": "{navigationPrevious}\n\n{navigationNext}",
-          "show": {
-            "identifier": "navigationNext",
-            "operator": "defined"
-          }
-        },
-        {
-          "_id": "admin.instance--url",
-          "_type": "content",
-          "html": "- URL [{instanceUrl}]({instanceUrl})\n- [Editable mode]({instanceUrl}/edit)",
-          "htmlOverspill": "\n- [Preview mode]({instanceUrl}/preview)",
-          "show": {
-            "identifier": "instanceUrl",
-            "operator": "defined"
-          }
         }
       ]
     },
@@ -106,20 +87,29 @@
       }
     },
     {
-      "_id": "admin.instance--properties.html",
-      "_type": "details",
-      "summary": "HTML properties",
-      "show": {
-        "identifier": "htmlProperties",
-        "operator": "defined"
-      }
-    },
-    {
       "_id": "admin.instance--properties.logic",
       "_type": "details",
       "summary": "Conditional properties",
       "show": {
         "identifier": "logicProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.userinput",
+      "_type": "details",
+      "summary": "User input properties",
+      "show": {
+        "identifier": "userinputProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.html",
+      "_type": "details",
+      "summary": "HTML properties",
+      "show": {
+        "identifier": "htmlProperties",
         "operator": "defined"
       }
     },

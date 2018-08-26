@@ -25,6 +25,11 @@
       }
     },
     {
+      "_id": "admin.instance.property--previouspage",
+      "name": "previouspage",
+      "_type": "hidden"
+    },
+    {
       "_id": "admin.instance.property--hidden",
       "name": "hiddenValue",
       "_type": "hidden",

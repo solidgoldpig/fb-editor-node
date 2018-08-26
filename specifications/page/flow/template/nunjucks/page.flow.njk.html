@@ -334,7 +334,86 @@ footer.govuk-footer {
   margin-top: -40px;
 }
 
+#minimapContainer {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3rem;
+  padding: 1rem 0 1rem 5rem;
+  background: #005ea5;
+  background: #ccc;
+}
 
+#minimapContainer .govuk-main-wrapper {
+  position: relative;
+  z-index: 1001;
+  transform-origin: top left;
+  transform: scale(0.05);
+}
+
+#minimapLocation {
+  position: absolute;
+  background: rgba(43,140,196, 1);
+  background: #dee0e2;
+  top: 0.5rem;
+  padding: 0.5rem 0 0.25rem;
+}
   {# transform-origin: top left; #}
 </style>
+<script>
+const main = document.querySelector('.govuk-main-wrapper')
+var minimap = main.cloneNode(true)
+{# [].forEach.call(minimap.getElementsByTagName('a'), function(link) {
+  link.href = 'javascript:;'
+}); #}
+const minimapContainer = document.createElement('div')
+minimapContainer.id = 'minimapContainer'
+const minimapLocation = document.createElement('div')
+minimapLocation.id = 'minimapLocation'
+
+minimapContainer.appendChild(minimap)
+minimapContainer.appendChild(minimapLocation)
+document.body.appendChild(minimapContainer)
+
+const scale = 0.05
+const flowScale = 0.375
+
+
+main.style.maxHeight = main.scrollHeight * flowScale + 'px'
+
+const windowWidth = document.documentElement.clientWidth
+const windowHeight = document.documentElement.clientHeight
+const mainScrollWidth = main.scrollWidth
+const minimapWidth = minimap.offsetWidth
+const ratio = windowWidth/mainScrollWidth
+const mapWidth = minimap.scrollWidth * scale * ratio
+minimapLocation.style.width = mapWidth + 'px'
+{# minimapLocationHeight = main.scrollHeight * flowScale * ratio #}
+minimapLocationHeight = document.documentElement.scrollHeight * scale
+minimapLocation.style.height = minimapLocationHeight + 'px'
+minimapContainer.style.height = minimapLocationHeight + 'px'
+
+main.style.maxHeight = parseInt(main.style.maxHeight, 10) + minimapLocationHeight + 'px'
+
+
+const updateMinimapLocation = () => {
+  const val = document.documentElement.scrollLeft
+  let locationVal = val * scale
+  minimapLocation.style.marginLeft = locationVal + 'px'
+}
+minimap.onclick = function(e) {
+  const minimapLeft = minimap.offsetLeft
+  const minimapWidth = minimap.offsetWidth
+
+  let val = (1/scale) * (e.clientX - minimapLeft) - 200 //innerWidth/2
+  if (val < 0) {
+    val = 0
+  }
+  document.documentElement.scrollLeft = val
+  updateMinimapLocation()
+}
+window.onscroll = updateMinimapLocation
+</script>
 {% endblock %}
