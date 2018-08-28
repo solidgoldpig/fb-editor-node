@@ -1,6 +1,6 @@
 {
   "_id": "admin.instance.property",
-  "_type": "page.admin.property",
+  "_type": "page.form",
   "_singlequestion": true,
   "_template": "admin-page.property",
   "url": "/instance/:_id/:parentProperty?/:property",
@@ -14,6 +14,15 @@
       "label": "{propertyTitle}",
       "hint": "{propertyDescription}",
       "xhint": "{inheritedValue}"
+    },
+    {
+      "_id": "admin.instance.property--update-instructions",
+      "_type": "content",
+      "html": "{property, select, other{If you move or delete a component, click ‘Update components’ to confirm} steps{If you move or delete a step, click ‘Update steps’ to confirm}}",
+      "show": {
+        "identifier": "updateInstructions",
+        "operator": "defined"
+      }
     },
     {
       "_id": "admin.instance.property--source",
@@ -61,12 +70,12 @@
             {
               "_id": "admin.instance.property--booleanConditionalOptions-true",
               "value": "true",
-              "label": "Always"
+              "label": "Yes"
             },
             {
               "_id": "admin.instance.property--booleanConditionalOptions-false",
               "value": "false",
-              "label": "Never"
+              "label": "No"
             },
             {
               "_id": "admin.instance.property--booleanConditionalOptions-condition",

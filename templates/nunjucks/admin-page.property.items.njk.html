@@ -36,8 +36,9 @@ const initDragula = (selector, itemSelector, $valueElement) => {
 const $hiddenValue = document.querySelector('[name=hiddenValue]')
 if ($hiddenValue.value) {
   const $valueElementGroup = document.querySelector('[data-block-id="admin.instance.property--value"]')
-  $valueElementGroup.style = 'display: none'
+  //$valueElementGroup.style = 'display: none'
   const $valueElement = $valueElementGroup.querySelector('textarea')
+  $valueElement.style = 'display: none'
   //const $parent = $valueElementGroup.parentNode
   const hiddenValue = JSON.parse($hiddenValue.value)
   if (Array.isArray(hiddenValue)) {

@@ -9,7 +9,7 @@
       "_type": "text",
       "name": "_id",
       "label": "Id",
-      "hint": "Unique value used to identify the {instanceCategory} {idPrefixType, select, stub{- please add to the starter value provided} auto{- this value has been created automatically, but feel free to change it} other{}}",
+      "hint": "Unique value to identify the {instanceCategory} {idPrefixType, select, stub{- please add to the starter value provided} auto{- feel free to change the suggested value} other{}}",
       "validation": {
         "pattern": "^[\\d\\w\\.\\-_]+$",
         "required": {
