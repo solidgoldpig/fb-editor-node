@@ -3,6 +3,12 @@
 {% block bodyEnd %}
 {{ super() }}
 
+<style>
+.conditions-block .conditions-block {
+  border: solid 2px #000;
+  padding: 1rem;
+}
+</style>
 <script>
 
 //(() => {
@@ -97,36 +103,101 @@
     return answerElement
   }
 
-  const createCondition = (condition, conditionId = 0) => {
+  const createConditions = (conditions, conditionId = '', type, str) => {
+    let conditionsId = conditionId ? conditionId + '.' : ''
+    conditionsId += type
+    let conditionIdCounter = 0
+    const conditionParts = conditions.map(condition => {
+      const newConditionId = `${conditionsId}[${conditionIdCounter}]`
+      conditionIdCounter++
+      return createCondition(condition, newConditionId)
+    })
+    return '<div class="conditions-block">' + str + '<br>' + conditionParts.join('') + '</div>'
+  }
+
+  const createCondition = (condition, conditionId = '') => {
     if (typeof condition !== 'object') {
       return ''
     }
     condition = JSON.parse(JSON.stringify(condition))
+    const {all, any, exactly} = condition
+    if (all) {
+      const conditions = createConditions(all, conditionId, 'all', 'All these must be met')
+      return  conditions
+    }
+    if (any) {
+      const conditions = createConditions(any, conditionId, 'any', 'At least one of these must be met')
+      return conditions
+    }
+    if (exactly) {
+      const conditions = createConditions(exactly, conditionId, 'exactly', 'One of these must be met')
+      return conditions
+    }
+    console.log('conditionId', conditionId)
     const {identifier, operator, value, negated} = condition
     const enums = allowableIdentifiers.filter(item => item.name === identifier).map(item => item.enums)[0]
     condition.enums = enums
     if (identifier !== undefined) {
-      return `<p>${createAnswer(condition)} ${createIdentifier(condition, conditionId)} ${createOperator(condition, conditionId)} ${createValue(condition, conditionId)}</p>`
+      return `<p class="condition-individual">${createAnswer(condition)} ${createIdentifier(condition, conditionId)} ${createOperator(condition, conditionId)} ${createValue(condition, conditionId)}</p>`
     } else {
-      // 
+      
     }
   }
 
   // const valueGroup = document.querySelector('[data-block-id="admin.instance.property--value"]')
   // valueGroup.classList.add('js-hidden')
 
-  booleanConditional.insertAdjacentHTML('afterend', '<div id="conditions"></div>')
+  booleanConditional.insertAdjacentHTML('afterend', '<div id="conditions"></div><p id="conditionsToggle"></p>')
 
   const conditionContainer = document.querySelector('#conditions')
+  const conditionsToggler = document.querySelector('#conditionsToggle')
+
+
+  let valueControl
+
+  let jsonMode = false
+  let uiImpossible = false
 
   const updateConditions = (condition) => {
-    conditionContainer.innerHTML = createCondition(condition)
+    const renderedCondition = createCondition(condition)
+    if (renderedCondition !== undefined) {
+      uiImpossible = false
+      conditionContainer.innerHTML = renderedCondition
+      showJSONMode(jsonMode)
+    } else {
+      uiImpossible = true
+      showJSONMode(true)
+    }
   }
+  const showJSONMode = (showJSON) => {
+    jsonMode = !!showJSON
+    let uiDisplay = ''
+    let jsonDisplay = 'none'
+    let toggleLabel = 'Show JSON'
+    if (showJSON) {
+      uiDisplay = 'none'
+      jsonDisplay = ''
+      toggleLabel = 'Show GUI'
+    }
+    if (uiImpossible) {
+      toggleLabel = 'Cannot show JSON structure through UI'
+    }
+    conditionContainer.style.display = uiDisplay
+    valueControl.style.display = jsonDisplay
+    conditionsToggler.innerHTML = toggleLabel
+  }
+  conditionsToggler.addEventListener('click', () => {
+    if (uiImpossible) {
+      return
+    }
+    showJSONMode(!jsonMode)
+  })
 
   conditionContainer.addEventListener('change', function(e) {
     const target = e.target
     let targetValue = target.value
     let [name, destination] = target.name.split('===')
+    console.log({destination})
     const valueDestination = value
     if (name === 'identifier') {
       delete value.operator
@@ -180,8 +251,14 @@
     })
   })
 
-  const valueControl = formElements.value
-  valueControl.style.display = 'none'
+  valueControl = formElements.value
+  valueControl.addEventListener('change', () => {
+    value = JSON.parse(valueControl.value)
+    updateConditions(value)
+  })
+
+
+  conditionContainer.parentNode.insertBefore(valueControl, conditionContainer.nextSibling)
 
   let value = valueControl.value ? JSON.parse(valueControl.value) : valueControl.value
 
