@@ -5,30 +5,24 @@
 
 <style>
 .booleanConditionalOptions {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .condition-individual {
   background: #fff;
-  padding: 1rem;
   position: relative;
+}
+.conditions-block .condition-individual {
+  padding: 1rem;
 }
 .fb-action-secondary:hover {
   text-decoration: underline;
 }
 
 .fb-action--add-condition {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 0;
 }
 .fb-action--remove-condition {
-  font-size: 75%;
-  margin: 0;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  visibility: hidden;
-}
-.fb-action--convert-condition {
   font-size: 75%;
   margin: 0;
   position: absolute;
@@ -36,26 +30,34 @@
   right: 1rem;
   visibility: hidden;
 }
-.condition-individual:hover .fb-action-secondary {
+#conditions .fb-action--revert-conditions,
+#conditions .fb-action--convert-condition {
+  font-size: 75%;
+  margin: 0;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  visibility: hidden;
+}
+#conditions .conditions-block:hover > .fb-action--revert-conditions,
+#conditions .condition-individual:hover > .fb-action-secondary {
   visibility: visible;
+}
+.fb-action-secondary:active {
+  margin-top: 2px;
 }
 .conditions-block {
   background: #eee;
-  padding: 1rem;
+  padding: 1rem 1rem 0.25rem 1rem;
+  position: relative;
 }
 .conditions-block .conditions-block {
   background: #ddd;
 }
-.conditions-block .conditions-block {
+.conditions-block .conditions-block .conditions-block {
   background: #ccc;
 }
-.Xconditions-block .conditions-block {
-  border: solid 2px #000;
-  padding: 1rem;
-}
-.conditions-subconditions {
-  xborder: solid 2px #999;
-}
+
 .conditions-delimiter {
   margin: 1rem 0;
 }
@@ -190,15 +192,17 @@
     const conditionParts = conditions.map(condition => {
       const newConditionId = `${conditionsId}[${conditionIdCounter}]`
       conditionIdCounter++
-      return createCondition(condition, newConditionId)
+      const noDelete = conditions.length === 1
+      return createCondition(condition, newConditionId, noDelete)
     })
+    const conditionsRevert = conditions.length === 1 ? '<p class="govuk-button fb-action-secondary fb-action--revert-conditions condition-action condition-revert" data-destination="' + conditionsId + '" data-action="revert">Convert to single condition</p>' : ''
     const conditionsType = createConditionsType(type, conditionId)
     const addCondition = '<p class="govuk-button fb-action-secondary fb-action--add fb-action--add-condition conditionsAdd" data-action="add" data-destination="' + conditionsId + '">Add condition</p>'
-    return '<div class="conditions-block" >' + conditionsType + '<div class="conditions-subconditions">' + conditionParts.join('<p class="conditions-delimiter">' + conditionsDelimiter[type] + '</p>') + addCondition + '</div></div>'
+    return '<div class="conditions-block" >' + conditionsType + conditionsRevert + '<div class="conditions-subconditions">' + conditionParts.join('<p class="conditions-delimiter">' + conditionsDelimiter[type] + '</p>') + addCondition + '</div></div>'
   }
 
   let valueControl
-  const createCondition = (condition, conditionId = '') => {
+  const createCondition = (condition, conditionId = '', noDelete) => {
     if (typeof condition !== 'object') {
       valueControl.style.display = 'none'
       return ''
@@ -219,7 +223,7 @@
     const enums = allowableIdentifiers.filter(item => item.name === identifier).map(item => item.enums)[0]
     condition.enums = enums
     let conditionRemove = ''
-    if (conditionId !== '') {
+    if (conditionId !== '' && !noDelete) {
       conditionRemove = '<p class="govuk-button fb-action-secondary fb-action--remove-condition condition-action condition-remove" data-destination="' + conditionId + '" data-action="remove">Delete</p>'
     }
     let conditionConvert = '<p class="govuk-button fb-action-secondary fb-action--convert-condition condition-action condition-convert" data-destination="' + (conditionId ? conditionId : 'TOP') + '" data-action="convert">Convert to multiple conditions</p>'
@@ -304,9 +308,16 @@
         delete destination[key]
       })
       destination.all = [destinationValue]
-
-      //console.log('convert', {targetAction, targetDestination, destination})
-    }
+    } else if (targetAction === 'revert') {
+      let destinationValue = getValueDestination(targetDestination)
+      let destination = getValueDestination(targetDestination.replace(/\.[^.]+$/, ''))
+      Object.keys(destination).forEach(key => {
+        delete destination[key]
+      })
+      Object.keys(destinationValue).forEach(key => {
+        destination[key] = destinationValue[key]
+      })
+    } 
     updateConditions(value)
   })
   conditionContainer.addEventListener('change', function(e) {
