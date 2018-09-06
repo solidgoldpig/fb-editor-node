@@ -131,7 +131,7 @@
       }
       let enumsMatch = true
       if (enums) {
-        enumsMatch = operator.operator === 'is' || operator.operator === 'equals' || operator.operator === 'defined'
+        // enumsMatch = operator.operator === 'is' || operator.operator === 'equals' || operator.operator === 'defined'
       }
       let typeMatch = operator.type === 'any' || operator.type === type
       return typeMatch && enumsMatch
@@ -147,8 +147,8 @@
     }
     let valueElement
     let valueName = `value===${conditionId}`
-    if (enums) {
-     valueElement = createSelect(valueName, enums, value)
+    if (enums && (operator === 'is' || operator === 'equals' || operator === 'defined')) {
+      valueElement = createSelect(valueName, enums, value)
     } else {
       valueElement = `<input type="text" name="${valueName}" value="${value === undefined ? '' : value}" class="govuk-input" style="width:10em;">`
     }
