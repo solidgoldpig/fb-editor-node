@@ -4,9 +4,67 @@
 {{ super() }}
 
 <style>
+.booleanConditionalOptions {
+  margin-bottom: 2rem;
+}
+.condition-individual {
+  background: #fff;
+  padding: 1rem;
+  position: relative;
+}
+.fb-action-secondary:hover {
+  text-decoration: underline;
+}
+
+.fb-action--add-condition {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+.fb-action--remove-condition {
+  font-size: 75%;
+  margin: 0;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  visibility: hidden;
+}
+.fb-action--convert-condition {
+  font-size: 75%;
+  margin: 0;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  visibility: hidden;
+}
+.condition-individual:hover .fb-action-secondary {
+  visibility: visible;
+}
+.conditions-block {
+  background: #eee;
+  padding: 1rem;
+}
 .conditions-block .conditions-block {
+  background: #ddd;
+}
+.conditions-block .conditions-block {
+  background: #ccc;
+}
+.Xconditions-block .conditions-block {
   border: solid 2px #000;
   padding: 1rem;
+}
+.conditions-subconditions {
+  xborder: solid 2px #999;
+}
+.conditions-delimiter {
+  margin: 1rem 0;
+}
+
+#conditionsToggle {
+  text-align: right;
+}
+#conditionsToggle .fb-action-secondary {
+  font-size: 75%;
 }
 </style>
 <script>
@@ -99,46 +157,74 @@
 
   const createAnswer = (condition) => {
     const {identifier} = condition
-    let answerElement = identifier.endsWith('[*]') ? 'any answer for' : 'the answer for'
+    let answerElement = identifier && identifier.endsWith('[*]') ? 'any answer for' : 'the answer for'
     return answerElement
   }
 
-  const createConditions = (conditions, conditionId = '', type, str) => {
-    let conditionsId = conditionId ? conditionId + '.' : ''
-    conditionsId += type
+  const conditionsLabel = {
+    all: 'all these conditions are met',
+    any: 'at least one of these conditons is met',
+    exactly: 'one of these conditions is met'
+  }
+  const conditionsDelimiter = {
+    all: 'and',
+    any: 'and/or',
+    exactly: 'or'
+  }
+  const conditionsType = Object.keys(conditionsLabel)
+
+  const createConditionsType = (currentType, conditionId) => {
+    let conditionsTypeName = `conditionsType===${conditionId}`
+    let enums = conditionsType.map(conditionType => {
+      return {
+        label: conditionsLabel[conditionType],
+        value: conditionType
+      }
+    })
+    let valueElement = createSelect(conditionsTypeName, enums, currentType)
+    return valueElement
+  }
+  const createConditions = (conditions, conditionId = '', type) => {
+    let conditionsId = conditionId + '.' + type
     let conditionIdCounter = 0
     const conditionParts = conditions.map(condition => {
       const newConditionId = `${conditionsId}[${conditionIdCounter}]`
       conditionIdCounter++
       return createCondition(condition, newConditionId)
     })
-    return '<div class="conditions-block">' + str + '<br>' + conditionParts.join('') + '</div>'
+    const conditionsType = createConditionsType(type, conditionId)
+    const addCondition = '<p class="govuk-button fb-action-secondary fb-action--add fb-action--add-condition conditionsAdd" data-action="add" data-destination="' + conditionsId + '">Add condition</p>'
+    return '<div class="conditions-block" >' + conditionsType + '<div class="conditions-subconditions">' + conditionParts.join('<p class="conditions-delimiter">' + conditionsDelimiter[type] + '</p>') + addCondition + '</div></div>'
   }
 
+  let valueControl
   const createCondition = (condition, conditionId = '') => {
     if (typeof condition !== 'object') {
+      valueControl.style.display = 'none'
       return ''
     }
     condition = JSON.parse(JSON.stringify(condition))
     const {all, any, exactly} = condition
     if (all) {
-      const conditions = createConditions(all, conditionId, 'all', 'All these must be met')
-      return  conditions
+      return createConditions(all, conditionId, 'all')
     }
     if (any) {
-      const conditions = createConditions(any, conditionId, 'any', 'At least one of these must be met')
-      return conditions
+      return createConditions(any, conditionId, 'any')
     }
     if (exactly) {
-      const conditions = createConditions(exactly, conditionId, 'exactly', 'One of these must be met')
-      return conditions
+      return createConditions(exactly, conditionId, 'exactly')
     }
-    console.log('conditionId', conditionId)
+    //console.log('conditionId', conditionId)
     const {identifier, operator, value, negated} = condition
     const enums = allowableIdentifiers.filter(item => item.name === identifier).map(item => item.enums)[0]
     condition.enums = enums
-    if (identifier !== undefined) {
-      return `<p class="condition-individual">${createAnswer(condition)} ${createIdentifier(condition, conditionId)} ${createOperator(condition, conditionId)} ${createValue(condition, conditionId)}</p>`
+    let conditionRemove = ''
+    if (conditionId !== '') {
+      conditionRemove = '<p class="govuk-button fb-action-secondary fb-action--remove-condition condition-action condition-remove" data-destination="' + conditionId + '" data-action="remove">Delete</p>'
+    }
+    let conditionConvert = '<p class="govuk-button fb-action-secondary fb-action--convert-condition condition-action condition-convert" data-destination="' + (conditionId ? conditionId : 'TOP') + '" data-action="convert">Convert to multiple conditions</p>'
+    if (identifier !== 'undefined') {
+      return `<div class="condition-individual">${createAnswer(condition)} ${createIdentifier(condition, conditionId)} ${createOperator(condition, conditionId)} ${createValue(condition, conditionId)}${conditionRemove}${conditionConvert}</div>`
     } else {
       
     }
@@ -147,13 +233,10 @@
   // const valueGroup = document.querySelector('[data-block-id="admin.instance.property--value"]')
   // valueGroup.classList.add('js-hidden')
 
-  booleanConditional.insertAdjacentHTML('afterend', '<div id="conditions"></div><p id="conditionsToggle"></p>')
+  booleanConditional.insertAdjacentHTML('afterend', '<div id="conditions"></div><p id="conditionsToggle"><span class="govuk-button fb-action-secondary"></span></p>')
 
   const conditionContainer = document.querySelector('#conditions')
-  const conditionsToggler = document.querySelector('#conditionsToggle')
-
-
-  let valueControl
+  const conditionsToggler = document.querySelector('#conditionsToggle .fb-action-secondary')
 
   let jsonMode = false
   let uiImpossible = false
@@ -173,11 +256,11 @@
     jsonMode = !!showJSON
     let uiDisplay = ''
     let jsonDisplay = 'none'
-    let toggleLabel = 'Show JSON'
+    let toggleLabel = 'Edit JSON'
     if (showJSON) {
       uiDisplay = 'none'
       jsonDisplay = ''
-      toggleLabel = 'Show GUI'
+      toggleLabel = 'Edit with UI'
     }
     if (uiImpossible) {
       toggleLabel = 'Cannot show JSON structure through UI'
@@ -193,15 +276,48 @@
     showJSONMode(!jsonMode)
   })
 
+  conditionContainer.addEventListener('click', function(e) {
+    const target = e.target
+    let targetDestination = target.getAttribute('data-destination')
+    if (!targetDestination) {
+      return
+    }
+    let targetAction = target.getAttribute('data-action')
+    if (targetAction === 'add') {
+      let destination = getValueDestination(targetDestination)
+      destination.push({})
+    } else if (targetAction === 'remove') {
+      let targetIndex
+      targetDestination = targetDestination.replace(/\[(\d+)\]$/, (m, m1) => {
+        targetIndex = m1
+        return ''
+      })
+      let destination = getValueDestination(targetDestination)
+      destination.splice(targetIndex, 1)
+    } else if (targetAction === 'convert') {
+      if (targetDestination === 'TOP') {
+        targetDestination = ''
+      }
+      let destination = getValueDestination(targetDestination)
+      let destinationValue = JSON.parse(JSON.stringify(destination))
+      Object.keys(destination).forEach(key => {
+        delete destination[key]
+      })
+      destination.all = [destinationValue]
+
+      //console.log('convert', {targetAction, targetDestination, destination})
+    }
+    updateConditions(value)
+  })
   conditionContainer.addEventListener('change', function(e) {
     const target = e.target
     let targetValue = target.value
     let [name, destination] = target.name.split('===')
-    console.log({destination})
-    const valueDestination = value
+    destination = destination || ''
+    let valueDestination = getValueDestination(destination)
     if (name === 'identifier') {
-      delete value.operator
-      delete value.value
+      delete valueDestination.operator
+      delete valueDestination.value
     } else if (name === 'operator') {
       if (targetValue.startsWith('!')) {
         targetValue = targetValue.substr(1)
@@ -212,6 +328,15 @@
       if (targetValue === 'defined' || targetValue === 'isTrue') {
         delete valueDestination.value
       }
+    } else if (name === 'conditionsType') {
+      let currentValue = []
+      conditionsType.forEach(type => {
+        if (valueDestination[type]) {
+          currentValue = valueDestination[type]
+          delete valueDestination[type]
+        }
+      })
+      valueDestination[targetValue] = currentValue
     }
     if (name === 'value' && targetValue !== '') {
       let valueType = getOperatorProperty(value.operator, 'type')
@@ -262,6 +387,12 @@
 
   let value = valueControl.value ? JSON.parse(valueControl.value) : valueControl.value
 
+  const getValueDestination = (destination) => {
+    let valueDestination
+    eval(`valueDestination = value${destination}`)
+    return valueDestination
+  }
+
   const updateValueControl = (input) => {
     if (input === 'condition') {
       value = value || {identifier: '', operator: ''}
@@ -292,6 +423,8 @@
 
   if (typeof value === 'object') {
     updateConditions(value)
+  } else {
+    valueControl.style.display = 'none'
   }
 //})()
 
