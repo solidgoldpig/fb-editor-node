@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/fb-editor-node",
-  "version": "0.0.57-alpha",
+  "version": "0.0.58-alpha",
   "description": "Form Builder Editor app (Node version)",
   "main": "index.js",
   "repository": {

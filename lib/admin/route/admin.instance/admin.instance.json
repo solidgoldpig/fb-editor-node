@@ -126,6 +126,10 @@
       "_id": "admin.instance--instance",
       "_type": "details",
       "summary": "View raw instance data",
+      "show": {
+        "identifier": "instance",
+        "operator": "defined"
+      },
       "components": [
         {
           "_id": "admin.instance--instance--form",

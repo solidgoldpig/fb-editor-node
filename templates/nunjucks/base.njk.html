@@ -16,8 +16,12 @@
 {% if MODEURL == '/' %}
 {% set MODEURL = '' %}
 {% endif %}
+{% if not page.$autoInjected %}
 {{ navLink('Instance mode', 'instance', 'instance', MODEURL, page.MODE) }}
 {{ navLink('Wysiwyg mode', 'edit', 'edit', MODEURL, page.MODE) }}
+{% else %}
+{# <li>Auto-injected page for {{page._repeatableId }}</li> #}
+{% endif %}
 {{ navLink('Preview mode', 'preview', 'preview', MODEURL, page.MODE) }}
 {{ navLink('Live view', 'live', '', MODEURL, page.MODE) }}
 
