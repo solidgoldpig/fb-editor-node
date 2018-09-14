@@ -10,8 +10,8 @@
   {% if structure.skipped %}…
   {% else %}
   {# 📍 #}
-  {% if structure.currentInstance %}<b class="component--title">{{ structure.title | safe }}</b>
-  {% else %}<a href="{{ structure.url }}" class="component--title">{{ structure.title | safe }}</a>
+  {% if structure.currentInstance and not structure.currentInstanceLink %}<b class="component--title fb-structure-current">{{ structure.title | safe }}</b>
+  {% else %}<a href="{{ structure.url }}" class="component--title{% if structure.currentInstanceLink %} fb-structure-current{% endif %}">{{ structure.title | safe }}</a>
   {% endif %}
   {% if structure.type %}<span class="component--type">{{ structure.type }}</span>{% endif %}
   {% if structure.structure %}
