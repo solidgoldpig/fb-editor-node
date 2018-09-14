@@ -2,26 +2,12 @@
   "_id": "admin.instance",
   "_type": "page.admin",
   "url": "/instance/:_id",
+  "sectionHeading": "{typeTitle}",
   "heading": "{instanceTitle}",
-  "components": [
-    {
+  "components": [{
       "_id": "admin.instance--header",
       "_type": "group",
       "components": [
-        {
-          "_id": "admin.instance--id",
-          "_type": "content",
-          "html": "Id {_id}"
-        },
-        {
-          "_id": "admin.instance--type",
-          "_type": "content",
-          "html": "{instanceCategory, select, undefined{Component} other{{instanceCategory}}} type {instanceType}",
-          "show": {
-            "identifier": "instanceType",
-            "operator": "defined"
-          }
-        },
         {
           "_id": "admin.instance--isa",
           "_type": "content",
@@ -42,7 +28,11 @@
             "operator": "defined"
           }
         }
-      ]
+      ],
+      "show": {
+        "identifier": "tosh",
+        "operator": "defined"
+      }
     },
     {
       "_id": "admin.instance--properties.repeatable",

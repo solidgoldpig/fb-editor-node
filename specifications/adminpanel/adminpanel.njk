@@ -1,0 +1,10 @@
+{% macro adminpanel(data) %}
+<div class="fb-admin-panel {{ data.classes }}">
+{% if data.heading %}
+<h2>{{ data.heading | safe }}</h2>
+{% endif %}
+<div class="fb-admin-panel--content">
+{{ callBlock(data.block)}}
+</div>
+</div>
+{% endmacro %}

@@ -23,7 +23,7 @@
 {% if data.$stepOptionFirst %}<div class="fb-step-option-container">{% endif %}
 <div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}">
 {% if isInnerStepOption %}<div class="fb-step-option-container-inner"></div>{% endif %}
-<div class="fb-step-wrapper">
+<div id="{{ data._id | replace('.', '') }}" class="fb-step-wrapper">
 <div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
 <div class="fb-step-details govuk-prose-scope">
 <h2><span class="fb-page-link-type">Url</span> <a href="{{ data.url }}">{{ data.url }}</a></h2>

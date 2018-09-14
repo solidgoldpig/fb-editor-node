@@ -16,14 +16,16 @@
 {% if MODEURL == '/' %}
 {% set MODEURL = '' %}
 {% endif %}
+<li class="modes"><ul>
+{{ navLink('Live view', 'live', '', MODEURL, page.MODE) }}
+{{ navLink('Preview mode', 'preview', 'preview', MODEURL, page.MODE) }}
 {% if not page.$autoInjected %}
-{{ navLink('Instance mode', 'instance', 'instance', MODEURL, page.MODE) }}
 {{ navLink('Wysiwyg mode', 'edit', 'edit', MODEURL, page.MODE) }}
+{{ navLink('Instance mode', 'instance', 'instance', MODEURL, page.MODE) }}
 {% else %}
 {# <li>Auto-injected page for {{page._repeatableId }}</li> #}
 {% endif %}
-{{ navLink('Preview mode', 'preview', 'preview', MODEURL, page.MODE) }}
-{{ navLink('Live view', 'live', '', MODEURL, page.MODE) }}
+</ul></li>
 
 {% endif %}
 </ul>
@@ -58,32 +60,50 @@
 {% block bodyEnd %}
 {{ super() }}
 <style>
+@media (max-width: 1020px) {
+  .govuk-width-container {
+    margin: 0 50px;
+  }
+}
+
 .fb-navigation {
   background: #005ea5;
   margin: 0;
   padding: 0.5rem;
+  overflow: hidden;
 }
 .fb-navigation ul {
   padding: 0;
 }
 .fb-navigation li {
   list-style-type: none;
-  display: inline-block;
-  margin-right: 2rem;
 }
 .fb-navigation a {
   color: #fff;
-}
-li.fb-navigation-mode {
-  float: right;
-  margin-right: 0;
-  margin-left: 2rem;
 }
 .fb-navigation-current {
   color: #fff;
   font-weight: bold;
   font-size: 125%;
-  margin-top: -0.25rem;
+}
+
+@media (min-width: 40.0625em) {
+  .fb-navigation li {
+    display: inline-block;
+    margin-right: 2rem;
+  }
+  li.modes {
+    float: right;
+    margin-right: 0;
+  }
+  li.fb-navigation-mode {
+    xfloat: right;
+    margin-right: 0;
+    margin-left: 2rem;
+  }
+  .fb-navigation-current {
+    margin-top: -0.25rem;
+  }
 }
 </style>
 <style>
@@ -95,58 +115,76 @@ li.fb-navigation-mode {
 }
 .govuk-prose-scope .PreviewSummary__heading{
   font-weight: bold;
-  font-size:0.75rem;
+  font-size: 0.75rem;
   margin:0 0 0.5rem;
 }
-.PreviewSummary__links{
-  margin:0;
-  width:100%;
-  display:table
+.PreviewSummary__links span {
+  position: absolute;
+  left: -9999px;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
-.PreviewSummary__links p{
-  float:left;
-  width:50%;
-  position:relative;
-  margin:0;
-  font-size: 1rem;
-}
-.PreviewSummary__links a{
-  padding-left:2rem;
-  position:relative;
-  z-index:1;
-  color: #000;
-}
-.PreviewSummary__links p.fb-preview-next{
-  float:right;
-  text-align:right;
-}
-.PreviewSummary__links .fb-preview-next a{
-  padding:0 2rem 0 0;
-}
-.PreviewSummary__links span{
-  position:absolute;
-  left:-9999px;
-  width:0;
-  height:0;
-  overflow:hidden;
-}
-.PreviewSummary__links p::before{
-  color:#2b8cc4;
-  font-size:4rem;
-  position:absolute;
-  top: 0;
-  line-height: 0.325;
-}
-.PreviewSummary__links .fb-preview-previous::before{
-  left:0;
+
+.PreviewSummary__links .fb-preview-previous::before {
   content:'‹';
 }
-.PreviewSummary__links .fb-preview-next{
-  float:right;
+.PreviewSummary__links .fb-preview-next::before {
+  content: '›';
 }
-.PreviewSummary__links .fb-preview-next::before{
-  right:0;
-  content:'›';
+.PreviewSummary__links {
+  margin: 0;
+}
+.PreviewSummary__links p {
+  margin: 0;
+  font-size: 1rem;
+}
+.PreviewSummary__links p::before {
+  color: #2b8cc4;
+  font-size: 2rem;
+  position: relative;
+  top: 0.25rem;
+  line-height: 0.5;
+}
+@media (min-width: 40.0625em) {
+  .PreviewSummary__links {
+    width: 100%;
+    overflow: hidden;
+  }
+  .PreviewSummary__links p {
+    float: left;
+    width: 50%;
+    position: relative;
+  }
+  .PreviewSummary__links a {
+    padding-left: 2rem;
+    position: relative;
+    z-index: 1;
+    color: #000;
+  }
+  .PreviewSummary__links p.fb-preview-next {
+    float: right;
+    text-align: right;
+  }
+  .PreviewSummary__links .fb-preview-next a {
+    padding: 0 2rem 0 0;
+  }
+  .PreviewSummary__links p::before {
+    color: #2b8cc4;
+    font-size: 4rem;
+    position: absolute;
+    top: 0;
+    line-height: 0.325;
+  }
+  .PreviewSummary__links .fb-preview-previous::before {
+    left: 0;
+  }
+  .PreviewSummary__links .fb-preview-next {
+    float: right;
+  }
+  .PreviewSummary__links .fb-preview-next::before {
+    right: 0;
+  }
 }
 </style>
 {% endblock %}

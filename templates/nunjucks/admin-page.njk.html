@@ -34,7 +34,7 @@
   position: relative;
 }
 
-.admin-content .govuk-grid-column-two-thirds {
+.Xadmin-content .govuk-grid-column-two-thirds {
   width: 100%;
 }
 
@@ -200,6 +200,100 @@ p.fb-property-items-add {
   .govuk-header__content {
     width: 65%;
   }
+}
+
+.fb-admin-panel:first-child {
+  margin-top: 35px;
+}
+.fb-admin-panel + .fb-admin-panel {
+  margin-top: 20px;
+}
+.fb-admin-panel h2 {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.fb-admin-panel--content p,
+.fb-admin-panel--content li {
+  font-size: 14px;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.data-structure-empty {
+  margin: 6px 0 0;
+  font-size: 12px;
+}
+
+ul.tree p {
+  margin: 0;
+}
+
+ul.tree, ul.tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+} 
+ul.tree li {
+  font-size: 14px;
+  margin: 0;
+  line-height: 20px;
+}
+ul.tree > li > p {
+  xmargin-bottom: 5px;
+}
+ul.tree > li > ul {
+  margin-left: 3px;
+}
+
+ul.tree ul ul {
+  margin-left: 10px;
+}
+ul.tree ul li {
+  position: relative;
+  padding: 0 7px;
+  border-left: 1px solid rgb(100,100,100);
+}
+ul.tree ul li p {
+  margin: 0;
+  xdisplay: inline-block;
+  padding-left: 7px;
+}
+.componentTypeName {
+  position: relative;
+  top: 0.3em;
+  font-size: 10px;
+  color: #666;
+}
+.component--title {
+  padding-top: 0.25em;
+  display: block;
+  margin: 0;
+}
+ul.tree .component--type {
+  font-size: 10px;
+  display: block;
+  color: #666;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+ul.tree ul li:last-child {
+  border-left:none;
+}
+ul.tree ul li:before {
+  position: absolute;
+  top: 0;
+  height: 1em;
+  width: 10px;
+  color: white;
+  border-bottom: 1px solid rgb(100,100,100);
+  content: "";
+  display: inline-block;
+  left: 0;
+}
+ul.tree ul li:last-child:before {
+  border-left: 1px solid rgb(100,100,100);   
 }
 </style>
 

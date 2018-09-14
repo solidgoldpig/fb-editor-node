@@ -1,0 +1,42 @@
+{% macro datastructure(structure) %}
+{% if structure.top %}
+<div class="fb-admin-panel fb-data-structure">
+{% if structure.heading %}
+<h2>{{ structure.heading | safe }}</h2>
+{% endif %}
+<ul class="tree">
+{% endif %}
+  <li{% if structure.skipped %} class="skipped-component"{% endif %}><p class="component">
+  {% if structure.skipped %}…
+  {% else %}
+  {# 📍 #}
+  {% if structure.currentInstance %}<b class="component--title">{{ structure.title | safe }}</b>
+  {% else %}<a href="{{ structure.url }}" class="component--title">{{ structure.title | safe }}</a>
+  {% endif %}
+  {% if structure.type %}<span class="component--type">{{ structure.type }}</span>{% endif %}
+  {% if structure.structure %}
+  {% for substructure in structure.structure %}
+  {% if substructure.componentType and substructure.componentType != 'items' %}
+  <ul><li><p class="componentTypeName">{{ substructure.componentTypeTitle }}</p>
+  {% endif %}
+  <ul>
+  {% for subcomponent in substructure.components %}
+  {{ datastructure(subcomponent) }}
+  {% endfor %}
+  </ul>
+  {% if substructure.componentType and substructure.componentType != 'items' %}
+  </li></ul>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endif %}
+  </p></li>
+{% if structure.top %}
+</ul>
+{% if structure.empty %}
+<p class="data-structure-empty">{{ structure.empty | safe }}</p>
+{% endif %}
+</div>
+{% endif %}
+{# {{ structure | json }} #}
+{% endmacro %}
