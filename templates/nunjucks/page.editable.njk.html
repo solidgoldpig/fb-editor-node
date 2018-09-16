@@ -4,6 +4,9 @@
 {{ super() }}
 
 <style>
+.govuk-grid-column-two-thirds {
+  position: relative;
+}
 
 /* [data-block-id] */
 main.govuk-main-wrapper {
@@ -22,6 +25,14 @@ main.govuk-main-wrapper {
   height: 4rem;
   z-index: 99999999;
 }
+.govuk-inset-text .fb-block-edit-container {
+  margin-left: -4rem;
+}
+.govuk-warning-text .fb-block-edit-container {
+  margin-top: -1rem;
+  top: 50%;
+}
+
 .govuk-fieldset,
 .fb-block-radios,
 .fb-block-checkboxes,
@@ -29,19 +40,55 @@ main.govuk-main-wrapper {
 .fb-block-select {
   position: relative;
 }
+.govuk-form-group {
+  position: relative;
+}
 .fb-block-instance.fb-block-edit-container {
-  margin-left: -5rem;
+  margin-left: 0;
+  left: 100%;
 }
 .fb-block-instance .fb-block-edit {
   font-size: 1.325rem;
 }
+[data-block-type="section"] > .fb-block-edit-container,
+[data-block-type="group"] > .fb-block-edit-container {
+  margin-top: -2.5rem;
+}
+[data-block-type="section"],
+[data-block-type="group"] {
+  outline: dotted 1px #000;
+  padding-bottom: 3rem;
+  margin-bottom: -3rem;
+  outline-offset: 0.25rem;
+  padding-top: 2rem;
+  margin-top: -2rem;
+  margin-right: -1rem;
+  position: relative;
+}
+[data-block-type="section"]:before,
+[data-block-type="group"]:before {
+  content: attr(data-block-type);
+  position: absolute;
+  top: -0.25rem;
+  left: -0.25rem;
+  font-size: 75%;
+  text-transform: uppercase;
+  background: #999;
+  color: #fff;
+  padding: 0 0.5rem;
+}
 
-.govuk-fieldset > .fb-block-edit-container,
-.govuk-date-input > .fb-block-edit-container {
+[data-block-type="section"] + .fb-block--add,
+[data-block-type="group"] + .fb-block--add {
+  margin-top: 0;
+}
+
+.govuk-fieldset > .fb-block-instance,
+.govuk-date-input > .fb-block-instance {
   top: 0;
 }
-.govuk-checkboxes .fb-block-edit-container,
-.govuk-radios .fb-block-edit-container {
+.govuk-checkboxes .fb-block-property,
+.govuk-radios .fb-block-property {
   margin-left: -6rem;
 }
 .govuk-fieldset__legend + div > .fb-block-edit-container {
@@ -117,13 +164,13 @@ const addBlockHover = (blocks, className, targetClass) => {
     const addHover = (triggerBlock, seekTarget) => {
       const block = getTargetBlock(triggerBlock, seekTarget)
       if (!block) { return }
-      block.className = (block.className ? block.className + ' ' : '') + className
+      block.classList.add(className)
     }
     const hoverRegex = new RegExp('\s*' + className)
     const removeHover = (triggerBlock, seekTarget) => {
       const block = getTargetBlock(triggerBlock, seekTarget)
       if (!block) { return }
-      block.className = block.className.replace(hoverRegex, '')
+      block.classList.remove(className)
     }
     block.addEventListener('mouseover', (e) => {
       let previousHover = document.querySelector('.' + className)
@@ -145,14 +192,34 @@ const addBlockHover = (blocks, className, targetClass) => {
   })
 }
 const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id]'))
-editBlocks.forEach(block => {
+editBlocks.forEach((block, index, blocks) => {
+  const originalBlock = block
   const blockId = block.getAttribute('data-block-id')
-  const blockProperty = block.getAttribute('data-block-property')
-  const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
-  const blockLevel = block.classList.contains('govuk-form-group')
-  const blockText = blockLevel ? '{}' : '✎'
-  const blockClass = blockLevel ? ' fb-block-instance' : ''
-  block.insertAdjacentHTML('afterbegin', '<div class="fb-block-edit-container' + blockClass + '"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>' + blockText + '</span></a></div>')
+  if (blockId === 'undefined') {
+    return
+  }
+  const addEditContainer = (block, propertyType = '') => {
+    const blockProperty = block.getAttribute(`data-block-property${propertyType}`)
+    if (propertyType && !blockProperty) {
+      return
+    }
+    const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
+    const blockLevel = !blockProperty //block.classList.contains('govuk-form-group')
+    const blockText = blockLevel ? '{}' : '✎'
+    const blockClass = blockLevel ? ' fb-block-instance' : ' fb-block-property'
+    let insertPosition = 'afterbegin'
+    if (block.localName === 'input') {
+      block = block.parentNode
+      blocks[index] = block
+    }
+    if (block.localName === 'fieldset') {
+      block = block.querySelector('legend') || block
+      blocks[index] = block
+    }
+    block.insertAdjacentHTML(insertPosition, '<div class="fb-block-edit-container' + blockClass + '"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>' + blockText + '</span></a></div>')
+  }
+  addEditContainer(originalBlock)
+  addEditContainer(originalBlock, '-instance')
 })
 addBlockHover(editBlocks, 'fb-hover')
 const stepBlocks = [].slice.call(document.querySelectorAll('.fb-page-steps'))
