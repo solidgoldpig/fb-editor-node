@@ -2,41 +2,71 @@
   "_id": "admin.instance.create.id",
   "_type": "page.admin",
   "url": "/create/:_type/id/:addId?/:addProperty?/:operation?",
-  "heading": "Create an id for new {instanceTypeTitle} {instanceCategory}",
+  "heading": "{idSeed, select, undefined{Create an id} other{Set {idSeedLabel}}} for new {instanceTypeTitle} {instanceCategory}",
   "components": [
     {
-      "_id": "admin.instance.create.id--id",
-      "_type": "text",
-      "name": "_id",
-      "label": "Id",
-      "hint": "Unique value to identify the {instanceCategory} {idPrefixType, select, stub{- please add to the starter value provided} auto{- feel free to change the suggested value} other{}}",
-      "validation": {
-        "pattern": "^[\\d\\w\\.\\-_]+$",
-        "required": {
-          "identifier": "existingId",
-          "operator": "defined",
-          "negated": true
-        }
-      },
-      "errors": {
-        "pattern": {
-          "inline": "Id may only contain letters, numbers, periods, dashes and underscores",
-          "summary": "Id may only contain letters, numbers, periods, dashes and underscores"
+      "_id": "admin.instance.create.id--group",
+      "_type": "group",
+      "components": [
+        {
+          "_id": "admin.instance.create.id--id",
+          "_type": "text",
+          "name": "_id",
+          "label": "Id",
+          "hint": "Unique value to identify the {instanceCategory} {idPrefixType, select, stub{- please add to the starter value provided} auto{- feel free to change the suggested value} other{}}",
+          "validation": {
+            "pattern": "^[\\d\\w\\.\\-_]+$",
+            "required": {
+              "identifier": "existingId",
+              "operator": "defined",
+              "negated": true
+            }
+          },
+          "errors": {
+            "pattern": {
+              "inline": "Id may only contain letters, numbers, periods, dashes and underscores",
+              "summary": "Id may only contain letters, numbers, periods, dashes and underscores"
+            },
+            "_id.duplicate": {
+              "inline": "Id already exists",
+              "summary": "Id already exists"
+            },
+            "_id.stub.incomplete": {
+              "inline": "Please add to the starter value provided",
+              "summary": "Please add to the starter value provided"
+            }
+          }
         },
-        "_id.duplicate": {
-          "inline": "Id already exists",
-          "summary": "Id already exists"
-        },
-        "_id.stub.incomplete": {
-          "inline": "Please add to the starter value provided",
-          "summary": "Please add to the starter value provided"
-        }
+        {
+          "_id": "admin.instance.create.id--id--button",
+          "_type": "button",
+          "html": "Set id"
+        }],
+      "show": {
+        "identifier": "idSeed",
+        "operator": "defined",
+        "negated": true
       }
     },
     {
-      "_id": "admin.instance.create.id--button",
-      "_type": "button",
-      "html": "Set id"
+      "_id": "admin.instance.create.id--group",
+      "_type": "group",
+      "components": [{
+        "_id": "admin.instance.create.id--idSeed",
+        "_type": "text",
+        "name": "idSeedValue",
+        "label": "{idSeedLabel}",
+        "hint": "{idSeedHint}"
+      },
+      {
+        "_id": "admin.instance.create.id--idSeed--button",
+        "_type": "button",
+        "html": "Set {idSeedLabel}"
+      }],
+      "show": {
+        "identifier": "idSeed",
+        "operator": "defined"
+      }
     }
   ],
   "extraComponents": [

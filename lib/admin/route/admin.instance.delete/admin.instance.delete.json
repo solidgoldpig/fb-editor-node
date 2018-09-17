@@ -1,0 +1,6 @@
+{
+  "_id": "admin.instance.delete",
+  "_type": "page.admin",
+  "url": "/delete/:_id",
+  "heading": "WAHEY - {_id}"
+}
