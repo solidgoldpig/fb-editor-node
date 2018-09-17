@@ -286,13 +286,13 @@ editBlocks.forEach((block, index, blocks) => {
       const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View ${blockType} instance</a></li>`
       blockContent += blockViewProperties
       if (blockHasValue) {
-        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set ${blockType} value</a></li>`
+        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Change ${blockType} value</a></li>`
         blockContent += blockValueProperty
       } else if (blockHasName || blockType === 'radios') {
-        const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Set ${blockType} name</a></li>`
+        const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Change ${blockType} name</a></li>`
         blockContent += blockNameProperty
       }
-      const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Set ${blockType} visibility</a></li>`
+      const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Change ${blockType} visibility</a></li>`
       blockContent += blockShow
       blockDelete = `<li class="fb-block-instance--delete"><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete"><button>Delete ${blockType}</button></form></li>`
       blockContent += blockDelete + '</ul></div>'
