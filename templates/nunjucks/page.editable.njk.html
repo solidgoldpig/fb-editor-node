@@ -50,7 +50,7 @@ main.govuk-main-wrapper {
   z-index: 99999999;
   margin-left: 0;
   right: -1.5rem;
-  background: pink;
+  background: #fff;
 }
 .fb-block-instance-properties:hover {
   z-index: 999999999;
@@ -76,6 +76,9 @@ main.govuk-main-wrapper {
   white-space: nowrap;
   padding-right: 1rem;
   background: #fff;
+}
+.fb-block-instance-properties li.fb-block-instance--delete {
+  margin-top: 1rem;
 }
 .fb-block-instance-properties li a,
 .fb-block-instance-properties li button {
@@ -255,9 +258,7 @@ editBlocks.forEach((block, index, blocks) => {
     return
   }
   const blockType = block.getAttribute('data-block-type') || ''
-  if (blockType === 'group') {
-    console.log(block)
-  }
+
   const addEditContainer = (block, propertyType = '') => {
     const blockProperty = block.getAttribute(`data-block-property${propertyType}`)
     if (propertyType && !blockProperty) {
@@ -279,13 +280,21 @@ editBlocks.forEach((block, index, blocks) => {
     let blockContent = ''
     let blockDelete = ''
     if (blockLevel) {
-      if (!blockType) {
-        console.log(block)
-      }
+      const blockHasValue = originalBlock.getAttribute('value')
+      const blockHasName = originalBlock.getAttribute('name')
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
-      blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View ${blockType} instance</a></li>`
+      const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View ${blockType} instance</a></li>`
       blockContent += blockViewProperties
-      blockDelete = `<li><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete"><button>Delete ${blockType}</button></form></li>`
+      if (blockHasValue) {
+        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set ${blockType} value</a></li>`
+        blockContent += blockValueProperty
+      } else if (blockHasName || blockType === 'radios') {
+        const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Set ${blockType} name</a></li>`
+        blockContent += blockNameProperty
+      }
+      const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Set ${blockType} visibility</a></li>`
+      blockContent += blockShow
+      blockDelete = `<li class="fb-block-instance--delete"><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete"><button>Delete ${blockType}</button></form></li>`
       blockContent += blockDelete + '</ul></div>'
     } else {
       blockContent = '<div class="fb-block-edit-container' + blockClass + '"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>' + blockText + '</span></a></div>'
@@ -298,6 +307,16 @@ editBlocks.forEach((block, index, blocks) => {
 addBlockHover(editBlocks, 'fb-hover')
 const stepBlocks = [].slice.call(document.querySelectorAll('.fb-page-steps'))
 addBlockHover(stepBlocks, 'fb-step-highlight', 'fb-step-container')
+
+const deleteActions = [].slice.call(document.querySelectorAll('.fb-instance--delete'))
+deleteActions.forEach(deleteAction => {
+  deleteAction.addEventListener('click', function(e) {
+    const strconfirm = confirm('Are you sure you want to delete?')
+    if (strconfirm !== true) {
+      e.preventDefault()
+    }
+  })
+})
 
 </script>
 
