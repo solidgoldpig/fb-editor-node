@@ -117,7 +117,7 @@ main.govuk-main-wrapper {
   margin-bottom: -3rem;
   outline-offset: 0.25rem;
   padding-top: 2rem;
-  margin-top: -2rem;
+  margin-top: -0.75rem;
   margin-right: -1rem;
   position: relative;
 }
@@ -168,7 +168,7 @@ main.govuk-main-wrapper {
   line-height: 1.5;
 }
 
-a:hover .fb-block-edit,
+a.fb-block-edit:hover,
 .fb-block-instance-properties:hover > .fb-block-edit {
   background-color: #005ea5 !important;
   color: #fff !important;
@@ -185,6 +185,52 @@ h2 .fb-block-edit,
 h2 .fb-block-edit-container {
   margin-top: 0.25rem;
 }
+
+.fb-block--add {
+  background: #fff;
+  color: #005ea5;
+  border: solid 1px #005ea5;
+  border-radius: 2rem;
+  padding: 0.25rem 0.5rem;
+  padding-left: 2.5rem;
+  height: 0rem;
+  display: table;
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+  margin-left: -2.5rem;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+.fb-block--add * {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  xline-height: 1;
+}
+.fb-block--add:before {
+  content: '+ ';
+  display: inline-block;
+  font-size: 2rem;
+  line-height: 0.5;
+  position: absolute;
+  left: -1px;
+  top: -1px;;
+  border: solid 1px #005ea5;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  text-align: center;
+  line-height: 1.125;
+}
+.fb-block--add:hover {
+  color: #fff;
+  background: #005ea5;
+}
+.fb-block--add:hover * {
+  color: #fff;
+}
+
 
 .fb-repeatable-item {
   xoutline: solid 1px #000;
@@ -285,12 +331,12 @@ editBlocks.forEach((block, index, blocks) => {
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
       const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View ${blockType} instance</a></li>`
       blockContent += blockViewProperties
-      if (blockHasValue) {
-        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Change ${blockType} value</a></li>`
-        blockContent += blockValueProperty
-      } else if (blockHasName || blockType === 'radios') {
+      if (blockHasName || blockType === 'radios') {
         const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Change ${blockType} name</a></li>`
         blockContent += blockNameProperty
+      } else if (blockHasValue) {
+        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Change ${blockType} value</a></li>`
+        blockContent += blockValueProperty
       }
       const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Change ${blockType} visibility</a></li>`
       blockContent += blockShow
