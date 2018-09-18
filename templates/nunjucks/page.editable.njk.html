@@ -351,7 +351,7 @@ editBlocks.forEach((block, index, blocks) => {
       const blockHasValue = originalBlock.getAttribute('value') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [value]`)
       const blockHasName = originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`)
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
-      const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View ${blockType} instance</a></li>`
+      const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View all ${blockType} properties</a></li>`
       blockContent += blockViewProperties
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
         const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Change ${blockType} name</a></li>`

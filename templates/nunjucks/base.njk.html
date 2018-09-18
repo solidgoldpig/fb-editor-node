@@ -21,8 +21,8 @@
 {{ navLink('Live view', 'live', '', MODEURL, page.MODE) }}
 {{ navLink('Preview mode', 'preview', 'preview', MODEURL, page.MODE) }}
 {% if not page.$autoInjected %}
-{{ navLink('Wysiwyg mode', 'edit', 'edit', MODEURL, page.MODE) }}
-{{ navLink('Instance mode', 'instance', 'instance', MODEURL, page.MODE) }}
+{{ navLink('Properties mode', 'instance', 'instance', MODEURL, page.MODE) }}
+{{ navLink('Build mode', 'edit', 'edit', MODEURL, page.MODE) }}
 {% else %}
 {# <li>Auto-injected page for {{page._repeatableId }}</li> #}
 {% endif %}

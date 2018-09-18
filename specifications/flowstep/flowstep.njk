@@ -31,8 +31,8 @@
 <li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}{% else %}/{% endif %}">Live view</a></span></li>
 <li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/preview{% else %}/preview{% endif %}">Preview mode</a></span></li>
 {% if not data.$autoInjected %}
-<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/edit{% else %}/edit{% endif %}">Wysiwyg mode</a></span></li>
-<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/instance{% else %}/instance{% endif %}">Instance mode</a></span></li>
+<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/instance{% else %}/instance{% endif %}">Properties mode</a></span></li>
+<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/edit{% else %}/edit{% endif %}">Build mode</a></span></li>
 {% endif %}
 </ul>
 {% if data.flowsteps %}
