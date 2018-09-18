@@ -18,7 +18,7 @@
     {
       "_id": "admin.instance.property--update-instructions",
       "_type": "content",
-      "html": "{property, select, other{If you move or delete a component, click ‘Update components’ to confirm} steps{If you move or delete a step, click ‘Update steps’ to confirm}}",
+      "html": "{property, select, other{If you move or delete a component, click ‘Update’ to confirm} steps{If you move or delete a step, click ‘Update’ to confirm}}",
       "show": {
         "identifier": "updateInstructions",
         "operator": "defined"
@@ -105,7 +105,7 @@
       "_id": "admin.instance.property--button",
       "_type": "button",
       "classes": "fb-action-update",
-      "html": "Update {propertyTitle}"
+      "html": "Update"
     },
     {
       "_id": "admin.instance.property--form--delete",
@@ -117,7 +117,7 @@
           "_type": "button",
           "name": "delete-property",
           "value": "yes",
-          "html": "Delete {propertyTitle}",
+          "html": "Delete",
           "classes": "fb-action--delete",
           "show": {
             "identifier": "deletable",
