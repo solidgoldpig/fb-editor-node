@@ -15,6 +15,12 @@ main.govuk-main-wrapper {
 
 .fb-hover {
   background-color: #fc9;
+  background-color: rgba(255, 204, 153, 0.25);
+  background-color: rgba(44, 141, 191, 0.125);
+}
+
+.fb-block {
+  position: relative;
 }
 
 .fb-block-edit-container {
@@ -39,10 +45,10 @@ main.govuk-main-wrapper {
 .fb-block-checkboxes,
 .fb-block-date,
 .fb-block-select {
-  position: relative;
+  XXposition: relative;
 }
 .govuk-form-group {
-  position: relative;
+  XXposition: relative;
 }
 .fb-block-instance-properties {
   position: absolute;
@@ -60,7 +66,7 @@ main.govuk-main-wrapper {
   top: 0rem;
   right: -1rem;
 }
-.govuk-main-wrapper .fb-block-instance-properties ul {
+.fb-mode-edit .fb-block-instance-properties ul {
   margin: 0;
   padding: 0;
   display: none;
@@ -69,13 +75,14 @@ main.govuk-main-wrapper {
 .fb-block-instance-properties:hover ul {
   display: block;
 }
-.govuk-main-wrapper .fb-block-instance-properties li {
+.fb-mode-edit .fb-block-instance-properties li {
   list-style-type: none;
   margin: 0;
   padding: 0;
   white-space: nowrap;
   padding-right: 1rem;
   background: #fff;
+  line-height: 1.375;
 }
 .fb-block-instance-properties li.fb-block-instance--delete {
   margin-top: 1rem;
@@ -85,7 +92,7 @@ main.govuk-main-wrapper {
   text-decoration: none;
   display: block;
   border: none;
-  padding: 0.5rem;
+  padding: 0.375rem;
   font-size: 14px;
   cursor: pointer;
   color: #005ea5;
@@ -95,6 +102,9 @@ main.govuk-main-wrapper {
 }
 .fb-block-instance-properties li:hover {
   background: #005ea5;
+}
+li.fb-block-instance--delete:hover {
+  background: #b10e1e;
 }
 
 .fb-block-instance-properties li:hover a,
@@ -110,8 +120,8 @@ main.govuk-main-wrapper {
 [data-block-type="group"] > .fb-block-instance-properties {
   margin-top: -2.5rem;
 }
-[data-block-type="section"],
-[data-block-type="group"] {
+.fb-mode-edit [data-block-type="section"],
+.fb-mode-edit [data-block-type="group"]:not(.fb-repeatable-item) {
   outline: dotted 1px #000;
   padding-bottom: 3rem;
   margin-bottom: -3rem;
@@ -121,8 +131,8 @@ main.govuk-main-wrapper {
   margin-right: -1rem;
   position: relative;
 }
-[data-block-type="section"]:before,
-[data-block-type="group"]:before {
+.fb-mode-edit [data-block-type="section"]:before,
+.fb-mode-edit [data-block-type="group"]:before {
   content: attr(data-block-type);
   position: absolute;
   top: -0.25rem;
@@ -233,16 +243,18 @@ h2 .fb-block-edit-container {
 
 
 .fb-repeatable-item {
-  xoutline: solid 1px #000;
+  border: solid 1px #000;
   box-shadow:
     1px 1px 0px 0px #fff,
     2px 2px 0px 0px #000,
     3px 3px 0px 0px #fff,
     4px 4px 0px 0px #000,
     5px 5px 0px 0px #fff,
-    6px 6px 0px 0px #000,
+    6px 6px 0px 0px #fff,
     7px 7px 0px 0px #fff,
-    8px 8px 0px 0px #000;
+    8px 8px 0px 0px #fff;
+    padding: 5px 0 4rem 5px;
+    margin: -6px 0 -4rem -6px;
 }
 </style>
 
@@ -266,6 +278,9 @@ const addBlockHover = (blocks, className, targetClass) => {
     return targetBlock
   }
   blocks.forEach(block => {
+    if (block.classList.contains('fb-mode-edit')) {
+      return
+    }
     const addHover = (triggerBlock, seekTarget) => {
       const block = getTargetBlock(triggerBlock, seekTarget)
       if (!block) { return }
@@ -296,6 +311,13 @@ const addBlockHover = (blocks, className, targetClass) => {
     })
   })
 }
+const dateBlocks = [].slice.call(document.querySelectorAll('.fb-block-date'))
+dateBlocks.forEach(dateBlock => {
+  const dateBlockId = dateBlock.getAttribute('data-block-id')
+  const legend = dateBlock.querySelector('legend')
+  legend.setAttribute('data-block-id', dateBlockId)
+  legend.setAttribute('data-block-property', 'label')
+})
 const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id]'))
 editBlocks.forEach((block, index, blocks) => {
   const originalBlock = block
@@ -324,24 +346,27 @@ editBlocks.forEach((block, index, blocks) => {
       blocks[index] = block
     }
     let blockContent = ''
-    let blockDelete = ''
     if (blockLevel) {
-      const blockHasValue = originalBlock.getAttribute('value')
-      const blockHasName = originalBlock.getAttribute('name')
+      let blockShow = ''
+      const blockHasValue = originalBlock.getAttribute('value') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [value]`)
+      const blockHasName = originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`)
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
       const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View ${blockType} instance</a></li>`
       blockContent += blockViewProperties
-      if (blockHasName || blockType === 'radios') {
+      if (blockHasName || blockType === 'radios' || blockType === 'date') {
         const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Change ${blockType} name</a></li>`
         blockContent += blockNameProperty
       } else if (blockHasValue) {
         const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Change ${blockType} value</a></li>`
         blockContent += blockValueProperty
       }
-      const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Change ${blockType} visibility</a></li>`
-      blockContent += blockShow
-      blockDelete = `<li class="fb-block-instance--delete"><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete"><button>Delete ${blockType}</button></form></li>`
-      blockContent += blockDelete + '</ul></div>'
+      if (blockType !== 'page' || document.location.pathname !== '/edit') {
+        const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Change ${blockType} visibility</a></li>`
+        blockContent += blockShow
+        const blockDelete = `<li class="fb-block-instance--delete"><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete" data-delete-type="${blockType}"><button>Delete ${blockType}</button></form></li>`
+        blockContent += blockDelete
+      }
+      blockContent += '</ul></div>'
     } else {
       blockContent = '<div class="fb-block-edit-container' + blockClass + '"><a href="/admin/instance/' + blockLink + '" class="fb-block-edit" title="Edit ' + blockLink + '"><span>' + blockText + '</span></a></div>'
     }
@@ -359,6 +384,10 @@ deleteActions.forEach(deleteAction => {
   deleteAction.addEventListener('click', function(e) {
     const strconfirm = confirm('Are you sure you want to delete?')
     if (strconfirm !== true) {
+      e.preventDefault()
+    }
+    if (deleteAction.getAttribute('data-delete-type') === 'page') {
+      alert('Page deletion currently disabled - sorry about that')
       e.preventDefault()
     }
   })

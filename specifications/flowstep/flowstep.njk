@@ -41,7 +41,7 @@
 <ul>
 <li><a href="/admin/new/{{ data._id }}/steps/edit">Add step</a></li>
 {% if data.flowsteps.length > 1 %}
-<li><a href="/admin/instance/{{ data._id }}/steps">Reorder steps</a></li>
+<li><a href="/admin/instance/{{ data._id }}/steps">Remove/reorder steps</a></li>
 {% endif %}
 {% if not data.$flowSelf and data.flowsteps.length %}
 <li><a href="/admin/flow/{{ data._id }}">View steps flow</a></li>

@@ -1,0 +1,32 @@
+{
+    "_id": "admin.instance.create.location",
+    "_type": "page.admin",
+    "url": "/add/page",
+    "heading": "Where to add page",
+    "components": [
+      {
+        "_id": "admin.instance.create.location--header",
+        "_type": "group",
+        "components": [
+          {
+            "_id": "admin.instance.create.location--type",
+            "_type": "radios",
+            "name": "location",
+            "legend": "Add page as a step of",
+            "items": [{
+                "_id": "admin.instance.create.location--item",
+                "hasDivider": true,
+                "label": "as a standalone page",
+                "value": "standalone"
+            }]
+          },
+          {
+            "_id": "admin.instance.create.location--button",
+            "_type": "button",
+            "html": "Continue"
+          }
+        ]
+      }
+    ]
+  }
+  

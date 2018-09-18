@@ -104,7 +104,7 @@
         }
       ],
       "show": {
-        "identifier": "existingIds",
+        "identifier": "ZZexistingIds",
         "operator": "defined"
       }
     }
