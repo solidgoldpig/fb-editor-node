@@ -116,11 +116,13 @@ li.fb-block-instance--delete:hover {
   font-size: 1.325rem;
 }
 
+[data-block-type="fieldset"] > .fb-block-instance-properties,
 [data-block-type="section"] > .fb-block-instance-properties,
 [data-block-type="group"] > .fb-block-instance-properties {
   margin-top: -2.5rem;
 }
 .fb-mode-edit [data-block-type="section"],
+.XXfb-mode-edit :not(.fb-repeatable-item) [data-block-type="fieldset"],
 .fb-mode-edit [data-block-type="group"]:not(.fb-repeatable-item) {
   outline: dotted 1px #000;
   padding-bottom: 3rem;
@@ -131,12 +133,15 @@ li.fb-block-instance--delete:hover {
   margin-right: -1rem;
   position: relative;
 }
+.fb-mode-edit [data-block-type="fieldset"]:before,
 .fb-mode-edit [data-block-type="section"]:before,
 .fb-mode-edit [data-block-type="group"]:before {
   content: attr(data-block-type);
   position: absolute;
-  top: -0.25rem;
+  bottom: 100%;
+  margin-bottom: 0.25rem;
   left: -0.25rem;
+  margin-left: -2px;
   font-size: 75%;
   text-transform: uppercase;
   background: #999;
@@ -144,12 +149,13 @@ li.fb-block-instance--delete:hover {
   padding: 0 0.5rem;
 }
 
+[data-block-type="fieldsset"] + .fb-block--add,
 [data-block-type="section"] + .fb-block--add,
 [data-block-type="group"] + .fb-block--add {
   margin-top: 0;
 }
 
-.govuk-fieldset > .fb-block-instance,
+.XXXgovuk-fieldset > .fb-block-instance,
 .govuk-date-input > .fb-block-instance {
   top: 0;
 }
@@ -326,6 +332,9 @@ editBlocks.forEach((block, index, blocks) => {
     return
   }
   const blockType = block.getAttribute('data-block-type') || ''
+  if (blockType === 'button') {
+    return
+  }
 
   const addEditContainer = (block, propertyType = '') => {
     const blockProperty = block.getAttribute(`data-block-property${propertyType}`)
