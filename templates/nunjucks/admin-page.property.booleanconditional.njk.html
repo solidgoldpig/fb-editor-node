@@ -30,13 +30,19 @@
   right: 1rem;
   visibility: hidden;
 }
+@media (min-width: 40.0625em) {
+  #conditions {
+    width: 66%;
+  }
+}
+
 #conditions .fb-action--revert-conditions,
 #conditions .fb-action--convert-condition {
   font-size: 75%;
   margin: 0;
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.5rem;
   visibility: hidden;
 }
 #conditions .conditions-block:hover > .fb-action--revert-conditions,
@@ -90,7 +96,7 @@
   const getIdentifierProperty = (identifierName, property) => getIdentifier(identifierName)[property]
 
   const createSelect = (name, values, selectedValue) => {
-    let selectElement = `<select name="${name}" class="govuk-select" style="width:auto; min-width: 10rem; display:block;margin-bottom: 0.5rem;"><option value=""></option>`
+    let selectElement = `<select name="${name}" class="govuk-select" style="width:auto; min-width: 10rem; max-width:100%; display:block;margin-bottom: 0.5rem;"><option value=""></option>`
     values.forEach(item => {
       selectElement += `<option value="${item.value}"${ selectedValue === item.value ? ' selected' : ''}>${item.label}</option>`
     })
