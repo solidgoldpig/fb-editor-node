@@ -24,6 +24,15 @@
 <div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}">
 {% if isInnerStepOption %}<div class="fb-step-option-container-inner"></div>{% endif %}
 <div id="{{ data._id | replace('.', '') }}" class="fb-step-wrapper">
+{% if data.$showConditions %}
+<div class="fb-step-show-conditions">{{ data.$showConditions }}</div>
+{% endif %}
+{% if data.$showValues %}
+<div class="fb-step-show-value"><span>{{ data.$showValues[0] }}</span></div>
+{% if data.$showValues[1] %}
+<div class="fb-step-show-value-not-met"><span>{{ data.$showValues[1] }}</span></div>
+{% endif %}
+{% endif %}
 <div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
 <div class="fb-step-details govuk-prose-scope">
 <h2><span class="fb-page-link-type">Url</span> <a href="{{ data.url }}">{{ data.url }}</a></h2>

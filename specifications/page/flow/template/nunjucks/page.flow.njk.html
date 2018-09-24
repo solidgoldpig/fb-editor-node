@@ -74,6 +74,37 @@ body {
   position: relative;
 }
 
+.fb-step-show-conditions {
+  position: absolute;
+  left: 125px;
+  background: #fff;
+  border: solid 1px #000;
+  width: 350px;
+  padding: 30px;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  z-index: 100;
+}
+
+.fb-step-show-value,
+.fb-step-show-value-not-met {
+  position: absolute;
+  font-size: 24px;
+}
+.fb-step-show-value {
+  left: 500px;
+}
+.fb-step-show-value-not-met {
+  bottom: -100px;
+  right: 100%;
+  margin-right: -480px;
+}
+.fb-step-option:not(.fb-step-option-first) > .fb-step-wrapper > .fb-step-show-value span {
+  position: absolute;
+  right: 100%;
+  margin-right: 20px;
+}
+
 .fb-step-option {
   display: block;
 }
