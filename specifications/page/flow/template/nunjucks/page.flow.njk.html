@@ -76,20 +76,38 @@ body {
 
 .fb-step-show-conditions {
   position: absolute;
-  left: 125px;
-  background: #fff;
+  left: 50px;
+  background: #fcfcfc;
   border: solid 1px #000;
-  width: 350px;
-  padding: 30px;
+  width: 400px;
+  padding: 70px 30px 30px;
   box-sizing: border-box;
   white-space: pre-wrap;
   z-index: 100;
+  top: 22px;
+  font-size: 28px;
+  border-radius: 20px;
+}
+
+.fb-step-show-conditions b {
+  display: block;
+}
+
+.fb-step-show-conditions > .fb-conditions {
+  margin-top: -20px;
+}
+
+.fb-conditions-delimiter {
+  display: block;
+  font-size: 20px;
+  margin: 10px 0;
 }
 
 .fb-step-show-value,
 .fb-step-show-value-not-met {
   position: absolute;
-  font-size: 24px;
+  font-size: 32px;
+  z-index: 1000;
 }
 .fb-step-show-value {
   left: 500px;
@@ -99,10 +117,30 @@ body {
   right: 100%;
   margin-right: -480px;
 }
-.fb-step-option:not(.fb-step-option-first) > .fb-step-wrapper > .fb-step-show-value span {
+.fb-step-show-value span,
+.fb-step-show-value-not-met span {
+  border: solid 1px #000;
+  padding: 3px 10px;
+  background-color: #fec;
+  border-radius: 10px;
+}
+.fb-step-show-value-not-met span:empty {
+  display: none;
+}
+{# .Xfb-step-option:not(.fb-step-option-first) > .fb-step-wrapper > , #}
+.fb-step-show-value span {
   position: absolute;
   right: 100%;
+  top: 22px;
   margin-right: 20px;
+}
+ul.fb-conditions-list {
+  margin-left: 0;
+  padding-left: 24px;
+}
+.fb-conditions .fb-conditions {
+  background: #eee;
+  padding: 10px;
 }
 
 .fb-step-option {
@@ -339,8 +377,10 @@ body {
   font-size: 1.5rem;
 }
 
-.fb-step-highlight .fb-substeps .fb-step {
+.fb-step-highlight .fb-step {
   outline: solid 6px #fc0;
+}
+.fb-step-highlight .fb-substeps .fb-step {
   background-color: #fc0;
 }
 
@@ -397,6 +437,20 @@ footer.govuk-footer {
   {# transform-origin: top left; #}
 </style>
 <script>
+const stepsPanels = document.querySelectorAll('.fb-page-steps')
+for (let index = 0; index < stepsPanels.length; ++index) {
+  const stepPanel = stepsPanels[index]
+  let stepParent = stepPanel.parentNode
+  while (!stepParent.classList.contains('fb-step-wrapper')) {
+    stepParent = stepParent.parentNode
+  }
+  stepPanel.addEventListener('mouseover', () => {
+    stepParent.classList.add('fb-step-highlight')
+  })
+  stepPanel.addEventListener('mouseout', () => {
+    stepParent.classList.remove('fb-step-highlight')
+  })
+}
 const main = document.querySelector('.govuk-main-wrapper')
 var minimap = main.cloneNode(true)
 {# [].forEach.call(minimap.getElementsByTagName('a'), function(link) {

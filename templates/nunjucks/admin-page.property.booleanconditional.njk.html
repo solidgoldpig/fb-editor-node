@@ -109,7 +109,7 @@
     const values = allowableIdentifiers.map(item => {
       return {
         value: item.name,
-        label: item.fullTitle
+        label: item.fullTitle // + ' (' + item.name + ')'
       }
     })
     let identifierElement = createSelect(`identifier===${conditionId}`, values, identifier)
