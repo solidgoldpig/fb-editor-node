@@ -1,0 +1,34 @@
+{
+  "_id": "admin.instance.validation",
+  "_type": "page.admin",
+  "url": "/instance/validation/:_id",
+  "sectionHeading": "{typeTitle}",
+  "heading": "{instanceTitle}",
+  "components": [
+    {
+      "_id": "admin.instance--properties.subtitle",
+      "_type": "content",
+      "html": "### Validation and error messages"
+    },
+    {
+      "_id": "admin.instance--properties.validation",
+      "_type": "details",
+      "classes": "fb-instance-validation",
+      "open": true,
+      "summary": "Validation and error messages",
+      "show": {
+        "identifier": "validationProperties",
+        "operator": "defined"
+      }
+    },
+    {
+      "_id": "admin.instance--properties.errors",
+      "_type": "details",
+      "summary": "Other error messages",
+      "show": {
+        "identifier": "errorsProperties",
+        "operator": "defined"
+      }
+    }
+  ]
+}

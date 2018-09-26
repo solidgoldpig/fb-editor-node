@@ -260,8 +260,11 @@ h2 .fb-block-edit-container {
     6px 6px 0px 0px #fff,
     7px 7px 0px 0px #fff,
     8px 8px 0px 0px #fff;
-    padding: 5px 0 4rem 5px;
-    margin: -6px 0 -4rem -6px;
+    padding: 5px 0 0 5px;
+    margin: -6px 0 2rem -6px;
+}
+p.fb-group-add {
+  margin-bottom: -2rem;
 }
 </style>
 
@@ -364,14 +367,20 @@ editBlocks.forEach((block, index, blocks) => {
       const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View all ${blockType} properties</a></li>`
       blockContent += blockViewProperties
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
-        const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Change ${blockType} name</a></li>`
+        const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Set ${blockType} name</a></li>`
         blockContent += blockNameProperty
       } else if (blockHasValue) {
-        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Change ${blockType} value</a></li>`
+        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set ${blockType} value</a></li>`
         blockContent += blockValueProperty
       }
+      if (blockHasName || blockType === 'radios' || blockType === 'date') {
+        const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set ${blockType} validation</a></li>`
+        blockContent += blockValidationProperty
+        const blockRepeatableProperty = `<li><a href="/admin/instance/${blockLink}/repeatable">Set ${blockType} repeatability</a></li>`
+        blockContent += blockRepeatableProperty
+      }
       if (blockType !== 'page' || document.location.pathname !== '/edit') {
-        const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Change ${blockType} visibility</a></li>`
+        const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Set ${blockType} visibility</a></li>`
         blockContent += blockShow
         const blockDelete = `<li class="fb-block-instance--delete"><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete" data-delete-type="${blockType}"><button>Delete ${blockType}</button></form></li>`
         blockContent += blockDelete
