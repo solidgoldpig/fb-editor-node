@@ -412,6 +412,13 @@ deleteActions.forEach(deleteAction => {
   })
 })
 
+// Disable inputs when in edit/build mode
+const inputBlocks = [].slice.call(document.querySelectorAll('.govuk-input'))
+inputBlocks.forEach(input => {
+  input.addEventListener('focus', () => {
+    input.blur()
+  })
+})
 </script>
 
 {% endblock %}
