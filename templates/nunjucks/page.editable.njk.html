@@ -70,7 +70,8 @@ main.govuk-main-wrapper {
   margin: 0;
   padding: 0;
   display: none;
-  border: solid 1px #005ea5;
+  Xborder: solid 1px #005ea5;
+  box-shadow:  1px 1px 0 #005ea5, -1px 1px 0 #005ea5, -1px -1px 0 #005ea5, 1px -1px 0 #005ea5;
 }
 .fb-block-instance-properties:hover ul {
   display: block;
@@ -84,6 +85,9 @@ main.govuk-main-wrapper {
   background: #fff;
   line-height: 1.375;
 }
+.fb-block-instance-properties li + li.fb-block-instance--all {
+  margin-top: 1rem;
+}
 .fb-block-instance-properties li.fb-block-instance--delete {
   margin-top: 1rem;
 }
@@ -92,8 +96,8 @@ main.govuk-main-wrapper {
   text-decoration: none;
   display: block;
   border: none;
-  padding: 0.375rem;
-  font-size: 14px;
+  padding: 0.325rem;
+  font-size: 1rem;
   cursor: pointer;
   color: #005ea5;
   width: 100%;
@@ -248,6 +252,10 @@ h2 .fb-block-edit-container {
   color: #fff;
 }
 
+.fb-block-instance-property-link {
+  position: absolute;
+  left: -3000px;
+}
 
 .fb-repeatable-item {
   border: solid 1px #000;
@@ -360,29 +368,33 @@ editBlocks.forEach((block, index, blocks) => {
     }
     let blockContent = ''
     if (blockLevel) {
+      let blockTypeName = blockType !== 'page' ? 'component' : 'page'
+      // blockTypeName = ''
       let blockShow = ''
       const blockHasValue = originalBlock.getAttribute('value') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [value]`)
       const blockHasName = originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`)
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
-      const blockViewProperties = `<li><a href="/admin/instance/${blockLink}">View all ${blockType} properties</a></li>`
-      blockContent += blockViewProperties
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
-        const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Set ${blockType} name</a></li>`
+        const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Change <span class="fb-block-instance-property-link">${blockType}</span> ${blockTypeName} name</a></li>`
         blockContent += blockNameProperty
       } else if (blockHasValue) {
-        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set ${blockType} value</a></li>`
+        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Change <span class="fb-block-instance-property-link">${blockType}</span> ${blockTypeName} value</a></li>`
         blockContent += blockValueProperty
       }
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
-        const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set ${blockType} validation</a></li>`
+        const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Change <span class="fb-block-instance-property-link">${blockType}</span> ${blockTypeName} validation</a></li>`
         blockContent += blockValidationProperty
-        const blockRepeatableProperty = `<li><a href="/admin/instance/${blockLink}/repeatable">Set ${blockType} repeatability</a></li>`
+        const blockRepeatableProperty = `<li><a href="/admin/instance/${blockLink}/repeatable">Change <span class="fb-block-instance-property-link">${blockType}</span> ${blockTypeName} repeatability</a></li>`
         blockContent += blockRepeatableProperty
       }
       if (blockType !== 'page' || document.location.pathname !== '/edit') {
-        const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Set ${blockType} visibility</a></li>`
+        const blockShow = `<li><a href="/admin/instance/${blockLink}/show">Change <span class="fb-block-instance-property-link">${blockType}</span> ${blockTypeName} visibility</a></li>`
         blockContent += blockShow
-        const blockDelete = `<li class="fb-block-instance--delete"><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete" data-delete-type="${blockType}"><button>Delete ${blockType}</button></form></li>`
+      }
+      const blockViewProperties = `<li class="fb-block-instance--all"><a href="/admin/instance/${blockLink}">View all ${blockType} properties</a></li>`
+      blockContent += blockViewProperties
+      if (blockType !== 'page' || document.location.pathname !== '/edit') {
+        const blockDelete = `<li class="fb-block-instance--delete"><form method="post" action="/admin/delete/${blockId}" class="fb-instance--delete" data-delete-type="${blockType}"><button>Delete <span class="fb-block-instance-property-link">${blockType}</span> ${blockTypeName}</button></form></li>`
         blockContent += blockDelete
       }
       blockContent += '</ul></div>'
