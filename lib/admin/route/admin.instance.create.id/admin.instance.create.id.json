@@ -40,6 +40,7 @@
         {
           "_id": "admin.instance.create.id--id--button",
           "_type": "button",
+          "classes": "fb-editor-button",
           "html": "Set id"
         }],
       "show": {
@@ -61,7 +62,8 @@
       {
         "_id": "admin.instance.create.id--idSeed--button",
         "_type": "button",
-        "html": "Set {idSeedLabel}"
+        "classes": "fb-editor-button",
+        "html": "Continue"
       }],
       "show": {
         "identifier": "idSeed",

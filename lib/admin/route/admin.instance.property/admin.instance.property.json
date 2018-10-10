@@ -95,7 +95,7 @@
       "_type": "button",
       "html": "Add {propertySingular}",
       "name": "<addUrl>",
-      "classes": "fb-action-xsecondary fb-action-add",
+      "classes": "fb-editor-button fb-block--add fb-action-xsecondary fb-action-add",
       "show": {
         "identifier": "addValue",
         "operator": "defined"
@@ -104,7 +104,7 @@
     {
       "_id": "admin.instance.property--button",
       "_type": "button",
-      "classes": "fb-action-update",
+      "classes": "fb-editor-button fb-action-update",
       "html": "Update"
     },
     {
@@ -118,7 +118,7 @@
           "name": "delete-property",
           "value": "yes",
           "html": "Delete",
-          "classes": "fb-action--delete",
+          "classes": "fb-editor-button fb-action--delete",
           "show": {
             "identifier": "deletable",
             "operator": "defined"

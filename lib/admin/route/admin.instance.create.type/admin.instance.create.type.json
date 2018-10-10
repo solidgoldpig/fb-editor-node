@@ -13,6 +13,7 @@
             "_type": "radios",
             "name": "_type",
             "label": "Choose type",
+            "labelhide": true,
             "items": [{
                 "_id": "admin.instance.create.type--item",
                 "label": "Default type",
@@ -22,7 +23,8 @@
           {
             "_id": "admin.instance.create.type--button",
             "_type": "button",
-            "html": "Choose type"
+            "classes": "fb-editor-button",
+            "html": "Continue"
           }
         ]
       }

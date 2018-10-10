@@ -1,12 +1,13 @@
 {% macro addblock(addBlock) %}
+{% set classes = '' %}
 {% if addBlock.required %}
 {% set classes = ' fb-ui-required' %}
 {% endif %}
-<p class="fb-block--add{{ classes }}">
+<p class="fb-block--add--block">
 {{ callMacro('govukButton', {
   html: addBlock.html,
   href: addBlock.href,
-  classes: 'fb-action-secondary fb-action--add fb-action--add--component'
+  classes: 'fb-editor-button fb-block--add fb-action-secondary fb-action--add fb-action--add--component' + classes
 }) }}
 </p>
 {% endmacro %}

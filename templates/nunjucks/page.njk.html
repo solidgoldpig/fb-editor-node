@@ -9,6 +9,69 @@
 
 {% block bodyEnd %}
 {{ super() }}
+<style>
+
+
+.govuk-button.fb-editor-button {
+  background: #fff;
+  color: #005ea5;
+  border: solid 1px #005ea5;
+  border-radius: 2rem;
+  padding: 0.425rem 1rem 0;
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  cursor: pointer;
+
+  height: 2rem;
+  box-sizing: border-box;
+  box-shadow: unset;
+}
+button.govuk-button.fb-editor-button {
+  padding-top: 0.125rem;
+}
+.fb-editor-button * {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+.fb-editor-button:hover {
+  color: #fff;
+  background: #005ea5;
+}
+.fb-editor-button:hover * {
+  color: #fff;
+}
+
+.fb-editor-button.fb-block--add {
+  margin-left: -2.5rem;
+  padding-left: 2.5rem;
+}
+.admin-content .fb-editor-button.fb-block--add {
+  margin-left: 0;
+}
+.fb-block--add:before {
+  content: '+';
+  display: inline-block;
+  font-size: 2rem;
+  line-height: 0.5;
+  position: absolute;
+  left: -1px;
+  top: -1px;;
+  border: solid 1px #005ea5;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  text-align: center;
+  line-height: 1.125;
+  box-sizing: border-box;
+}
+.fb-block--add:active:before {
+  top: 0;
+}
+</style>
 <script src="/assets/vendor/shortcuts/shortcuts.v.2.0.1.js"></script>
 <script>
 if (window.Shortcut) {
