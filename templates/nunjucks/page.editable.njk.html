@@ -26,7 +26,7 @@ main.govuk-main-wrapper {
 .fb-block-edit-container {
   position: absolute;
   margin-left: -2.5rem;
-  margin-top: -0.25rem;
+  margin-top: 0;
   width: 4rem;
   height: 4rem;
   z-index: 99999999;
@@ -52,11 +52,14 @@ main.govuk-main-wrapper {
 }
 .fb-block-instance-properties {
   position: absolute;
-  margin-top: 0.25rem;
+  xmargin-top: -0.25rem;
   z-index: 99999999;
   margin-left: 0;
-  right: -1.5rem;
+  left: -4rem;
   background: #fff;
+}
+.fb-mode-edit > .fb-block-instance-properties {
+  margin-top: -2rem;
 }
 .fb-block-instance-properties:hover {
   z-index: 999999999;
@@ -64,7 +67,7 @@ main.govuk-main-wrapper {
 .fb-block-instance-properties-heading {
   position: absolute;
   top: 0rem;
-  right: -1rem;
+  left: -1rem;
 }
 .fb-mode-edit .fb-block-instance-properties ul {
   margin: 0;
@@ -81,7 +84,7 @@ main.govuk-main-wrapper {
   margin: 0;
   padding: 0;
   white-space: nowrap;
-  padding-right: 1rem;
+  padding: 0 0.5rem 0 1rem;
   background: #fff;
   line-height: 1.375;
 }
@@ -202,6 +205,9 @@ a.fb-block-edit:hover,
 h2 .fb-block-edit,
 .fb-flow-wrapper .fb-hover > .fb-block-edit-container > .fb-block-edit {
   visibility: visible;
+}
+h1 .fb-block-edit-container {
+  margin-top: 0.5rem;
 }
 h2 .fb-block-edit-container {
   margin-top: 0.25rem;
