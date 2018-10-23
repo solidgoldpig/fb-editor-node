@@ -280,7 +280,7 @@ const addBlockHover = (blocks, className, targetClass) => {
       let targetFound
       while (!targetFound && targetBlock.parentNode) {
         targetBlock = targetBlock.parentNode
-        if (targetBlock.className.includes(targetClass)) {
+        if (targetBlock && targetBlock.className && targetBlock.className.includes(targetClass)) {
           targetFound = true
         }
       }
@@ -419,6 +419,9 @@ editBlocks.forEach((block, index, blocks) => {
         const blockEnableStepsProperty = `<li><a href="/admin/instance/${blockLink}/enableSteps">Enable <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> steps</a></li>`
         blockContent += blockEnableStepsProperty
         }
+      } else if (blockType.match(/^(text|textarea|number|select)$/)) {
+          const blockWidthProperty = `<li><a href="/admin/instance/${blockLink}/widthClassInput">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> width</a></li>`
+        blockContent += blockWidthProperty
       }
 
       const blockViewProperties = `<li class="fb-block-instance--all"><a href="/admin/instance/${blockLink}">View all <span class="fb-block-instance-property-link">${blockType}</span> properties</a></li>`

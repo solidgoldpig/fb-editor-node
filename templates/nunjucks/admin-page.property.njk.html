@@ -8,7 +8,7 @@
 </style>
 <script>
 let textInput = document.querySelector('.govuk-input[name="value"][type="text"]')
-if (textInput.className.includes('govuk-input--width')) {
+if (textInput && textInput.className.includes('govuk-input--width')) {
   textInput = undefined
 }
 if (textInput) {
