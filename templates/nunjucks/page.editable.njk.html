@@ -419,6 +419,9 @@ editBlocks.forEach((block, index, blocks) => {
         const blockEnableStepsProperty = `<li><a href="/admin/instance/${blockLink}/enableSteps">Enable <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> steps</a></li>`
         blockContent += blockEnableStepsProperty
         }
+        if (!blockIsPageStart) {
+          blockContent += `<li><a href="/admin/instance/${blockLink}/url">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> URL</a></li>`
+        }
       } else if (blockType.match(/^(text|textarea|number|select)$/)) {
           const blockWidthProperty = `<li><a href="/admin/instance/${blockLink}/widthClassInput">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> width</a></li>`
         blockContent += blockWidthProperty
