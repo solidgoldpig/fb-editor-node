@@ -381,12 +381,17 @@ editBlocks.forEach((block, index, blocks) => {
       let blockShow = ''
       const blockTypeDisplay = blockType.charAt(0).toUpperCase() + blockType.slice(1)
       const blockHasValue = originalBlock.getAttribute('value') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [value]`)
-      const blockHasName = originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`)
+      const blockIsRadio = originalBlock.getAttribute('type') === 'radio'
+      const blockHasName = !blockIsRadio && (originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`))
+      console.log(originalBlock)
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
       blockContent += `<li class="fb-block-instance-properties-type-item"><span class="fb-block-instance-properties-type">${blockTypeDisplay}</span></li>`
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
         const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> name</a></li>`
         blockContent += blockNameProperty
+      } else if (blockIsRadio) {
+        const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> value</a></li>`
+        blockContent += blockValueProperty
       } else if (blockHasValue) {
         const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> value</a></li>`
         blockContent += blockValueProperty
