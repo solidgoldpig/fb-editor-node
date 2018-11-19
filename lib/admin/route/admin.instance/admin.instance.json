@@ -88,8 +88,18 @@
       "_type": "details",
       "summary": "View raw instance data",
       "show": {
-        "identifier": "instance",
-        "operator": "defined"
+        "all": [
+          {
+            "identifier": "instance",
+            "operator": "defined"
+          },
+          {
+            "identifier": "_id",
+            "operator": "is",
+            "value": "service",
+            "negated": true
+          }
+        ]
       },
       "components": [
         {
@@ -115,6 +125,7 @@
             {
               "_id": "admin.instance--instance--button",
               "_type": "button",
+              "classes": "fb-editor-button",
               "html": "Save instance"
             }
           ]

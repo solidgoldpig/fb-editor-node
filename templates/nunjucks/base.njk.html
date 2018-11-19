@@ -75,10 +75,18 @@
 
 .content-wrapper {
   background-color: #bfc1c3;
-  padding: 0 10rem;
+  padding: 0 10rem 3rem;
 }
 .content-wrapper--inner {
   background-color: #fff;
+}
+
+.content-wrapper-preview.content-wrapper,
+.content-wrapper-edit .content-wrapper--inner {
+  min-height: 85vh;
+}
+.content-wrapper-edit .govuk-back-link {
+  display: none;
 }
 </style>
 {% if page.MODE === 'live' %}
@@ -129,6 +137,8 @@
 {% if req.originalUrl === flowUrl %}{% set flowActive = true %}{% endif %}
 {% if req.originalUrl === listUrl %}{% set listActive = true %}{% endif %}
 {% if req.originalUrl === addPageUrl %}{% set addPageActive = true %}{% endif %}
+{% set addPageMatch = r/admin\/(new|create)\/page.*\/steps\/edit/g %}
+{% if addPageMatch.test(req.originalUrl) %}{% set addPageActive = true %}{% endif %}
 
 <nav class="fb-navigation">
 <ul>
@@ -183,7 +193,7 @@
 {% endif %}
 
 {% if (page.MODE === 'edit') or (page.MODE === 'preview') %}
-<div class="content-wrapper">
+<div class="content-wrapper content-wrapper-{{ page.MODE }}">
 <div class="content-wrapper--inner">
 {% endif %}
 
@@ -296,11 +306,14 @@ li.fb-navigation-mode-current:hover {
   padding: 0.75rem 1.5rem;
   border-bottom: solid 1px #b3b9be;
 }
-.adminBack::before {
-  content:'‹';
+.adminBack a,
+.adminBack a:visited {
+  color: #005ea5;
+}
+.adminBack a::before {
+  content:'‹ ';
   font-size: 1rem;
   font-weight: bold;
-  padding-right: 0.25rem;
 }
 
 @media (min-width: 40.0625em) {
@@ -325,8 +338,9 @@ li.fb-navigation-mode-current:hover {
   left: 0;
   right: 0;
   border-top: solid 10px #f47738;
-  background-color: rgba(43,140,196, 0.375);
-  background-color: #005ea5;
+  {# background-color: rgba(43,140,196, 0.375);
+  background-color: #005ea5; #}
+  background-color: #2e358b;
   z-index: 100000000;
 }
 .PreviewSummary{

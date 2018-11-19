@@ -26,6 +26,9 @@
 {% block bodyEnd %}
 {{ super() }}
 <style type="text/css">
+.govuk-template {
+  background-color: #fff;
+}
 .govuk-header {
   background-color: #4c2c92;
   background-color: #2e358b;
@@ -232,6 +235,9 @@ p.fb-property-items-add {
 .fb-structure-current:before {
   content: '• ';
 }
+.govuk-grid-column-two-thirds .fb-structure-current:before {
+  content: '';
+}
 
 .data-structure-empty {
   margin: 6px 0 0;
@@ -252,6 +258,20 @@ ul.tree li {
   margin: 0;
   line-height: 20px;
 }
+
+.govuk-grid-column-two-thirds ul.tree li {
+  font-weight: normal;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.tree li a {
+  color: #005ea5;
+}
+.govuk-grid-column-two-thirds ul.tree li a {
+  font-weight: normal;
+}
+
 ul.tree > li > p {
   xmargin-bottom: 5px;
 }
@@ -267,10 +287,16 @@ ul.tree ul li {
   padding: 0 7px;
   border-left: 1px solid rgb(100,100,100);
 }
+.govuk-grid-column-two-thirds ul.tree ul li {
+  padding: 0 1rem;
+}
 ul.tree ul li p {
   margin: 0;
   xdisplay: inline-block;
   padding-left: 7px;
+}
+.govuk-grid-column-two-thirds ul.tree ul li p {
+  padding-left: 0.25rem;
 }
 .componentTypeName {
   position: relative;
@@ -293,7 +319,7 @@ ul.tree .component--type {
 ul.tree ul li:last-child {
   border-left:none;
 }
-ul.tree ul li:before {
+.govuk-grid-column-two-thirds ul.tree ul li:before {
   position: absolute;
   top: 0;
   height: 1em;
@@ -303,6 +329,9 @@ ul.tree ul li:before {
   content: "";
   display: inline-block;
   left: 0;
+}
+.govuk-grid-column-two-thirds ul.tree ul li:before {
+  width: 1rem;
 }
 ul.tree ul li:last-child:before {
   border-left: 1px solid rgb(100,100,100);   

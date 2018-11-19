@@ -2,7 +2,7 @@
     "_id": "admin.instance.create.location",
     "_type": "page.admin",
     "url": "/add/page",
-    "heading": "Where to add page",
+    "heading": "Add a page",
     "components": [
       {
         "_id": "admin.instance.create.location--header",
@@ -12,7 +12,7 @@
             "_id": "admin.instance.create.location--type",
             "_type": "radios",
             "name": "location",
-            "legend": "Add page as a step of",
+            "legend": "As a step of",
             "items": [{
                 "_id": "admin.instance.create.location--item",
                 "hasDivider": true,
@@ -23,6 +23,7 @@
           {
             "_id": "admin.instance.create.location--button",
             "_type": "button",
+            "classes": "fb-editor-button",
             "html": "Continue"
           }
         ]

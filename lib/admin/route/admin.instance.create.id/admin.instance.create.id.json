@@ -63,7 +63,7 @@
         "_id": "admin.instance.create.id--idSeed--button",
         "_type": "button",
         "classes": "fb-editor-button",
-        "html": "Continue"
+        "html": "Set {idSeed}"
       }],
       "show": {
         "identifier": "idSeed",

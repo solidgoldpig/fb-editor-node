@@ -2,7 +2,7 @@
     "_id": "admin.instance.create.type",
     "_type": "page.admin",
     "url": "/:instanceType?/new/:addId?/:addProperty?/:operation?",
-    "heading": "Add a {instanceType, select, step{page} other{{instanceType}}}",
+    "heading": "Select a {instanceType, select, step{page} other{{instanceType}}} type",
     "components": [
       {
         "_id": "admin.instance.create.type--header",
