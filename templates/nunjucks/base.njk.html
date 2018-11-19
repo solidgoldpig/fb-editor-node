@@ -1,43 +1,175 @@
 {% extends "_base.njk.html" %}
 
-{% macro navLink(content, type, typeLink, pageLink, mode) %}
+{% macro modeNavLink(content, type, typeLink, pageLink, mode) %}
 {% set linkify = mode != type %}
-<li class="fb-navigation-mode fb-navigation-{{ type }}{% if not linkify %} fb-navigation-current{% endif %}">{% if linkify %}<a href="{{ pageLink }}{% if typeLink or not pageLink %}/{% endif %}{{ typeLink }}">{% endif %}{{ content }}{% if linkify %}</a>{% endif %}</li>
+<li class="govuk-link fb-navigation-mode fb-navigation-{{ type }}{% if not linkify %} fb-navigation-mode-current{% endif %}">{% if linkify %}<a href="{{ pageLink }}{% if typeLink or not pageLink %}/{% endif %}{{ typeLink }}">{% endif %}{{ content }}{% if linkify %}</a>{% endif %}</li>
+{% endmacro %}
+
+{% macro headerNavLink(text, url, active) %}
+<li class="govuk-header__navigation-item{% if active %} govuk-header__navigation-item--active{% endif %}"><a class="govuk-header__link" href="{{ url }}">{{ text }}</a></li>
+{% endmacro %}
+
+{% macro pagesNavLink(text, url, active) %}
+<li class="govuk-link {% if active %} fb-navigation-current{% endif %}"><a href="{{ url }}">{{ text }}</a></li>
 {% endmacro %}
 
 {% block skipLink %}
-<div class="fb-navigation govuk-body-m">
-<ul class="govuk-width-container">
-<li class="fb-navigation-dashboard"><a href="/admin">Dashboard</a></li>
-<li class="fb-navigation-flow"><a href="/admin/flow">Page flow</a></li>
-<li class="fb-navigation-page-add"><a href="/admin/add/page">Add page</a></li>
+{{ super() }}
+<style>
+.fb-editor-liveheader {
+  position: absolute;
+  right: 1rem;
+  top: 0.375rem;
+}
+.fb-editor-liveheader a {
+  background-color: #fff;
+  color: #005ea5 !important;
+  border: solid 0.125rem #005ea5;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  display: block;
+  text-decoration: none;
+}
+.fb-editor-liveheader a:hover {
+  background-color: #005ea5;
+  color: #fff !important;
+}
+
+.fb-editor-header {
+  background: #000;
+  color: #fff;
+  border-bottom: solid 10px #f47738;
+  display: table;
+  width: 100%;
+}
+.fb-editor-header > * {
+  padding: 0.5rem 0.5rem;
+  display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.fb-editor-header a {
+  color: #fff;
+}
+.fb-editorheader--branding {
+  width: 1px; /* collapse cell as much as possible */
+  position: relative;
+  top: 0.25rem;
+  padding-right: 2rem;
+}
+.fb-editorheader--form {
+  font-weight: normal;
+}
+.fb-editorheader--navigation {
+  text-align: right;
+  padding-right: 2rem;
+}
+.fb-editorheader--navigation ul {
+  margin: 0;
+  padding: 0;
+}
+.fb-editorheader--navigation .govuk-header__link {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.content-wrapper {
+  background-color: #bfc1c3;
+  padding: 0 10rem;
+}
+.content-wrapper--inner {
+  background-color: #fff;
+}
+</style>
+{% if page.MODE === 'live' %}
+<div class="fb-editor-liveheader">
+<a class="govuk-link" href="/admin/flow">Return to Form Builder</a>
+</div>
+{% else %}
+<div class="fb-editor-header--wrapper">
+<div class="fb-editor-header">
+<div class="fb-editorheader--branding">
+<div class="govuk-header__logo">
+      <a href="/" class="govuk-header__link govuk-header__link--homepage">
+        <span class="govuk-header__logotype">
+          
+          <svg role="presentation" focusable="false" class="govuk-header__logotype-crown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 97" height="32" width="36">
+            <path fill="currentColor" fill-rule="evenodd" d="M25 30.2c3.5 1.5 7.7-.2 9.1-3.7 1.5-3.6-.2-7.8-3.9-9.2-3.6-1.4-7.6.3-9.1 3.9-1.4 3.5.3 7.5 3.9 9zM9 39.5c3.6 1.5 7.8-.2 9.2-3.7 1.5-3.6-.2-7.8-3.9-9.1-3.6-1.5-7.6.2-9.1 3.8-1.4 3.5.3 7.5 3.8 9zM4.4 57.2c3.5 1.5 7.7-.2 9.1-3.8 1.5-3.6-.2-7.7-3.9-9.1-3.5-1.5-7.6.3-9.1 3.8-1.4 3.5.3 7.6 3.9 9.1zm38.3-21.4c3.5 1.5 7.7-.2 9.1-3.8 1.5-3.6-.2-7.7-3.9-9.1-3.6-1.5-7.6.3-9.1 3.8-1.3 3.6.4 7.7 3.9 9.1zm64.4-5.6c-3.6 1.5-7.8-.2-9.1-3.7-1.5-3.6.2-7.8 3.8-9.2 3.6-1.4 7.7.3 9.2 3.9 1.3 3.5-.4 7.5-3.9 9zm15.9 9.3c-3.6 1.5-7.7-.2-9.1-3.7-1.5-3.6.2-7.8 3.7-9.1 3.6-1.5 7.7.2 9.2 3.8 1.5 3.5-.3 7.5-3.8 9zm4.7 17.7c-3.6 1.5-7.8-.2-9.2-3.8-1.5-3.6.2-7.7 3.9-9.1 3.6-1.5 7.7.3 9.2 3.8 1.3 3.5-.4 7.6-3.9 9.1zM89.3 35.8c-3.6 1.5-7.8-.2-9.2-3.8-1.4-3.6.2-7.7 3.9-9.1 3.6-1.5 7.7.3 9.2 3.8 1.4 3.6-.3 7.7-3.9 9.1zM69.7 17.7l8.9 4.7V9.3l-8.9 2.8c-.2-.3-.5-.6-.9-.9L72.4 0H59.6l3.5 11.2c-.3.3-.6.5-.9.9l-8.8-2.8v13.1l8.8-4.7c.3.3.6.7.9.9l-5 15.4v.1c-.2.8-.4 1.6-.4 2.4 0 4.1 3.1 7.5 7 8.1h.2c.3 0 .7.1 1 .1.4 0 .7 0 1-.1h.2c4-.6 7.1-4.1 7.1-8.1 0-.8-.1-1.7-.4-2.4V34l-5.1-15.4c.4-.2.7-.6 1-.9zM66 92.8c16.9 0 32.8 1.1 47.1 3.2 4-16.9 8.9-26.7 14-33.5l-9.6-3.4c1 4.9 1.1 7.2 0 10.2-1.5-1.4-3-4.3-4.2-8.7L108.6 76c2.8-2 5-3.2 7.5-3.3-4.4 9.4-10 11.9-13.6 11.2-4.3-.8-6.3-4.6-5.6-7.9 1-4.7 5.7-5.9 8-.5 4.3-8.7-3-11.4-7.6-8.8 7.1-7.2 7.9-13.5 2.1-21.1-8 6.1-8.1 12.3-4.5 20.8-4.7-5.4-12.1-2.5-9.5 6.2 3.4-5.2 7.9-2 7.2 3.1-.6 4.3-6.4 7.8-13.5 7.2-10.3-.9-10.9-8-11.2-13.8 2.5-.5 7.1 1.8 11 7.3L80.2 60c-4.1 4.4-8 5.3-12.3 5.4 1.4-4.4 8-11.6 8-11.6H55.5s6.4 7.2 7.9 11.6c-4.2-.1-8-1-12.3-5.4l1.4 16.4c3.9-5.5 8.5-7.7 10.9-7.3-.3 5.8-.9 12.8-11.1 13.8-7.2.6-12.9-2.9-13.5-7.2-.7-5 3.8-8.3 7.1-3.1 2.7-8.7-4.6-11.6-9.4-6.2 3.7-8.5 3.6-14.7-4.6-20.8-5.8 7.6-5 13.9 2.2 21.1-4.7-2.6-11.9.1-7.7 8.8 2.3-5.5 7.1-4.2 8.1.5.7 3.3-1.3 7.1-5.7 7.9-3.5.7-9-1.8-13.5-11.2 2.5.1 4.7 1.3 7.5 3.3l-4.7-15.4c-1.2 4.4-2.7 7.2-4.3 8.7-1.1-3-.9-5.3 0-10.2l-9.5 3.4c5 6.9 9.9 16.7 14 33.5 14.8-2.1 30.8-3.2 47.7-3.2z"></path>
+            
+            <image src="/assets/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image"></image>
+          </svg>
+          <span class="govuk-header__logotype-text">
+            Ministry of Justice
+          </span>
+        </span>
+        
+      </a>
+    </div>
+</div>
+
+{% if req.originalUrl === '/admin/instance/service' %}{% set configurationActive = true %}{% endif %}
+{% if not configurationActive %}{% set buildActive = true %}{% endif %}
+
+<div class="fb-editorheader--form govuk-header__link govuk-header__link--service-name">Form Builder: {{ page.service.name }}</div>
+<nav class="fb-editorheader--navigation">
+<ul>
+{{ headerNavLink('Build', '/admin/flow', buildActive) }}
+{{ headerNavLink('Configure', '/admin/instance/service', configurationActive) }}
+{{ headerNavLink('Run form', '/', false) }}
+{{ headerNavLink('Help', 'https://fb-user-guide-dev.apps.cloud-platform-live-0.k8s.integration.dsd.io/', helpActive, {target: 'fb-help', classes: 'fb-external fb-external--docs'}) }}
+</ul>
+</nav>
+
+</div>
+
+{% set flowUrl = '/admin/flow' %}
+{% set listUrl = '/admin' %}
+{% set addPageUrl = '/admin/add/page' %}
+
+{% if req.originalUrl === flowUrl %}{% set flowActive = true %}{% endif %}
+{% if req.originalUrl === listUrl %}{% set listActive = true %}{% endif %}
+{% if req.originalUrl === addPageUrl %}{% set addPageActive = true %}{% endif %}
+
+<nav class="fb-navigation">
+<ul>
+{% set flowUrl = '/admin/flow' %}
+{{ pagesNavLink('Page flow', flowUrl, flowActive) }}
+{{ pagesNavLink('Page list', listUrl, listActive) }}
+{{ pagesNavLink('Add page', addPageUrl, addPageActive) }}
+</ul>
+</nav>
 
 {% if page.MODEURL %}
 {% set MODEURL = page.MODEURL %}
 {% if MODEURL == '/' %}
 {% set MODEURL = '' %}
 {% endif %}
-<li class="modes"><ul>
-{{ navLink('Live view', 'live', '', MODEURL, page.MODE) }}
-{{ navLink('Preview mode', 'preview', 'preview', MODEURL, page.MODE) }}
+<nav class="fb-navigation-modes">
+<ul>
+{# {{ modeNavLink('Live view', 'live', '', MODEURL, page.MODE) }} #}
 {% if not page.$autoInjected %}
-{{ navLink('Properties mode', 'instance', 'instance', MODEURL, page.MODE) }}
-{{ navLink('Build mode', 'edit', 'edit', MODEURL, page.MODE) }}
+{# {{ modeNavLink('Properties mode', 'instance', 'instance', MODEURL, page.MODE) }} #}
+{{ modeNavLink('Edit page', 'edit', 'edit', MODEURL, page.MODE) }}
 {% else %}
 {# <li>Auto-injected page for {{page._repeatableId }}</li> #}
 {% endif %}
-</ul></li>
-
-{% endif %}
+{{ modeNavLink('Preview', 'preview', 'preview', MODEURL, page.MODE) }}
 </ul>
+</nav>
+{% endif %}
 </div>
-{{ super() }}
+{% endif %}{# /if page.MODE === 'live' #}
+
+{% if page.adminBack %}
+<p class="adminBack"><a class="govuk-link" href="{{ page.adminBack }}">Back</a></p>
+{% endif %}
+
 {% endblock %}
 
 {% block header %}
 {% if page.preview.next or page.preview.previous  %}
 <div class="PreviewSummary-container">
-<div class="PreviewSummary govuk-width-container govuk-body-m" role="group" aria-labelledby="preview-summary-heading" tabindex="-1">
+<div class="PreviewSummary xgovuk-width-container govuk-body-m" role="group" aria-labelledby="preview-summary-heading" tabindex="-1">
 <div class="PreviewSummary__links">
 {% if page.preview.previous %}
 <p class="fb-preview-previous"><a href="{{ page.preview.previous.url }}"><span class="fb-preview-direction">Previous page</span> {{ page.preview.previous.title | safe }}</a></p>
@@ -50,7 +182,14 @@
 </div>
 {% endif %}
 
+{% if (page.MODE === 'edit') or (page.MODE === 'preview') %}
+<div class="content-wrapper">
+<div class="content-wrapper--inner">
+{% endif %}
+
+{% if (page.MODE === 'live') or (page.MODE === 'preview') or (page.MODE === 'flow') %}
 {{ super() }}
+{% endif %}
 
 {% endblock %}
 
@@ -58,7 +197,18 @@
 {# Stuff to appear before body #}
 {% endblock %}
 
+{% block footer %}
+{% if (page.MODE === 'live') or (page.MODE === 'preview') or (page.MODE === 'flow') %}
+{{ super() }}
+{% endif %}
+{% endblock %}
+
 {% block bodyEnd %}
+{% if (page.MODE === 'edit') or (page.MODE === 'preview') %}
+</div>
+</div>
+{% endif %}
+
 {{ super() }}
 <style>
 @media (max-width: 1020px) {
@@ -68,42 +218,99 @@
 }
 
 .fb-navigation {
-  background: #005ea5;
+  background: #f8f8f8;
   margin: 0;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
   overflow: hidden;
+  border-bottom: solid 1px #b3b9be;
 }
 .fb-navigation ul {
+  margin: 0;
   padding: 0;
 }
 .fb-navigation li {
   list-style-type: none;
 }
+.fb-navigation .fb-navigation-current a,
 .fb-navigation a {
-  color: #fff;
+  color: #005ea5;
+  text-decoration: none;
+  border-bottom: 0.25rem solid transparent;
+  padding: 0.75rem 1rem 0.5rem;
 }
-.fb-navigation-current {
-  color: #fff;
+.fb-navigation li:hover a {
+  color: #2b8cc4;
+}
+.fb-navigation li:hover a {
+  border-bottom-color: #2b8cc4;
+}
+.fb-navigation .fb-navigation-current a {
+  border-bottom-color: #005ea5;
+}
+
+.fb-navigation-modes {
+  position: absolute;
+  right: 1.5rem;
+  margin-top: -2.75rem;
+  border: solid 1px #797979;
+}
+
+.fb-navigation-modes ul {
+  display: table;
+  padding: 0;
+  margin: 0;
+}
+
+.fb-navigation-modes li {
+  display: inline-block;
+  padding: 0;
   font-weight: bold;
-  font-size: 125%;
+}
+
+.fb-navigation-modes li + li {
+  border-left: solid 1px #797979;
+}
+li.fb-navigation-mode-current,
+.fb-navigation-modes li a {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  min-width: 6rem;
+  text-align: center;
+  font-size: 1.1875rem;
+  background-color: #dee0e2;
+  color: #71777b;
+  text-decoration: none;
+}
+.fb-navigation-modes li a:hover {
+  color: #fff;
+  background-color: #005ea5;
+}
+li.fb-navigation-mode-current,
+li.fb-navigation-mode-current:hover {
+  background-color: #fff;
+  color: #005ea5;
+}
+
+.adminBack {
+  margin: 0;
+  padding: 0.75rem 1.5rem;
+  border-bottom: solid 1px #b3b9be;
+}
+.adminBack::before {
+  content:'‹';
+  font-size: 1rem;
+  font-weight: bold;
+  padding-right: 0.25rem;
 }
 
 @media (min-width: 40.0625em) {
   .fb-navigation li {
     display: inline-block;
-    margin-right: 2rem;
   }
-  li.modes {
-    float: right;
-    margin-right: 0;
-  }
-  li.fb-navigation-mode {
-    xfloat: right;
-    margin-right: 0;
-    margin-left: 2rem;
-  }
-  .fb-navigation-current {
-    margin-top: -0.25rem;
+  .fb-navigation li a {
+    display: inline-block;
+    font-size: 1.1875rem;
+    font-weight: bold;
   }
 }
 
@@ -113,10 +320,18 @@
 </style>
 <style>
 .PreviewSummary-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: solid 10px #f47738;
   background-color: rgba(43,140,196, 0.375);
+  background-color: #005ea5;
+  z-index: 100000000;
 }
 .PreviewSummary{
-  padding: 0.5rem 0;
+  padding: 1rem 0;
+  margin: 0;
 }
 .govuk-prose-scope .PreviewSummary__heading{
   font-weight: bold;
@@ -148,30 +363,31 @@
   color: #2b8cc4;
   font-size: 2rem;
   position: relative;
-  top: 0.25rem;
+  Xtop: 0.5rem;
   line-height: 0.5;
 }
 @media (min-width: 40.0625em) {
   .PreviewSummary__links {
     width: 100%;
     overflow: hidden;
+    display: table;
   }
   .PreviewSummary__links p {
-    float: left;
+    display: table-cell;
     width: 50%;
     position: relative;
     box-sizing: border-box;
-    padding-left: 1.25rem;
+    padding-left: 2.25rem;
   }
   .PreviewSummary__links a {
     position: relative;
     z-index: 1;
-    color: #000;
+    color: #fff;
   }
   .PreviewSummary__links p.fb-preview-next {
-    float: right;
+    text-align: right;
     padding-left: 0;
-    padding-right: 1.25rem;
+    padding-right: 2.25rem;
     text-align: right;
   }
   .PreviewSummary__links .fb-preview-next a {
@@ -179,6 +395,7 @@
   }
   .PreviewSummary__links p::before {
     color: #2b8cc4;
+    color: #fff;
     font-size: 2rem;
     font-weight: bold;
     position: absolute;
@@ -186,13 +403,13 @@
     line-height: 0.325;
   }
   .PreviewSummary__links .fb-preview-previous::before {
-    left: 0;
+    left: 1rem;
   }
   .PreviewSummary__links .fb-preview-next {
-    float: right;
+    xfloat: right;
   }
   .PreviewSummary__links .fb-preview-next::before {
-    right: 0;
+    right: 1rem;
   }
 }
 </style>

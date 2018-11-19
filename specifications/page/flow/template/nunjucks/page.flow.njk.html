@@ -3,6 +3,7 @@
 {% block header %}{% endblock %}
 
 {% block content %}
+<h1>{{ page.heading }}</h1>
 <div class="fb-flow-wrapper">
 {% for flowstep in page.flowsteps %}
 <div class="fb-flow-container">
@@ -22,10 +23,10 @@
 
 html,
 body {
-  background: #dee0e2 !important;
+  background: #fff !important;
 }
 
-.fb-navigation {
+.fb-editor-header--wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -33,8 +34,8 @@ body {
   z-index: 10;
 }
 
-.fb-navigation .govuk-width-container {
-  margin: 0 auto;
+.fb-editor-header--wrapper + .govuk-width-container {
+  margin: 6rem 0 0;
 }
 
 .govuk-skip-link + .govuk-width-container {
@@ -42,6 +43,7 @@ body {
 }
 
 .fb-flow-wrapper {
+  margin-left: -150px;
   transform-origin: top left;
   transform: scale(0.375);
   white-space: nowrap;
@@ -311,7 +313,7 @@ ul.fb-conditions-list {
 .fb-step-details {
   position: absolute;
   bottom: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   width: 100%;
 }
 .fb-step-details h2 {
@@ -322,7 +324,7 @@ ul.fb-conditions-list {
   padding: 0;
 }
 .fb-step-details ul.fb-page-links li {
-  font-size: 2rem;
+  font-size: 3rem;
   list-style-type: none;
   display: inline-block;
   padding: 0;
@@ -341,10 +343,10 @@ ul.fb-conditions-list {
   z-index: 1;
 }
 .fb-page-steps h3 {
-  font-size: 2rem;
+  font-size: 3rem;
   text-align: right;
   margin: 0;
-  padding: 0.5rem 1rem 0;
+  padding: 1rem 1rem 0;
   border: solid 1px transparent;
   border-bottom: none;
   position: relative;
@@ -359,7 +361,7 @@ ul.fb-conditions-list {
   display: none;
   background: #fff;
   position: absolute;
-  width: 12rem;
+  width: 27rem;
   margin: -3px 0 0 0;
   padding: 0.5rem;
   right: 0;
@@ -372,9 +374,11 @@ ul.fb-conditions-list {
   display: block;
   padding: 0.5rem;
 }
-.fb-page-steps li {
+.fb-step-details .fb-page-steps li {
   list-style-type: none;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .fb-step-highlight .fb-step {
@@ -384,6 +388,13 @@ ul.fb-conditions-list {
   background-color: #fc0;
 }
 
+.fb-page-url {
+  position: absolute;
+  font-size: 3rem;
+}
+.fb-page-url--label {
+  font-weight: bold;
+}
 header.govuk-header {
   padding-left: 20px;
   padding-right: 20px;

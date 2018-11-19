@@ -2,12 +2,13 @@
     "_id": "admin.main",
     "_type": "page.admin",
     "url": "/",
-    "heading": "Form Builder Dashboard",
+    "heading": "Page list",
     "components": [
       {
         "_id": "admin.main--id",
         "_type": "content",
-        "html": "### Page flow view\n\nA flow diagram of how your service's pages link together.\n\n- [Page flow view](/admin/flow)\n\n### Pages\n\nThe pages in your service. Click a link to edit that page.\n\nPages that are steps of another page are shown as nested bullets.\n\n{pages}\n\n### Configuration\n\nEdit details for your service, such as its name and phase (alpha, beta etc).\n\n- [Service](/admin/instance/service)",
+        "html": "{pages}",
+        "xhtml": "### Page flow view\n\nA flow diagram of how your service's pages link together.\n\n- [Page flow view](/admin/flow)\n\n### Pages\n\nThe pages in your service. Click a link to edit that page.\n\nPages that are steps of another page are shown as nested bullets.\n\n{pages}\n\n### Configuration\n\nEdit details for your service, such as its name and phase (alpha, beta etc).\n\n- [Service](/admin/instance/service)",
         "htmlOverspill": "Click on the links below to edit your pages and service details.\n\n\n\nTo create a new page, click [enter text]."
       },
       {

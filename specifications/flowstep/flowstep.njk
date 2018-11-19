@@ -35,13 +35,13 @@
 {% endif %}
 <div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
 <div class="fb-step-details govuk-prose-scope">
-<h2><span class="fb-page-link-type">Url</span> <a href="{{ data.url }}">{{ data.url }}</a></h2>
+{# <h2><span class="fb-page-link-type">Url</span> <a href="{{ data.url }}">{{ data.url }}</a></h2> #}
 <ul class="fb-page-links">
-<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}{% else %}/{% endif %}">Live view</a></span></li>
-<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/preview{% else %}/preview{% endif %}">Preview mode</a></span></li>
+{# <li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}{% else %}/{% endif %}">Live view</a></span></li> #}
+<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/edit{% else %}/edit{% endif %}">Edit page</a></span></li>
+<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/preview{% else %}/preview{% endif %}">Preview</a></span></li>
 {% if not data.$autoInjected %}
-<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/instance{% else %}/instance{% endif %}">Properties mode</a></span></li>
-<li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/edit{% else %}/edit{% endif %}">Build mode</a></span></li>
+{# <li><span class="fb-page-link-type"><a href="{% if data.url != '/' %}{{ data.url }}/instance{% else %}/instance{% endif %}">Properties mode</a></span></li> #}
 {% endif %}
 </ul>
 {% if data.flowsteps %}
@@ -68,6 +68,9 @@
 {{- callMacro('pageContentHeading', data) -}}
 {{- callMacro('pageContentBody', data) -}}
 {% endif %}
+{# <p class="fb-step-url" style="position:absolute"> #}
+<p class="fb-page-url"><span class="fb-page-url--label">Url</span> {% if data.url === '/' %}/{% else %}<a href="/admin/instance/{{ data._id }}/url">{{ data.url }}</a>{% endif %}</p>
+{# </p> #}
 </div>
 {% if data.flowsteps %}
 <div class="fb-substeps">
