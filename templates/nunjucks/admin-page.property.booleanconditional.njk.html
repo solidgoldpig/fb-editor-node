@@ -30,11 +30,14 @@
   right: 1rem;
   visibility: hidden;
 }
+
+{# 
 @media (min-width: 40.0625em) {
   #conditions {
     width: 66%;
   }
-}
+} #}
+
 
 #conditions .fb-action--revert-conditions,
 #conditions .fb-action--convert-condition {
@@ -49,6 +52,11 @@
 #conditions .condition-individual:hover > .fb-action-secondary {
   visibility: visible;
 }
+#conditions > div > .fb-action--revert-conditions,
+#conditions > div .fb-action--convert-condition {
+  top: -0.25rem;
+}
+
 .fb-action-secondary:active {
   margin-top: 2px;
 }
