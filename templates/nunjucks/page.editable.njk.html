@@ -501,7 +501,7 @@ const revealConditionals = () => {
 }
 setInterval(revealConditionals, 10)
 // revealConditionals()
-const ariaControls = [].slice.call(document.querySelectorAll('[aria-controls]'))
+const ariaControls = [].slice.call(document.querySelectorAll('.govuk-radios__input, .govuk-checkboxes__input, [aria-controls]'))
 ariaControls.forEach(ariaControl => {
   ariaControl.addEventListener('click', (e) => {
     e.preventDefault()
