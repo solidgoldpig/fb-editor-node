@@ -5,8 +5,8 @@
 <li class="govuk-link fb-navigation-mode fb-navigation-{{ type }}{% if not linkify %} fb-navigation-mode-current{% endif %}">{% if linkify %}<a href="{{ pageLink }}{% if typeLink or not pageLink %}/{% endif %}{{ typeLink }}">{% endif %}{{ content }}{% if linkify %}</a>{% endif %}</li>
 {% endmacro %}
 
-{% macro headerNavLink(text, url, active) %}
-<li class="govuk-header__navigation-item{% if active %} govuk-header__navigation-item--active{% endif %}"><a class="govuk-header__link" href="{{ url }}">{{ text }}</a></li>
+{% macro headerNavLink(text, url, active, options) %}
+<li class="govuk-header__navigation-item{% if active %} govuk-header__navigation-item--active{% endif %}{% if options.classes %} {{ options.classes }}{% endif %}"{% if options.targer %} target="{{ options.target }}"{% endif %}><a class="govuk-header__link" href="{{ url }}">{{ text }}</a></li>
 {% endmacro %}
 
 {% macro pagesNavLink(text, url, active) %}
