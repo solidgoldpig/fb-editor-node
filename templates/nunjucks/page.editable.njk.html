@@ -366,9 +366,15 @@ editBlocks.forEach((block, index, blocks) => {
   // }
 
   const addEditContainer = (block, propertyType = '') => {
-    const blockProperty = block.getAttribute(`data-block-property${propertyType}`)
+    let blockProperty = block.getAttribute(`data-block-property${propertyType}`)
     if (propertyType && !blockProperty) {
       return
+    }
+    if (propertyType === '-class') {
+      const propertyClassParts = blockProperty.split(':')
+      blockProperty = propertyClassParts[1]
+      const propertyClass = propertyClassParts[0]
+      block = block.querySelector('.' + propertyClass)
     }
     const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
     const blockLevel = !blockProperty //block.classList.contains('govuk-form-group')
@@ -473,6 +479,7 @@ editBlocks.forEach((block, index, blocks) => {
   }
   addEditContainer(originalBlock)
   addEditContainer(originalBlock, '-instance')
+  addEditContainer(originalBlock, '-class')
 })
 addBlockHover(editBlocks, 'fb-hover')
 const stepBlocks = [].slice.call(document.querySelectorAll('.fb-page-steps'))
