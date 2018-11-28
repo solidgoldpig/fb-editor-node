@@ -424,7 +424,7 @@ editBlocks.forEach((block, index, blocks) => {
         const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> value</a></li>`
         blockContent += blockValueProperty
       }
-      if (blockHasName || blockType === 'radios' || blockType === 'date') {
+      if (blockHasName || blockType === 'radios' || blockType === 'date' || blockType === 'fieldset') {
         const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> validation</a></li>`
         blockContent += blockValidationProperty
         const blockRepeatableProperty = `<li><a href="/admin/instance/${blockLink}/repeatable">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> repeatability</a></li>`

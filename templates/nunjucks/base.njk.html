@@ -6,7 +6,7 @@
 {% endmacro %}
 
 {% macro headerNavLink(text, url, active, options) %}
-<li class="govuk-header__navigation-item{% if active %} govuk-header__navigation-item--active{% endif %}{% if options.classes %} {{ options.classes }}{% endif %}"{% if options.targer %} target="{{ options.target }}"{% endif %}><a class="govuk-header__link" href="{{ url }}">{{ text }}</a></li>
+<li class="govuk-header__navigation-item{% if active %} govuk-header__navigation-item--active{% endif %}{% if options.classes %} {{ options.classes }}{% endif %}"><a class="govuk-header__link" href="{{ url }}"{% if options.target %} target="{{ options.target }}"{% endif %}>{{ text }}</a></li>
 {% endmacro %}
 
 {% macro pagesNavLink(text, url, active) %}
