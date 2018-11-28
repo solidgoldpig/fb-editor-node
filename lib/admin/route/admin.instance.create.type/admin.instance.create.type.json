@@ -2,7 +2,7 @@
     "_id": "admin.instance.create.type",
     "_type": "page.admin",
     "url": "/:instanceType?/new/:addId?/:addProperty?/:operation?",
-    "heading": "Select a {instanceType, select, step{page} other{{instanceType}}} type",
+    "heading": "Select {instanceType, select, step{page} other{{instanceType}}} type",
     "components": [
       {
         "_id": "admin.instance.create.type--header",
@@ -24,7 +24,7 @@
             "_id": "admin.instance.create.type--button",
             "_type": "button",
             "classes": "fb-editor-button",
-            "html": "Continue"
+            "html": "Select {instanceType, select, step{page} other{{instanceType}}} type"
           }
         ]
       }
