@@ -5,6 +5,12 @@
 {% extends template %}
 
 
+{% block cookiesMessage %}
+{% if page.MODE === 'live' %}
+{{ super() }}
+{% endif %}
+{% endblock %}
+
 {% block bodyEnd %}
 {{ super() }}
 <style>
