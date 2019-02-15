@@ -87,6 +87,9 @@ if (window.Shortcut) {
     const modeNav = (stub) => {
       const urlLink = document.querySelector(`.fb-navigation-${stub} a`)
       if (!urlLink) {
+        if (stub.match(/(edit|preview)/)) {
+          document.location.href = href.replace(new RegExp(`/${stub}`), '') + (href === '/' ? '' : '/') + stub
+        }
         return
       }
       document.location.href = urlLink.getAttribute('href')
@@ -133,13 +136,13 @@ if (window.Shortcut) {
     if (!href.startsWith('/admin') || href.includes('instance')) {
       const urlLink = document.querySelector('[data-block-id="admin.instance--url"] a')
       const url = urlLink ? urlLink.href : undefined
-      addShortcut('u', () => {
+      addShortcut('r', () => {
         modeNav('live')
       })
       addShortcut('i', () => {
         modeNav('instance')
       })
-      addShortcut('w', () => {
+      addShortcut('e', () => {
         modeNav('edit')
       })
       addShortcut('p', () => {

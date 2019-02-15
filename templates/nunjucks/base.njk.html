@@ -158,9 +158,9 @@
 {% endif %}
 <nav class="fb-navigation-modes">
 <ul>
-{# {{ modeNavLink('Live view', 'live', '', MODEURL, page.MODE) }} #}
+{{ modeNavLink('Run view', 'live', '', MODEURL, page.MODE) }}
 {% if not page.$autoInjected %}
-{# {{ modeNavLink('Properties mode', 'instance', 'instance', MODEURL, page.MODE) }} #}
+{{ modeNavLink('Properties mode', 'instance', 'instance', MODEURL, page.MODE) }}
 {{ modeNavLink('Edit page', 'edit', 'edit', MODEURL, page.MODE) }}
 {% else %}
 {# <li>Auto-injected page for {{page._repeatableId }}</li> #}
@@ -280,6 +280,10 @@
   font-weight: bold;
 }
 
+.fb-navigation-live,
+.fb-navigation-instance {
+  display: none !important;
+}
 .fb-navigation-modes li + li {
   border-left: solid 1px #797979;
 }
