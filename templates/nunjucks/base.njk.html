@@ -75,13 +75,22 @@
   font-weight: normal;
 }
 
-.content-wrapper {
-  background-color: #bfc1c3;
-  padding: 0 10rem 3rem;
+/* 40.0625em */
+@media (min-width: 800px) {
+  .content-wrapper {
+    background-color: #bfc1c3;
+    padding: 0 10rem 3rem;
+  }
+  .content-wrapper--inner {
+    padding: 0 100px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
 }
+ 
 .content-wrapper--inner {
   background-color: #fff;
-}
+} 
 
 .content-wrapper-preview.content-wrapper,
 .content-wrapper-edit .content-wrapper--inner {
@@ -223,7 +232,14 @@
 
 {{ super() }}
 <style>
-@media (max-width: 1020px) {
+
+@media (min-width: 800px) {
+  .govuk-width-container {
+    max-width:960px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 800px) {
   .govuk-width-container {
     margin: 0 1rem -10px 5.5rem;
   }
