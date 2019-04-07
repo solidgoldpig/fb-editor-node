@@ -52,8 +52,11 @@
 {% if data.flowsteps.length > 1 %}
 <li><a href="/admin/instance/{{ data._id }}/steps">Remove/reorder steps</a></li>
 {% endif %}
+{% if not data.$flowStart %}
+<li><a href="/admin/instance/{{ data._id }}/showSteps">Set steps condition</a></li>
 {% if not data.$flowSelf and data.flowsteps.length %}
-<li><a href="/admin/flow/{{ data._id }}">View steps flow</a></li>
+<li><a href="/admin/flow/{{ data._id }}">View only this step and its steps</a></li>
+{% endif %}
 {% endif %}
 </ul>
 </div>
@@ -73,7 +76,20 @@
 {# </p> #}
 </div>
 {% if data.flowsteps %}
-<div class="fb-substeps">
+<div class="fb-substeps{% if data.$skipSubSteps %} fb-substeps-skip{% endif %}">
+{% if data.$skipSubSteps %}
+<div class="fb-substeps-skip-container-line fb-substeps-skip-container-first"></div>
+<div class="fb-substeps-skip-container-line fb-substeps-skip-container-last"></div>
+{% if data.$showStepsConditions %}
+<div class="fb-step-show-conditions fb-substeps-show-conditions">{{ data.$showStepsConditions | safe }}</div>
+{% endif %}
+{% if data.$showStepsValues %}
+<div class="fb-step-show-value fb-substeps-show-value"><span>{{ data.$showStepsValues[0] }}</span></div>
+{% if data.$showStepsValues[1] | safe %}
+<div class="fb-step-show-value-not-met fb-substeps-show-value-not-met"><span>{{ data.$showStepsValues[1] | safe }}</span></div>
+{% endif %}
+{% endif %}
+{% endif %}
 {%- for flowstep in data.flowsteps -%}
 {{- callMacro('flowstep', flowstep) -}}
 {%- endfor -%}
