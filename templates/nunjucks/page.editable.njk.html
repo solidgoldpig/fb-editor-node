@@ -428,6 +428,8 @@ editBlocks.forEach((block, index, blocks) => {
         // accept
         const blockMaxSizeProperty = `<li><a href="/admin/instance/${blockLink}/maxSize">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> max size</a></li>`
         blockContent += blockMaxSizeProperty
+        const blockAcceptProperty = `<li><a href="/admin/instance/${blockLink}/accept">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> accepted types</a></li>`
+        blockContent += blockAcceptProperty
         const blockMaxFilesProperty = `<li><a href="/admin/instance/${blockLink}/maxFiles">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> max files</a></li>`
         blockContent += blockMaxFilesProperty
         const blockMinFilesProperty = `<li><a href="/admin/instance/${blockLink}/minFiles">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> min files</a></li>`
