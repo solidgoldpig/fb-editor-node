@@ -74,14 +74,15 @@ body {
   display: inline-block;
   vertical-align: top;
   position: relative;
+  z-index: 2;
 }
 
 .fb-step-show-conditions {
   position: absolute;
-  left: 50px;
+  left: 150px;
   background: #fcfcfc;
   border: solid 1px #000;
-  width: 400px;
+  width: 300px;
   padding: 70px 30px 30px;
   box-sizing: border-box;
   white-space: pre-wrap;
@@ -187,6 +188,9 @@ ul.fb-conditions-list {
     border-radius: 0 0 30px 30px;
 }
 
+.fb-substeps.fb-substeps-skip-with-following-condition {
+    padding-left: 450px;
+}
 
 .fb-step-wrapper {
   display: inline-block;
@@ -223,13 +227,20 @@ ul.fb-conditions-list {
   left: 600px;
   right: 10px;
   height: 50px;
-  border: solid 3px #000000;
+  border: solid 3px #000;
   border-left: none;
   border-right: none;
   border-top: none;
 }
+.fb-flow-exit-container:after {
+  border-color: #fff !important;
+  right: -114px;
+  top: -1px;
+  border-width: 5px;
+}
 .fb-step-skip-container {
   position: relative;
+  z-index: 1;
 }
 .fb-step-skip-container-line,
 .fb-step-skip-container:before {
@@ -267,7 +278,8 @@ ul.fb-conditions-list {
 }
 
 .fb-substeps-skip-container-last {
-  right: -200px;
+  right: -155px;
+  width: 55px;
   border-radius: 30px 0 0 0;
   border-right: none;
   border-bottom: none;

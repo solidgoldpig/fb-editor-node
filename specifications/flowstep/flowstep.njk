@@ -21,7 +21,7 @@
 {% if data.$stepSkipLast %}<div class="fb-step-skip-container-line fb-step-skip-container-last"></div>{% endif %}
 
 {% if data.$stepOptionFirst %}<div class="fb-step-option-container">{% endif %}
-<div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}">
+<div class="fb-step-container {{data.containerClasses}} {{ stepClasses }}{% if data._type === 'page.exit' %} fb-flow-exit-container{% endif %}">
 {% if isInnerStepOption %}<div class="fb-step-option-container-inner"></div>{% endif %}
 <div id="{{ data._id | replace('.', '') }}" class="fb-step-wrapper">
 {% if data.$showConditions %}
@@ -33,7 +33,7 @@
 <div class="fb-step-show-value-not-met"><span>{{ data.$showValues[1] | safe }}</span></div>
 {% endif %}
 {% endif %}
-<div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}">
+<div class="fb-step {{data.classes}}{% if data.$flowStart %} fb-flow-start{% endif %}{% if data._type === 'page.exit' %} fb-flow-exit{% endif %}">
 <div class="fb-step-details govuk-prose-scope">
 {# <h2><span class="fb-page-link-type">URL</span> <a href="{{ data.url }}">{{ data.url }}</a></h2> #}
 <ul class="fb-page-links">
@@ -76,7 +76,12 @@
 {# </p> #}
 </div>
 {% if data.flowsteps %}
-<div class="fb-substeps{% if data.$skipSubSteps %} fb-substeps-skip{% endif %}">
+{% if data.$skipSubSteps %}
+{% if data.flowsteps[0].$showConditions %}
+{% set subStepsConditionWithFollowingCondition = true %}
+{% endif %}
+{% endif %}
+<div class="fb-substeps{% if data.$skipSubSteps %} fb-substeps-skip{% endif %}{% if subStepsConditionWithFollowingCondition %} fb-substeps-skip-with-following-condition{% endif %}">
 {% if data.$skipSubSteps %}
 <div class="fb-substeps-skip-container-line fb-substeps-skip-container-first"></div>
 <div class="fb-substeps-skip-container-line fb-substeps-skip-container-last"></div>
