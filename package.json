@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/fb-editor-node",
-  "version": "0.0.140-alpha",
+  "version": "0.0.141-alpha",
   "description": "Form Builder Editor app (Node version)",
   "main": "index.js",
   "repository": {
@@ -23,7 +23,7 @@
     "tape": "^4.10.1"
   },
   "dependencies": {
-    "@ministryofjustice/fb-runner-node": "0.0.140-alpha",
+    "@ministryofjustice/fb-runner-node": "0.0.141-alpha",
     "@ministryofjustice/fb-utils-node": "^0.1.5",
     "ajv": "^6.10.0",
     "csvtojson": "^2.0.8",
