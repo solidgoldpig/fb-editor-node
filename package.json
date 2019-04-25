@@ -1,6 +1,9 @@
 {
   "name": "@ministryofjustice/fb-editor-node",
   "version": "0.0.144",
+  "engines": {
+    "node": "10.15.3"
+  },
   "description": "Form Builder Editor app (Node version)",
   "main": "index.js",
   "repository": {
