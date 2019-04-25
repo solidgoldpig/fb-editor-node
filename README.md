@@ -17,12 +17,18 @@ npm install
 ## Usage
 
 ```
-npm start
+cd fb-editor-node
+SERVICE_PATH=/path/to/form npm start npm start
 ```
 
-## Service data
+`SERVICE_PATH` is the location of your form data
 
-By default, the editor expects service data to be mounted at `servicedata` in its root directory.
+eg.
+
+`https://github.com/ministryofjustice/fb-example-service`
+
+
+If you are not developing editor features, consider using the [Form Builder Editor Console](https://github.com/ministryofjustice/fb-editor-console-electron) instead.
 
 
 ## Testing
