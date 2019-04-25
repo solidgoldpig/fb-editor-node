@@ -356,8 +356,17 @@ dateBlocks.forEach(dateBlock => {
   legend.setAttribute('data-block-id', dateBlockId)
   legend.setAttribute('data-block-property', 'label')
 })
+const addButtonBlocks = [].slice.call(document.querySelectorAll('.fb-block--add'))
+addButtonBlocks.forEach(block => {
+  if (block.href.match(/\/items\/edit$/)) {
+    block.setAttribute('href', block.href.replace(/\/items\/edit$/, '/items'))
+  }
+})
 const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id]'))
 editBlocks.forEach((block, index, blocks) => {
+  if (block.parentElement && block.parentElement.tagName === 'SELECT') {
+    return
+  }
   const originalBlock = block
   const blockId = block.getAttribute('data-block-id')
   if (blockId === 'undefined') {
@@ -414,7 +423,6 @@ editBlocks.forEach((block, index, blocks) => {
       const blockHasValue = originalBlock.getAttribute('value') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [value]`)
       const blockIsRadio = originalBlock.getAttribute('type') === 'radio'
       const blockHasName = !blockIsRadio && (originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`))
-      console.log(originalBlock)
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
       blockContent += `<li class="fb-block-instance-properties-type-item"><span class="fb-block-instance-properties-type">${blockTypeDisplay}</span></li>`
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
