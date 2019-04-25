@@ -16,19 +16,16 @@ npm install
 
 ## Usage
 
+Set the `SERVICE_PATH` environment variable to point the path of form data on your filesystem.
+
+```sh
+SERVICE_PATH=/path/to/form npm start
 ```
-cd fb-editor-node
-SERVICE_PATH=/path/to/form npm start npm start
-```
 
-`SERVICE_PATH` is the location of your form data
-
-eg.
-
-`https://github.com/ministryofjustice/fb-example-service`
+An example form can be checked out from `https://github.com/ministryofjustice/fb-example-service`
 
 
-If you are not developing editor features, consider using the [Form Builder Editor Console](https://github.com/ministryofjustice/fb-editor-console-electron) instead.
+If you are not developing runner features, consider using the [Form Builder Editor Console](https://github.com/ministryofjustice/fb-editor-console-electron) instead.
 
 
 ## Testing
