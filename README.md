@@ -24,8 +24,13 @@ SERVICE_PATH=/path/to/form npm start
 
 An example form can be checked out from `https://github.com/ministryofjustice/fb-example-service`
 
+By default, Form Builder Editor will use port 3000. If you want to run on a different port, set the `PORT` environment variable.
 
-If you are not developing runner features, consider using the [Form Builder Editor Console](https://github.com/ministryofjustice/fb-editor-console-electron) instead.
+```sh
+PORT=4321 SERVICE_PATH=/path/to/form npm start
+```
+
+If you are not developing editor features, consider using the [Form Builder Editor Console](https://github.com/ministryofjustice/fb-editor-console-electron) instead.
 
 
 ## Testing
