@@ -375,6 +375,7 @@ editBlocks.forEach((block, index, blocks) => {
   if (blockId === 'undefined') {
     return
   }
+
   const blockType = block.getAttribute('data-block-type') || ''
 
   const addEditContainer = (block, propertyType = '') => {
@@ -388,8 +389,13 @@ editBlocks.forEach((block, index, blocks) => {
       const propertyClass = propertyClassParts[0]
       block = block.querySelector('.' + propertyClass)
     }
-    const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
-    const blockLevel = !blockProperty //block.classList.contains('govuk-form-group')
+    let blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
+    let blockLevel = !blockProperty //block.classList.contains('govuk-form-group')
+    if (blockId === 'actions') {
+      blockLevel = false
+      const pageBlock = document.querySelector('[data-block-type="page"]')
+      blockLink = pageBlock.dataset.blockId + '/actionType'
+    }
     const blockText = blockLevel ? '{}' : '✎'
     const blockClass = blockLevel ? ' fb-block-instance' : ' fb-block-property'
     let insertPosition = 'afterbegin'
