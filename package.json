@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/fb-editor-node",
-  "version": "0.0.144",
+  "version": "0.0.145",
   "engines": {
     "node": "10.15.3"
   },
@@ -21,19 +21,20 @@
   "author": "github@alex.fu2k.org",
   "license": "MIT",
   "devDependencies": {
-    "@ministryofjustice/eslint-config-fb": "^1.0.5",
+    "@ministryofjustice/eslint-config-fb": "^1.0.7",
     "npm-run-all": "^4.1.5",
-    "tape": "^4.10.1"
+    "tape": "^4.10.2"
   },
   "dependencies": {
-    "@ministryofjustice/fb-runner-node": "0.0.144",
-    "@ministryofjustice/fb-utils-node": "^0.1.5",
+    "@ministryofjustice/fb-runner-node": "0.0.145",
+    "@ministryofjustice/fb-specification": "^0.3.2",
+    "@ministryofjustice/fb-utils-node": "^0.1.6",
     "ajv": "^6.10.0",
     "csvtojson": "^2.0.8",
     "deep-equal": "^1.0.1",
     "flat": "^4.1.0",
     "immer": "~1.7.2",
-    "json2csv": "^4.3.5",
-    "jsonpath": "^1.0.1"
+    "json2csv": "^4.5.1",
+    "jsonpath": "^1.0.2"
   }
 }

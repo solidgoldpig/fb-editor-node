@@ -359,7 +359,10 @@ dateBlocks.forEach(dateBlock => {
 const addButtonBlocks = [].slice.call(document.querySelectorAll('.fb-block--add'))
 addButtonBlocks.forEach(block => {
   if (block.href.match(/\/items\/edit$/)) {
-    block.setAttribute('href', block.href.replace(/\/items\/edit$/, '/items'))
+    const prevElement = block.parentElement.previousElementSibling
+    if (prevElement.dataset.blockType === 'select') {
+      block.setAttribute('href', block.href.replace(/\/items\/edit$/, '/items'))
+    }
   }
 })
 const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id]'))
