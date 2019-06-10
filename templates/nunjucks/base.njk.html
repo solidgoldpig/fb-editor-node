@@ -77,11 +77,11 @@
 
 /* 40.0625em */
 @media (min-width: 800px) {
-  .content-wrapper {
+  .content-wrapper:not(.content-wrapper-preview) {
     background-color: #bfc1c3;
     padding: 0 10rem 3rem;
   }
-  .content-wrapper--inner {
+  .content-wrapper:not(.content-wrapper-preview) .content-wrapper--inner {
     padding: 0 100px;
     max-width: 960px;
     margin: 0 auto;
@@ -231,14 +231,8 @@
 {% endif %}
 
 {{ super() }}
-<style>
 
-@media (min-width: 800px) {
-  .govuk-width-container {
-    max-width:960px;
-    margin: 0 auto;
-  }
-}
+<style>
 @media (max-width: 800px) {
   .govuk-width-container {
     margin: 0 1rem -10px 5.5rem;
@@ -361,9 +355,6 @@ li.fb-navigation-mode-current:hover {
   left: 0;
   right: 0;
   border-top: solid 10px #f47738;
-  {# background-color: rgba(43,140,196, 0.375);
-  background-color: #005ea5;
-  background-color: #2e358b; #}
   background-color: #f8f8f8;
   z-index: 100000000;
 }

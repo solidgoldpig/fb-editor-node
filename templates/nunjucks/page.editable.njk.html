@@ -359,7 +359,10 @@ dateBlocks.forEach(dateBlock => {
 const addButtonBlocks = [].slice.call(document.querySelectorAll('.fb-block--add'))
 addButtonBlocks.forEach(block => {
   if (block.href.match(/\/items\/edit$/)) {
-    block.setAttribute('href', block.href.replace(/\/items\/edit$/, '/items'))
+    const prevElement = block.parentElement.previousElementSibling
+    if (prevElement.dataset.blockType === 'select') {
+      block.setAttribute('href', block.href.replace(/\/items\/edit$/, '/items'))
+    }
   }
 })
 const editBlocks = [].slice.call(document.querySelectorAll('[data-block-id]'))
@@ -372,10 +375,8 @@ editBlocks.forEach((block, index, blocks) => {
   if (blockId === 'undefined') {
     return
   }
+
   const blockType = block.getAttribute('data-block-type') || ''
-  // if (blockType === 'button') {
-  //   return
-  // }
 
   const addEditContainer = (block, propertyType = '') => {
     let blockProperty = block.getAttribute(`data-block-property${propertyType}`)
@@ -388,8 +389,13 @@ editBlocks.forEach((block, index, blocks) => {
       const propertyClass = propertyClassParts[0]
       block = block.querySelector('.' + propertyClass)
     }
-    const blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
-    const blockLevel = !blockProperty //block.classList.contains('govuk-form-group')
+    let blockLink = blockId + (blockProperty ? '/' + blockProperty : '')
+    let blockLevel = !blockProperty //block.classList.contains('govuk-form-group')
+    if (blockId === 'actions') {
+      blockLevel = false
+      const pageBlock = document.querySelector('[data-block-type="page"]')
+      blockLink = pageBlock.dataset.blockId + '/actionType'
+    }
     const blockText = blockLevel ? '{}' : '✎'
     const blockClass = blockLevel ? ' fb-block-instance' : ' fb-block-property'
     let insertPosition = 'afterbegin'

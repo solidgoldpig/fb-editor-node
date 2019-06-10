@@ -380,7 +380,7 @@
 
   const formElements = document.forms[0].elements
 
-  allowableIdentifiers = JSON.parse(unescape(formElements.booleanConditional.value))
+  allowableIdentifiers = JSON.parse(unescape(formElements.booleanConditional.value)).reverse()
 
   const allowableOperatorsIn = JSON.parse(unescape(formElements.allowableOperators.value))
   allowableOperators = []
