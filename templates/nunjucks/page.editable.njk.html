@@ -376,9 +376,6 @@ editBlocks.forEach((block, index, blocks) => {
     return
   }
   const blockType = block.getAttribute('data-block-type') || ''
-  // if (blockType === 'button') {
-  //   return
-  // }
 
   const addEditContainer = (block, propertyType = '') => {
     let blockProperty = block.getAttribute(`data-block-property${propertyType}`)

@@ -67,13 +67,8 @@
 </div>
 {% if data.rendered %}
 {{ data.rendered | safe }}
-{% else %}
-{# {{- callMacro('pageContentHeading', data) -}}
-{{- callMacro('pageContentBody', data) -}} #}
 {% endif %}
-{# <p class="fb-step-url" style="position:absolute"> #}
 <p class="fb-page-url"><span class="fb-page-url--label">URL</span> {% if data.url === '/' %}/{% else %}<a href="/admin/instance/{{ data._id }}/url">{{ data.url or 'Not yet specified' }}</a>{% endif %}</p>
-{# </p> #}
 </div>
 {% if data.flowsteps %}
 {% if data.$skipSubSteps %}
