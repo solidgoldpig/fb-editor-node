@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/fb-editor-node",
-  "version": "0.0.145",
+  "version": "0.0.146",
   "engines": {
     "node": "10.15.3"
   },
@@ -26,7 +26,7 @@
     "tape": "^4.10.2"
   },
   "dependencies": {
-    "@ministryofjustice/fb-runner-node": "0.0.145",
+    "@ministryofjustice/fb-runner-node": "0.0.146",
     "@ministryofjustice/fb-specification": "^0.3.2",
     "@ministryofjustice/fb-utils-node": "^0.1.6",
     "ajv": "^6.10.0",
