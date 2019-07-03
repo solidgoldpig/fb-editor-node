@@ -452,10 +452,12 @@ editBlocks.forEach((block, index, blocks) => {
         const blockMinFilesProperty = `<li><a href="/admin/instance/${blockLink}/minFiles">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> min files</a></li>`
         blockContent += blockMinFilesProperty
       }
-      if (blockHasName || blockType === 'radios' || blockType === 'date' || blockType === 'fieldset') {
-        const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> validation</a></li>`
-        blockContent += blockValidationProperty
-        if (blockType !== 'fileupload') {
+      if (blockHasName || blockType === 'radios' || blockType === 'checkboxes' || blockType === 'date' || blockType === 'fieldset') {
+        if (blockType !== 'fieldset') {
+          const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> validation</a></li>`
+          blockContent += blockValidationProperty
+        }
+        if (blockType !== 'fileupload' || blockType !== 'radios' || blockType !== 'checkboxes') {
           const blockRepeatableProperty = `<li><a href="/admin/instance/${blockLink}/repeatable">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> repeatability</a></li>`
           blockContent += blockRepeatableProperty
         }
