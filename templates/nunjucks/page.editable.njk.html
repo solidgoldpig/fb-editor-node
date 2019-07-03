@@ -294,6 +294,25 @@ p.fb-group-add {
   margin-bottom: 1rem;
 }
 
+.govuk-visually-hidden {
+  position: relative !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: unset !important;
+  --webkit-clip-path: unset !important;
+  clip-path: unset !important;
+  white-space: normal !important;
+}
+.govuk-visually-hidden::before {
+  position: absolute;
+  content: 'Question is visually hidden';
+  background: #eee;
+  color: #000;
+  font-size: 0.75rem;
+  bottom: 100%;
+}
+
 </style>
 
 <script>
@@ -454,10 +473,14 @@ editBlocks.forEach((block, index, blocks) => {
       }
       if (blockHasName || blockType === 'radios' || blockType === 'checkboxes' || blockType === 'date' || blockType === 'fieldset') {
         if (blockType !== 'fieldset') {
+          const blockRequiredProperty = `<li><a href="/admin/instance/${blockLink}/validation/required">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> required</a></li>`
+          blockContent += blockRequiredProperty
+        }
+        if (blockType !== 'fieldset' && blockType !== 'radios' && blockType !== 'checkboxes') {
           const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> validation</a></li>`
           blockContent += blockValidationProperty
         }
-        if (blockType !== 'fileupload' || blockType !== 'radios' || blockType !== 'checkboxes') {
+        if (blockType !== 'fileupload' && blockType !== 'radios' && blockType !== 'checkboxes') {
           const blockRepeatableProperty = `<li><a href="/admin/instance/${blockLink}/repeatable">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> repeatability</a></li>`
           blockContent += blockRepeatableProperty
         }
