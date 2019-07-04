@@ -59,7 +59,7 @@ main.govuk-main-wrapper {
   background: #fff;
 }
 .fb-mode-edit > .fb-block-instance-properties {
-  margin-top: -3rem;
+  margin-top: -1.5rem;
 }
 .govuk-radios__conditional .fb-block-instance-properties {
   margin-left: -3.5rem;
@@ -231,6 +231,22 @@ a.fb-block-edit:hover,
   color: #fff !important;
 }
 
+details .fb-block-edit {
+  margin-left: -1.5rem;
+}
+details .fb-block-instance-properties .fb-block-edit {
+  margin-left: 0;
+}
+details .fb-block-instance-properties {
+  margin-top: -1.875rem;
+}
+.fb-block-inset .fb-block-instance-properties {
+  margin-left: -0.625rem;
+}
+.fb-block-warning .fb-block-instance-properties {
+  margin-top: 1rem;
+}
+
 
 .fb-flow-wrapper .fb-block-edit {
   visibility: hidden;
@@ -255,7 +271,7 @@ h2 .fb-block-edit-container {
 }
 
 .govuk-button > .fb-block-edit-container {
-  margin-left: -4.5rem;
+  margin-left: -5.25rem;
   margin-top: -0.5rem;
 }
 .fb-repeatable-item--delete.govuk-button > .fb-block-edit-container {
@@ -375,6 +391,18 @@ dateBlocks.forEach(dateBlock => {
   legend.setAttribute('data-block-id', dateBlockId)
   legend.setAttribute('data-block-property', 'label')
 })
+const detailsBlocks = [].slice.call(document.querySelectorAll('details'))
+detailsBlocks.forEach(detailsBlock => {
+  detailsBlock.setAttribute('open', true)
+  const detailsBlockId = detailsBlock.getAttribute('data-block-id')
+  const summary = detailsBlock.querySelector('summary')
+  summary.setAttribute('data-block-id', detailsBlockId)
+  summary.setAttribute('data-block-property', 'summary')
+  const html = detailsBlock.querySelector('.govuk-details__text')
+  html.setAttribute('data-block-id', detailsBlockId)
+  html.setAttribute('data-block-property', 'html')
+})
+
 const addButtonBlocks = [].slice.call(document.querySelectorAll('.fb-block--add'))
 addButtonBlocks.forEach(block => {
   if (block.href.match(/\/items\/edit$/)) {
@@ -569,6 +597,10 @@ ariaControls.forEach(ariaControl => {
     e.preventDefault()
     e.stopPropagation()
     revealConditionals()
+    const parentElement = e.target.parentElement
+    if (parentElement && parentElement.className.includes('fb-block-edit')) {
+      document.location.href = parentElement.href
+    }
   })
 })
 </script>
