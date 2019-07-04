@@ -59,7 +59,7 @@ main.govuk-main-wrapper {
   background: #fff;
 }
 .fb-mode-edit > .fb-block-instance-properties {
-  margin-top: -3rem;
+  margin-top: -1.5rem;
 }
 .govuk-radios__conditional .fb-block-instance-properties {
   margin-left: -3.5rem;
@@ -231,6 +231,22 @@ a.fb-block-edit:hover,
   color: #fff !important;
 }
 
+details .fb-block-edit {
+  margin-left: -1.5rem;
+}
+details .fb-block-instance-properties .fb-block-edit {
+  margin-left: 0;
+}
+details .fb-block-instance-properties {
+  margin-top: -1.875rem;
+}
+.fb-block-inset .fb-block-instance-properties {
+  margin-left: -0.625rem;
+}
+.fb-block-warning .fb-block-instance-properties {
+  margin-top: 1rem;
+}
+
 
 .fb-flow-wrapper .fb-block-edit {
   visibility: hidden;
@@ -255,7 +271,7 @@ h2 .fb-block-edit-container {
 }
 
 .govuk-button > .fb-block-edit-container {
-  margin-left: -4.5rem;
+  margin-left: -5.25rem;
   margin-top: -0.5rem;
 }
 .fb-repeatable-item--delete.govuk-button > .fb-block-edit-container {
@@ -292,6 +308,25 @@ p.fb-group-repeatableSetting {
 p.fb-group-add {
   margin-top: -3rem;
   margin-bottom: 1rem;
+}
+
+.govuk-visually-hidden {
+  position: relative !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: unset !important;
+  --webkit-clip-path: unset !important;
+  clip-path: unset !important;
+  white-space: normal !important;
+}
+.govuk-visually-hidden::before {
+  position: absolute;
+  content: 'Question is visually hidden';
+  background: #eee;
+  color: #000;
+  font-size: 0.75rem;
+  bottom: 100%;
 }
 
 </style>
@@ -356,6 +391,18 @@ dateBlocks.forEach(dateBlock => {
   legend.setAttribute('data-block-id', dateBlockId)
   legend.setAttribute('data-block-property', 'label')
 })
+const detailsBlocks = [].slice.call(document.querySelectorAll('details'))
+detailsBlocks.forEach(detailsBlock => {
+  detailsBlock.setAttribute('open', true)
+  const detailsBlockId = detailsBlock.getAttribute('data-block-id')
+  const summary = detailsBlock.querySelector('summary')
+  summary.setAttribute('data-block-id', detailsBlockId)
+  summary.setAttribute('data-block-property', 'summary')
+  const html = detailsBlock.querySelector('.govuk-details__text')
+  html.setAttribute('data-block-id', detailsBlockId)
+  html.setAttribute('data-block-property', 'html')
+})
+
 const addButtonBlocks = [].slice.call(document.querySelectorAll('.fb-block--add'))
 addButtonBlocks.forEach(block => {
   if (block.href.match(/\/items\/edit$/)) {
@@ -429,6 +476,7 @@ editBlocks.forEach((block, index, blocks) => {
       const blockHasValue = originalBlock.getAttribute('value') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [value]`)
       const blockIsRadio = originalBlock.getAttribute('type') === 'radio'
       const blockHasName = !blockIsRadio && (originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`))
+   
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
       blockContent += `<li class="fb-block-instance-properties-type-item"><span class="fb-block-instance-properties-type">${blockTypeDisplay}</span></li>`
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
@@ -452,10 +500,16 @@ editBlocks.forEach((block, index, blocks) => {
         const blockMinFilesProperty = `<li><a href="/admin/instance/${blockLink}/minFiles">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> min files</a></li>`
         blockContent += blockMinFilesProperty
       }
-      if (blockHasName || blockType === 'radios' || blockType === 'date' || blockType === 'fieldset') {
-        const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> validation</a></li>`
-        blockContent += blockValidationProperty
-        if (blockType !== 'fileupload') {
+      if (blockHasName || blockType === 'radios' || blockType === 'checkboxes' || blockType === 'date' || blockType === 'fieldset' || blockType === 'textarea') {
+        if (blockType !== 'fieldset') {
+          const blockRequiredProperty = `<li><a href="/admin/instance/${blockLink}/validation/required">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> required</a></li>`
+          blockContent += blockRequiredProperty
+        }
+        if (blockType !== 'fieldset' && blockType !== 'radios' && blockType !== 'checkboxes') {
+          const blockValidationProperty = `<li><a href="/admin/instance/validation/${blockLink}">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> validation</a></li>`
+          blockContent += blockValidationProperty
+        }
+        if (blockType !== 'fileupload' && blockType !== 'radios' && blockType !== 'checkboxes') {
           const blockRepeatableProperty = `<li><a href="/admin/instance/${blockLink}/repeatable">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> repeatability</a></li>`
           blockContent += blockRepeatableProperty
         }
@@ -544,6 +598,10 @@ ariaControls.forEach(ariaControl => {
     e.preventDefault()
     e.stopPropagation()
     revealConditionals()
+    const parentElement = e.target.parentElement
+    if (parentElement && parentElement.className.includes('fb-block-edit')) {
+      document.location.href = parentElement.href
+    }
   })
 })
 </script>
