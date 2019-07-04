@@ -476,6 +476,7 @@ editBlocks.forEach((block, index, blocks) => {
       const blockHasValue = originalBlock.getAttribute('value') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [value]`)
       const blockIsRadio = originalBlock.getAttribute('type') === 'radio'
       const blockHasName = !blockIsRadio && (originalBlock.getAttribute('name') || originalBlock.querySelector(`[data-block-id="${blockId}"] > [name]`))
+   
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
       blockContent += `<li class="fb-block-instance-properties-type-item"><span class="fb-block-instance-properties-type">${blockTypeDisplay}</span></li>`
       if (blockHasName || blockType === 'radios' || blockType === 'date') {
@@ -499,7 +500,7 @@ editBlocks.forEach((block, index, blocks) => {
         const blockMinFilesProperty = `<li><a href="/admin/instance/${blockLink}/minFiles">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> min files</a></li>`
         blockContent += blockMinFilesProperty
       }
-      if (blockHasName || blockType === 'radios' || blockType === 'checkboxes' || blockType === 'date' || blockType === 'fieldset') {
+      if (blockHasName || blockType === 'radios' || blockType === 'checkboxes' || blockType === 'date' || blockType === 'fieldset' || blockType === 'textarea') {
         if (blockType !== 'fieldset') {
           const blockRequiredProperty = `<li><a href="/admin/instance/${blockLink}/validation/required">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> required</a></li>`
           blockContent += blockRequiredProperty
