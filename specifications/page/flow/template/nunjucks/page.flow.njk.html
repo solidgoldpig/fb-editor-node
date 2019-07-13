@@ -584,5 +584,20 @@ minimap.onclick = function(e) {
   updateMinimapLocation()
 }
 window.onscroll = updateMinimapLocation
+
+const ariaControls = [].slice.call(document.querySelectorAll('.fb-step .govuk-radios__input, .fb-step .govuk-checkboxes__input, .fb-step .govuk-button, .fb-step [aria-controls]'))
+ariaControls.forEach(ariaControl => {
+  ariaControl.addEventListener('click', (e) => {
+    e.target.blur()
+    e.preventDefault()
+    e.stopPropagation()
+  })
+})
+const inputControls = [].slice.call(document.querySelectorAll('.fb-step input, .fb-step textarea'))
+inputControls.forEach(control => {
+  control.addEventListener('focus', () => {
+    control.blur()
+  })
+})
 </script>
 {% endblock %}
