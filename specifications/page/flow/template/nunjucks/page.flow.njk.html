@@ -57,7 +57,7 @@ body {
 .fb-step-skip-container {
   display: inline-block;
   vertical-align: top;
-  padding-bottom: 100px;
+  padding-bottom: 300px;
 }
 
 .fb-flow-container > .fb-step-container {
@@ -83,11 +83,11 @@ body {
   background: #fcfcfc;
   border: solid 1px #000;
   width: 300px;
-  padding: 70px 30px 30px;
+  padding: 20px 30px;
   box-sizing: border-box;
   white-space: pre-wrap;
   z-index: 100;
-  top: 22px;
+  top: 10px;
   font-size: 28px;
   border-radius: 20px;
 }
@@ -102,7 +102,7 @@ body {
 }
 
 .fb-step-show-conditions b {
-  display: block;
+  display: inline-block;
 }
 
 .fb-step-show-conditions > .fb-conditions {
@@ -122,12 +122,13 @@ body {
   z-index: 1000;
 }
 .fb-step-show-value {
-  left: 500px;
+  left: 600px;
+  top: -55px;
 }
 .fb-step-show-value-not-met {
-  bottom: -100px;
+  bottom: -300px;
   right: 100%;
-  margin-right: -480px;
+  margin-right: -663px;
 }
 .fb-substeps-show-value-not-met {
   bottom: 0;
@@ -145,9 +146,6 @@ body {
 {# .Xfb-step-option:not(.fb-step-option-first) > .fb-step-wrapper > , #}
 .fb-step-show-value span {
   position: absolute;
-  right: 100%;
-  top: 22px;
-  margin-right: 20px;
 }
 ul.fb-conditions-list {
   margin-left: 0;
@@ -373,8 +371,8 @@ ul.fb-conditions-list {
 
 .fb-step-details {
   position: absolute;
-  bottom: 100%;
-  margin-bottom: 2rem;
+  top: 100%;
+  margin-top: 1rem;
   width: 100%;
 }
 .fb-step-details h2 {
@@ -452,8 +450,8 @@ ul.fb-conditions-list {
 .fb-page-url {
   position: absolute;
   font-size: 2rem;
-  bottom: 100%;
-  margin-bottom: 6rem;
+  top: 100%;
+  margin-top: 6rem;
 }
 .fb-page-url a {
   color: #005ea5;
@@ -516,6 +514,18 @@ footer.govuk-footer {
   padding: 0.5rem 0 0.25rem;
 }
   {# transform-origin: top left; #}
+
+{% if req.query.print %}
+.fb-editor-header--wrapper,
+.fb-editor-header--wrapper + .govuk-width-container > main > h1,
+.fb-page-url,
+.fb-step-details {
+  display: none;
+}
+* {
+  -webkit-print-color-adjust: exact;
+}
+{% endif %}
 </style>
 <script>
 const stepsPanels = document.querySelectorAll('.fb-page-steps')
@@ -584,5 +594,20 @@ minimap.onclick = function(e) {
   updateMinimapLocation()
 }
 window.onscroll = updateMinimapLocation
+
+const ariaControls = [].slice.call(document.querySelectorAll('.fb-step .govuk-radios__input, .fb-step .govuk-checkboxes__input, .fb-step .govuk-button, .fb-step [aria-controls]'))
+ariaControls.forEach(ariaControl => {
+  ariaControl.addEventListener('click', (e) => {
+    e.target.blur()
+    e.preventDefault()
+    e.stopPropagation()
+  })
+})
+const inputControls = [].slice.call(document.querySelectorAll('.fb-step input, .fb-step textarea'))
+inputControls.forEach(control => {
+  control.addEventListener('focus', () => {
+    control.blur()
+  })
+})
 </script>
 {% endblock %}
