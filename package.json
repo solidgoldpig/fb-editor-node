@@ -32,7 +32,6 @@
     "csvtojson": "^2.0.10",
     "deep-equal": "^1.0.1",
     "flat": "^4.1.0",
-    "immer": "~1.7.2",
     "json2csv": "^4.5.1",
     "jsonpath": "^1.0.2"
   }
