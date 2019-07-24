@@ -481,7 +481,7 @@ editBlocks.forEach((block, index, blocks) => {
    
       blockContent = `<div class="fb-block-instance-properties"><span class="fb-block-instance-properties-heading fb-block-edit">${blockText}</span><ul>`
       blockContent += `<li class="fb-block-instance-properties-type-item"><span class="fb-block-instance-properties-type">${blockTypeDisplay}</span></li>`
-      if (blockHasName || blockType === 'radios' || blockType === 'date') {
+      if (blockHasName || blockType === 'radios' || blockType === 'date' || blockType === 'fileupload') {
         const blockNameProperty = `<li><a href="/admin/instance/${blockLink}/name">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> name</a></li>`
         blockContent += blockNameProperty
       } else if (blockIsRadio) {
@@ -491,7 +491,7 @@ editBlocks.forEach((block, index, blocks) => {
         const blockValueProperty = `<li><a href="/admin/instance/${blockLink}/value">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> value</a></li>`
         blockContent += blockValueProperty
       }
-      if (blockType.match(/^(fileupload)$/)) {
+      if (blockType === 'fileupload') {
         // accept
         const blockMaxSizeProperty = `<li><a href="/admin/instance/${blockLink}/maxSize">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> max size</a></li>`
         blockContent += blockMaxSizeProperty
