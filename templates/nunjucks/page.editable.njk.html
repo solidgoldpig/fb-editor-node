@@ -1,6 +1,7 @@
 {% extends "_page.njk.html" %}
 
 {% block bodyEnd %}
+{% block autocompleteAssets %}{# Don't use autocomplete in edit mode #}{% endblock %}
 {{ super() }}
 
 <style>
@@ -541,7 +542,7 @@ editBlocks.forEach((block, index, blocks) => {
         if (!blockIsPageStart) {
           blockContent += `<li><a href="/admin/instance/${blockLink}/url">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> URL</a></li>`
         }
-      } else if (blockType.match(/^(text|textarea|number|select)$/)) {
+      } else if (blockType.match(/^(text|textarea|number|select|autocomplete)$/)) {
           const blockWidthProperty = `<li><a href="/admin/instance/${blockLink}/widthClassInput">Set <span class="fb-block-instance-property-link">${blockType} ${blockTypeName}</span> width</a></li>`
         blockContent += blockWidthProperty
       }
